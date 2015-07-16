@@ -23,9 +23,17 @@ public class BSTree {
 			this.data = data;
 		} else {
 			if (this.data < data) { //move right
-				right.insert(data);
+				if (right != null) {
+					right.insert(data);
+				} else {
+					right = new BSTree(data);
+				}
 			} else if (this.data > data) { // move left
-				left.insert(data);
+				if (left != null) {
+					left.insert(data);
+				} else {
+					left = new BSTree(data);
+				}
 			} else { // same value as current entry.
 				// dont do anything
 			}
