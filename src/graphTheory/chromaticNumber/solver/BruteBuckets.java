@@ -44,22 +44,11 @@ public class BruteBuckets {
 	}
 	
 	public void solve(Graph g, long limit) {
-		
 		int[] permutations = new int[g.getNumVertices()];
 		for (int i = 0; i < permutations.length; i++) {
 			permutations[i] = i;
 		}
-		
 		permute(permutations, limit, g);
-		
-		
-		/*
-		
-		Driver.trace(this.getClass(), "beginning solve routine. G has " + g.getNumVertices()+ " vertices");
-		for (int i = 0; i < g.getNumVertices(); i++) {
-			sortVertex(g, i);
-		}
-		/**/
 	}
 	
 	public int getResult() {
@@ -87,7 +76,6 @@ public class BruteBuckets {
 	}
 	 
 	void permute(int[] num, int start, ArrayList<ArrayList<Integer>> result, long limit, Graph g) {
-		
 		
 		if (start >= num.length) {
 			ArrayList<Integer> item = convertArrayToList(num);
