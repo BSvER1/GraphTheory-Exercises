@@ -143,7 +143,8 @@ public class Control {
 		bb.solve(toSolve, 1);
 		Driver.trace(this.getClass(), "getting naive initial colouring from buckets for Ant Colony of " +bb.getResult() + " colours");
 		
-		ac.solve(toSolve, limit, bb.getResult()-1);
+		//bb.getResult()-1
+		ac.solve(toSolve, limit, toSolve.getNumVertices());
 		System.out.println("Ant Colony approach finished with " +ac.getResult() + " colours");
 	}
 	
