@@ -80,9 +80,8 @@ public class BruteBuckets {
 		if (start >= num.length) {
 			ArrayList<Integer> item = convertArrayToList(num);
 			
-			permuteCount++;
-			
 			if (permuteCount < limit) {
+				permuteCount++;
 				if (printPermutations) {
 					for (int i = 0; i < item.size(); i++) {
 						System.out.print(item.get(i) + " ");
