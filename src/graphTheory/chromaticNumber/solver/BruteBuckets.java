@@ -96,10 +96,9 @@ public class BruteBuckets {
 	}
 	
 	
-	public ArrayList<ArrayList<Integer>> permute(int[] num, long limit, Graph g) {
+	public void permute(int[] num, long limit, Graph g) {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
 		permute(num, 0, result, limit, g);
-		return result;
 	}
 	 
 	void permute(int[] num, int start, ArrayList<ArrayList<Integer>> result, long limit, Graph g) {

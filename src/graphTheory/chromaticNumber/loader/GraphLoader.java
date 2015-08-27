@@ -41,14 +41,14 @@ public class GraphLoader {
 		    		if (line.toLowerCase().charAt(0) == 'c') {
 		    			//encountered a comment line
 		    		} else if (line.toLowerCase().charAt(0) == 'p') {
-		    			g = new Graph(Integer.valueOf(line.split(" ")[2])+1);
+		    			g = new Graph(Integer.valueOf(line.split(" ")[2]));
 		    		} else if (line.toLowerCase().charAt(0) == 'e') { // log an edge
 		    			if (g == null) {
 		    				Driver.trace(this.getClass(), "encountered an edge before the graph was set up. this shouldnt happen!");
 		    				System.exit(0);
 		    			}
 		    			String[] split = line.split(" ");
-		    			g.addEdge(Integer.valueOf(split[1]), Integer.valueOf(split[2]));
+		    			g.addEdge(Integer.valueOf(split[1])-1, Integer.valueOf(split[2])-1);
 		    		}
 		    	}
 		    }

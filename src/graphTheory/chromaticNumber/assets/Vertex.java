@@ -9,10 +9,6 @@ public class Vertex {
 	
 	ArrayList<Edge> edges;
 	
-	public Vertex() {
-		init();
-	}
-	
 	public Vertex(int identifier, String friendlyName) {
 		this.identifier = identifier;
 		this.friendlyName = friendlyName;

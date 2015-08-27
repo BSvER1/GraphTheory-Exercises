@@ -6,6 +6,7 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import graphTheory.chromaticNumber.assets.Graph;
+import graphTheory.chromaticNumber.solver.AntColony;
 import graphTheory.chromaticNumber.solver.BruteBuckets;
 
 public class Control {
@@ -58,12 +59,15 @@ public class Control {
 		System.out.print("What solving algorithm would you like to use?\n"
 				+ "\t[B]rute Buckets\n"
 				+ "\t[R]andomized Brute Buckets\n"
+				+ "\t[A]nt Colony\n"
 				+ "\t");
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
 			initBruteBuckets();
 		} else if (userChoice.toUpperCase().charAt(0) == 'R') { //Random Brute buckets
 			initRandomBruteBuckets();
+		} else if (userChoice.toUpperCase().charAt(0) == 'A') { // ants
+			initAntColony();
 		}
 		
 	}
@@ -115,6 +119,33 @@ public class Control {
 		System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
 	}
 	
+	public void initAntColony() {
+		long limit = -1;
+		System.out.println("This algorithm requires a specified exit point. "
+				+ "enter a number to specify the maximum number of iterations the simulation is allowed to perform. "
+				+ "or enter [n]o for a single round of solving.");
+		
+		String userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			limit = 1;
+			Driver.trace(this.getClass(), "user indicated that they wanted to run a single ant colony sort.");
+		} else if (userChoice.matches("[0-9]+")) {
+			limit = Integer.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			return;
+		}
+		
+		AntColony ac = new AntColony();
+		//get naive limit
+		BruteBuckets bb = new BruteBuckets();
+		bb.solve(toSolve, 1);
+		Driver.trace(this.getClass(), "getting naive initial colouring from buckets for Ant Colony of " +bb.getResult() + " colours");
+		
+		ac.solve(toSolve, limit, bb.getResult()-1);
+		System.out.println("Ant Colony approach finished with " +ac.getResult() + " colours");
+	}
 	
 	
 }
