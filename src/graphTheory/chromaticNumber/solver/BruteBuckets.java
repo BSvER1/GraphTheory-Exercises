@@ -9,11 +9,11 @@ import graphTheory.chromaticNumber.loader.Driver;
 public class BruteBuckets {
 
 	final boolean BB_TRACING = false;
+	boolean printPermutations = false;
 	
 	int currentBest;
 	long permuteCount;
 	
-	boolean printPermutations = false;
 	
 	ArrayList<Bucket> buckets;
 	
