@@ -40,6 +40,9 @@ public class Control {
                 toSolve = gl.getGraph();
                 
                 Driver.trace(this.getClass(), "Graph imported successfully.");
+            } else {
+            	Driver.trace(this.getClass(), "user didnt pick a file. quitting");
+            	System.exit(0);
             }
 			
 		} else if (userChoice.toUpperCase().charAt(0) == 'B') { // use benchmark
