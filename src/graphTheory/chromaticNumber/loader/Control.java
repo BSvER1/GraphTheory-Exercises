@@ -24,7 +24,6 @@ public class Control {
 	}
 	
 	private void chooseGraph() {
-		//TODO import graph file. fill in values.
 		System.out.print("Would you like to [I]mport a graph from file, use built-in [B]enchmark graphs or generate a [R]andom graph?\t");
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().charAt(0) == 'I') { // import graph
@@ -55,10 +54,13 @@ public class Control {
 		
 		System.out.print("What solving algorithm would you like to use?\n"
 				+ "\t[B]rute Buckets\n"
+				+ "\t[R]andomized Brute Buckets\n"
 				+ "\t");
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
 			initBruteBuckets();
+		} else if (userChoice.toUpperCase().charAt(0) == 'R') { //Random Brute buckets
+			initRandomBruteBuckets();
 		}
 		
 	}
@@ -85,6 +87,29 @@ public class Control {
 		BruteBuckets bb = new BruteBuckets();
 		bb.solve(toSolve, limit);
 		System.out.println("Brute Buckets approach finished with " +bb.getResult() + " buckets");
+	}
+	
+	public void initRandomBruteBuckets() {
+		long limit = -1;
+		System.out.println("This algorithm is very inefficient. "
+				+ "Would you like to set how many iterations it can perform? "
+				+ "Enter [N]o to run a single computation.");
+		
+		String userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			limit = 1;
+			Driver.trace(this.getClass(), "user indicated that they wanted to run a single random bucket sort.");
+		} else if (userChoice.matches("[0-9]+")) {
+			limit = Integer.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			return;
+		}
+		
+		BruteBuckets bb = new BruteBuckets();
+		bb.solveRandom(toSolve, limit);
+		System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
 	}
 	
 	
