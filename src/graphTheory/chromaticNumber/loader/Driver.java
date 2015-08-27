@@ -17,5 +17,12 @@ public class Driver {
 			System.out.println("[" + c.getSimpleName() + "]: " + msg);
 		}
 	}
+	
+	public static void trace(Class c, long time, String msg) {
+		if (TRACING) {
+			System.out.println("[" + c.getSimpleName() + "] {"+time+"ms}: " + msg);
+			
+		}
+	}
 
 }
