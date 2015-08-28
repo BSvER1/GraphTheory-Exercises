@@ -1,14 +1,12 @@
 package graphTheory.chromaticNumber.solver;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.loader.Driver;
 
-//TODO dont discard previous result upon finding solution. turn ants of one colour into random other colours and run again. 
-// recolour all ants that have colour vertexAnts[vertex][numColours-1] to random colours in range r.nextInt(numColours-1)
-// shorten vertexAnts by one by copying entries into new array. vertexAnts[i] = Arrays.copyOf(vertexAnts[i], vertexAnts[i].length-1) 
 
 public class AntColony {
 	
@@ -23,6 +21,7 @@ public class AntColony {
 	double commonRate = 1.0; //rate of ants that go to (the first found) edge of the same colour
 	long refillAmount;
 	int antResult; 
+	int currentShortest;
 	
 	long currentIteration;
 	long timeStart;
@@ -65,16 +64,25 @@ public class AntColony {
 			
 			simResult = runSimulation(g, iterationLimit, iterationColours);
 			if (simResult) {
-				Driver.trace(this.getClass(), System.currentTimeMillis() - timeStart, "found graph colouring with "+iterationColours+" colours");
+				Driver.trace(this.getClass(), System.currentTimeMillis() - timeStart, "found graph colouring with "+iterationColours+" colours in "+currentIteration+" cycles");
 				iterationColours--;
 				
-				// shorten arrays, making ants move around a little more. dont discard progress
+				// shorten arrays, making ants move around a little more. dont discard progress. do this by removing the smallest colouring
 				for (int i = 0; i < vertexAnts.length; i++) {
-					while (vertexAnts[i][vertexAnts[i].length-1] > 0) {
-						vertexAnts[i][r.nextInt(vertexAnts[i].length-1)]++;
-						vertexAnts[i][vertexAnts[i].length-1]--;
+					while (vertexAnts[i][currentShortest] > 0) {
+						vertexAnts[i][r.nextInt(vertexAnts[i].length)]++;
+						vertexAnts[i][currentShortest]--;
 					}
-					vertexAnts[i] = Arrays.copyOf(vertexAnts[i], vertexAnts[i].length-1);
+					
+					long[] temp = new long[vertexAnts[i].length-1];
+					for (int j = 0; j < vertexAnts[i].length-1; j++) {
+						if (j < currentShortest) {
+							temp[j] = vertexAnts[i][j];
+						} else {
+							temp[j] = vertexAnts[i][j+1];
+						}
+					}
+					vertexAnts[i] = temp;
 				}
 				
 			} else {
@@ -100,15 +108,20 @@ public class AntColony {
 			currentIteration++;
 			//Driver.trace(this.getClass(), "Starting iteration "+ currentIteration);
 			for (int i = 0; i < g.getNumVertices(); i++) {
-				determineLargestColour(i, numColours);
-			}
-			
-			for (int i = 0; i < g.getNumVertices(); i++) {
 				deployForeigners(g, i);
 			}
 			
 			promoteNewToCurrent();
+			
+			for (int i = 0; i < g.getNumVertices(); i++) {
+				determineLargestColour(i, numColours);
+			}
+			
 			breakConflicts(g);
+			
+			for (int i = 0; i < g.getNumVertices(); i++) {
+				determineLargestColour(i, numColours);
+			}
 			
 			for (int i = 0; i < g.getNumVertices(); i++) {
 				if (isEmpty(g, i)) {
@@ -116,6 +129,9 @@ public class AntColony {
 				}
 			}
 			
+			for (int i = 0; i < g.getNumVertices(); i++) {
+				determineLargestColour(i, numColours);
+			}
 			currentIteration++;
 			currentIteration--;
 		}
@@ -195,10 +211,15 @@ public class AntColony {
 	 */
 	private int determineLargestColour(int vertex, int numColours) {
 		currentVertexColour[vertex] = 0;
+		currentShortest = 0;
 		
 		for (int i = 1; i < vertexAnts[vertex].length; i++) {
 			if (vertexAnts[vertex][currentVertexColour[vertex]] < vertexAnts[vertex][i]) {
 				currentVertexColour[vertex] = i;
+			}
+			
+			if (vertexAnts[vertex][currentShortest] > vertexAnts[vertex][i]) {
+				currentShortest = i;
 			}
 		}
 		//Driver.trace(this.getClass(), "found largest colour of vertex "+vertex+" to be "+currentVertexColour[vertex]);
