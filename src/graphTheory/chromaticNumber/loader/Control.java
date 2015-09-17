@@ -6,8 +6,10 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import graphTheory.chromaticNumber.assets.Graph;
+import graphTheory.chromaticNumber.generator.RandomGen;
 import graphTheory.chromaticNumber.solver.AntColony;
 import graphTheory.chromaticNumber.solver.BruteBuckets;
+import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class Control {
  
@@ -49,7 +51,7 @@ public class Control {
 		} else if (userChoice.toUpperCase().charAt(0) == 'B') { // use benchmark
 			System.out.println("The standard benchmarking graphs are not yet implemented");
 		}else if (userChoice.toUpperCase().charAt(0) == 'R') { // use benchmark
-			System.out.println("Generation of random graphs is not yet implemented");
+			genRandom();
 		} else {
 			System.out.println("you entered an invalid input. quitting.");
 			System.exit(0);
@@ -60,6 +62,7 @@ public class Control {
 				+ "\t[B]rute Buckets\n"
 				+ "\t[R]andomized Brute Buckets\n"
 				+ "\t[A]nt Colony\n"
+				+ "\t[S]ecret Agents\n"
 				+ "\t");
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
@@ -68,10 +71,60 @@ public class Control {
 			initRandomBruteBuckets();
 		} else if (userChoice.toUpperCase().charAt(0) == 'A') { // ants
 			initAntColony();
-		}
+		} else if (userChoice.toUpperCase().charAt(0) == 'S') { // secret agents
+			initSecretAgents();
+		} 
 		
+		
+		System.out.println("Computation has finished.");
 	}
 	
+	public void genRandom() {
+		RandomGen gen;
+		int vertNum = 0, edgeLimit = 0;
+		float edgeProb = 0;
+		
+		System.out.print("Please enter the number of vertices the graph will contain:\t");
+		String userChoice = sc.nextLine();
+		
+		if (userChoice.matches("[0-9]+")) {
+			vertNum = Integer.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting vertex count for generation to be "+ vertNum);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			System.exit(0);
+		}
+		
+		System.out.print("Please enter the maximum number of edges the graph can contain:\t");
+		userChoice = sc.nextLine();
+		
+		if (userChoice.matches("[0-9]+")) {
+			edgeLimit = Integer.valueOf(userChoice);
+			if (edgeLimit > (vertNum*vertNum)/2) {
+				System.out.println("that limit is too high! limit must be less than " + vertNum*vertNum/2);
+				System.exit(0);
+			}
+			Driver.trace(this.getClass(), "setting edgeLimit for generation to be "+ edgeLimit);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			System.exit(0);
+		}
+		
+		System.out.print("Please enter the probability that an edge will be generated:\t");
+		userChoice = sc.nextLine();
+		
+		if (userChoice.matches("^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$")) {
+			edgeProb = Float.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting edge probability for generation to be "+ edgeProb);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			System.exit(0);
+		}
+		
+		gen = new RandomGen(vertNum, edgeLimit, edgeProb);
+		
+		toSolve = gen.getGraph();
+	}
 	
 	public void initBruteBuckets() {
 		long limit = -1;
@@ -147,6 +200,31 @@ public class Control {
 		ac.solve(toSolve, limit, toSolve.getNumVertices());
 		System.out.println("Ant Colony approach finished with " +ac.getResult() + " colours");
 	}
+	
+	public void initSecretAgents() {
+		long limit = -1;
+		System.out.println("This algorithm requires a specified exit point. "
+				+ "enter a number to specify the maximum number of iterations the simulation is allowed to perform. "
+				+ "or enter [n]o for a single round of solving.");
+		
+		String userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			limit = 1;
+			Driver.trace(this.getClass(), "user indicated that they wanted to run a single secret agent simulation.");
+		} else if (userChoice.matches("[0-9]+")) {
+			limit = Integer.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			return;
+		}
+		
+		SecretAgents sa = new SecretAgents();
+		sa.solve(toSolve, limit);
+		
+		System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
+	}
+	
 	
 	
 }

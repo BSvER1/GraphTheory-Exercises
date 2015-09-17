@@ -56,7 +56,6 @@ public class AntColony {
 		while (simResult) {
 			//Driver.trace(this.getClass(), "setting initial conditions for ants");
 			
-			
 			for (int i = 0; i < g.getNumVertices(); i++) {
 				determineLargestColour(i, iterationColours);
 			}

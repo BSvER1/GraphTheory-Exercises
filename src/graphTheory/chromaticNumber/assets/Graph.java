@@ -47,4 +47,21 @@ public class Graph {
 		return adj.length;
 	}
 	
+	public int getMaximalDegree() {
+		int maxDegree = 0;
+		for (int i = 0; i < getNumVertices(); i++) {
+			int sum = 0;
+			for (int j = 0; j < getNumVertices(); j++) {
+				if (isEdge(i,j)) {
+					sum++;
+				}
+			}
+			if (sum > maxDegree) {
+				maxDegree = sum;
+			}
+		}
+		
+		
+		return maxDegree;
+	}
 }
