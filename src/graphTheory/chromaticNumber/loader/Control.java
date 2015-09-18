@@ -101,8 +101,8 @@ public class Control {
 		if (userChoice.matches("[0-9]+")) {
 			edgeLimit = Integer.valueOf(userChoice);
 			if (edgeLimit > (vertNum*vertNum)/2) {
-				System.out.println("that limit is too high! limit must be less than " + vertNum*vertNum/2);
-				System.exit(0);
+				System.out.println("that limit is too high! limit must be less than " + vertNum*vertNum/2+". Setting the limit to that instead.");
+				edgeLimit = (vertNum*vertNum/2)-1;
 			}
 			Driver.trace(this.getClass(), "setting edgeLimit for generation to be "+ edgeLimit);
 		} else {
@@ -205,12 +205,12 @@ public class Control {
 		long limit = -1;
 		System.out.println("This algorithm requires a specified exit point. "
 				+ "enter a number to specify the maximum number of iterations the simulation is allowed to perform. "
-				+ "or enter [n]o for a single round of solving.");
+				+ "or enter [n]o for the default number of iterations.");
 		
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
-			limit = 1;
-			Driver.trace(this.getClass(), "user indicated that they wanted to run a single secret agent simulation.");
+			limit = 200000000;
+			Driver.trace(this.getClass(), "user indicated that they wanted to run the default secret agent simulation.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
 			Driver.trace(this.getClass(), "setting runtime to be "+ limit);

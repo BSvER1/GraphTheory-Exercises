@@ -1,7 +1,5 @@
 package graphTheory.chromaticNumber.solver;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import graphTheory.chromaticNumber.assets.Graph;

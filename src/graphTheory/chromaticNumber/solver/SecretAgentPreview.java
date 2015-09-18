@@ -1,13 +1,12 @@
 package graphTheory.chromaticNumber.solver;
 
-import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.awt.image.BufferStrategy;
 
 import graphTheory.chromaticNumber.assets.Universe;
@@ -37,8 +36,8 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 
 	public SecretAgentPreview() {
 		
-		setSize(750,750);
-		setMaximumSize(new Dimension(750,750));
+		setSize(800,800);
+		setMaximumSize(new Dimension(800,800));
 		setMinimumSize(getMaximumSize());
 		setPreferredSize(getMaximumSize());
 
@@ -67,8 +66,6 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 		}
-		
-		scale = 750/Universe.getBounds(0);
 
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
@@ -78,6 +75,8 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 
 		while (running) {
 
+			scale = 800/Universe.getBounds(0);
+			
 			long now = System.nanoTime();
 			//System.out.println((double) ((now-lastTime)/timePerTick));
 			delta += ((now-lastTime)/timePerTick);
@@ -100,43 +99,54 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
+		
+		g2d.setFont(new Font("Serif", Font.PLAIN, (int) (0.01*scale*Universe.getBounds(0))));
+		//System.out.println("setting font size to be "+(int) (0.01*scale*Universe.getBounds(0)));
+		
 		g2d.setColor(Color.BLACK); 
 		g2d.fillRect(0, 0, (int) getBounds().getWidth(), (int) getBounds().getHeight());
 
 		
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		
-		// TODO draw here
-		for (int i = 0; i < Universe.getWells().size(); i++) {
-			g.setColor(Universe.getWells().get(i).getColour());
-			g2d.drawOval((int) ((Universe.getWells().get(i).getLocation()[0]-(int) Universe.getWells().get(i).getRadius())*scale),
-					(int) ((Universe.getWells().get(i).getLocation()[1]-(int) Universe.getWells().get(i).getRadius())*scale), 
-					(int) ((Universe.getWells().get(i).getRadius()*2)*scale), 
-					(int) ((Universe.getWells().get(i).getRadius()*2)*scale));
-		}
-		
-		for (int i = 0; i < Universe.getAgents().size(); i++) {
-			if (Universe.getAgents().get(i).isCaptured()) {
-				g.setColor(Color.WHITE);
-			} else {
-				g.setColor(Color.RED);
+		try {
+			// TODO draw here
+			for (int i = 0; i < Universe.getWells().size(); i++) {
+				g.setColor(Universe.getWells().get(i).getColour());
+				g2d.drawOval((int) ((Universe.getWells().get(i).getLocation()[0]-(int) Universe.getWells().get(i).getRadius())*scale),
+						(int) ((Universe.getWells().get(i).getLocation()[1]-(int) Universe.getWells().get(i).getRadius())*scale), 
+						(int) ((Universe.getWells().get(i).getRadius()*2)*scale), 
+						(int) ((Universe.getWells().get(i).getRadius()*2)*scale));
+
+
+				if (Universe.getWells().get(i).getCapturedAgents().size() > 0) {
+					g2d.drawString(""+Universe.getWells().get(i).getCapturedAgents().size(), 
+							(int) (Universe.getWells().get(i).getLocation()[0]*scale), 
+							(int) (Universe.getWells().get(i).getLocation()[1]*scale)); 
+				}
 			}
 
-			int spotWidth = 4;
+			for (int i = 0; i < Universe.getAgents().size(); i++) {
+				if (!Universe.getAgents().get(i).isCaptured()) {
+					g.setColor(Color.RED);
+
+					int spotWidth = 4;
+
+					g2d.fillRect((int) ((Universe.getAgents().get(i).getLocation(0)-spotWidth/2)*scale), 
+							(int) ((Universe.getAgents().get(i).getLocation(1) -spotWidth/2)*scale), 
+							(int) (spotWidth*scale), (int) (spotWidth*scale));
+
+					g2d.drawString(""+Universe.getAgents().get(i).getVertexAssociation(), 
+							(int) (Universe.getAgents().get(i).getLocation(0)*scale), 
+							(int) (Universe.getAgents().get(i).getLocation(1)*scale)); 
+
+					//System.out.println("["+(int) Universe.getAgents().get(i).getLocation(0)+", "
+					//		+ ""+(int) Universe.getAgents().get(i).getLocation(1)+"]");
+				}
+			}
+		} catch (IndexOutOfBoundsException e) {
 			
-			g2d.fillRect((int) ((Universe.getAgents().get(i).getLocation(0)-spotWidth/2)*scale), 
-					(int) ((Universe.getAgents().get(i).getLocation(1) -spotWidth/2)*scale), 
-					(int) (spotWidth*scale), (int) (spotWidth*scale));
-			
-			g2d.drawString(""+Universe.getAgents().get(i).getVertexAssociation(), 
-					(int) (Universe.getAgents().get(i).getLocation(0)*scale), 
-					(int) (Universe.getAgents().get(i).getLocation(1)*scale)); 
-			
-			//System.out.println("["+(int) Universe.getAgents().get(i).getLocation(0)+", "
-			//		+ ""+(int) Universe.getAgents().get(i).getLocation(1)+"]");
 		}
-		
 		
 
 		g.dispose();
@@ -144,7 +154,6 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 
 		bs.show();
 	}
-
 
 	public void calcTime() {
 		if (System.currentTimeMillis()-lastBarTime > barTimeout) {

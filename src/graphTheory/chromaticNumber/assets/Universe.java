@@ -2,7 +2,7 @@ package graphTheory.chromaticNumber.assets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
+//import java.util.Random;
 
 import graphTheory.chromaticNumber.loader.Driver;
 import graphTheory.chromaticNumber.solver.SecretAgents;
@@ -12,7 +12,7 @@ public class Universe {
 	private static ArrayList<GravityWell> wells;
 	private static ArrayList<Agent> agents;
 	
-	private Random r;
+	//private Random r;
 	
 	private static Graph toSolve;
 	
@@ -23,7 +23,7 @@ public class Universe {
 	
 	
 	public Universe(Graph toSolve, int numDims, double dimSize) {
-		r = new Random();
+		//r = new Random();
 		
 		wells = new ArrayList<GravityWell>();
 		agents = new ArrayList<Agent>();
@@ -49,15 +49,20 @@ public class Universe {
 	
 	private void addWell(int numWells) {
 		boolean successful;
-		GravityWell tempWell = new GravityWell(Math.log(numWells));
+		GravityWell tempWell = new GravityWell();
 		
 		do {
 			successful = true;
 			for (int i = 0; i < wells.size(); i++) {
-				
-				// TODO 'far enough' away function will go here
-				
+			
+				//check if any are the same - do first to avoid div by 0 error.
 				if (Arrays.equals(tempWell.getLocation(), wells.get(i).getLocation())) {
+					tempWell.resetLocation();
+					successful = false;
+					break;
+				}
+				
+				if (getDistance(tempWell.getLocation(), wells.get(i).getLocation()) < (2.5*tempWell.getRadius())) {
 					tempWell.resetLocation();
 					successful = false;
 					break;
@@ -75,15 +80,38 @@ public class Universe {
 		}
 	}
 	
-	public static double getDistance(double[] wellLoc, double[] agentLoc) {
-		return Math.pow(getDistSum(wellLoc, agentLoc), 0.5);///getDimensions());
+	public static double getDistance(Double[] wellLoc, Double[] agentLoc) {
+		
+		for (int i = 0; i < Universe.getDimensions(); i++) {
+			if (wellLoc[i].isNaN()) {
+				//System.err.println("wellLoc is not a number");
+			}
+			if (agentLoc[i].isNaN()) {
+				//System.err.println("agentLoc is not a number");
+			}
+		}
+		
+		
+		Double result = Math.pow(getDistSum(wellLoc, agentLoc), Math.pow(getDimensions(),-1));
+		if(result.isNaN()) {
+			//System.err.println("got NaN from distance function. Inputs were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
+		}
+		if (result.doubleValue() < 0.00001) {
+			//System.err.println("got 0 from distance function. Inputs were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
+		}
+		
+		
+		return result;
 	}
 	
-	private static double getDistSum(double[] wellLoc, double[] agentLoc) {
+	private static double getDistSum(Double[] wellLoc, Double[] agentLoc) {	
 		double sum = 0;
 		for (int i = 0; i < wellLoc.length; i++) {
-			sum += Math.pow((wellLoc[i] - agentLoc[i]), 2);
+			sum += (wellLoc[i] - agentLoc[i])*(wellLoc[i] - agentLoc[i]);
 		}
+		
+		//Driver.trace(Universe.class, "got zero distance between agent and well. should be captured. isnt it?");
+		
 		return sum;
 	}
 	

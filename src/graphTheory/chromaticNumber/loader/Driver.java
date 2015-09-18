@@ -12,12 +12,14 @@ public class Driver {
 		new Control();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static void trace(Class c, String msg) {
 		if (TRACING) {
 			System.out.println("[" + c.getSimpleName() + "]: " + msg);
 		}
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static void trace(Class c, long time, String msg) {
 		if (TRACING) {
 			System.out.println("[" + c.getSimpleName() + "] {"+time+"ms}: " + msg);

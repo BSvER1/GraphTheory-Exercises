@@ -2,10 +2,10 @@ package graphTheory.chromaticNumber.assets;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class GravityWell {
 
@@ -15,33 +15,39 @@ public class GravityWell {
 	
 	Color col;
 	
+	long comfortThreshold = 1;
+	
 	double radius = 10.0;
 	
-	double[] dimLoc;
+	double accelConst = 1.0;
+	double velocityDecay = 0.99;
 	
-	public GravityWell(double radius) {
+	Double[] dimLoc;
+	Double[] dimVel;
+	
+	public GravityWell() {
 		r = new Random();
 		
 		agents = new ArrayList<Agent>();
 		
-		this.radius = 10.0;
-		
-		dimLoc = new double[Universe.getDimensions()];
+		dimLoc = new Double[Universe.getDimensions()];
+		dimVel = new Double[Universe.getDimensions()];
 		
 		for (int i = 0; i < Universe.getDimensions(); i++ ) {
-			dimLoc[i] = r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
+			dimLoc[i] = 0.0 + r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
+			dimVel[i] = 0.0;
 		}
 		
 		col = new Color(r.nextInt(127)+127, r.nextInt(127)+127, r.nextInt(127)+127);
 	}
 	
-	public double[] getLocation() {
+	public Double[] getLocation() {
 		return dimLoc;
 	}
 	
 	public void resetLocation() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			dimLoc[i] = r.nextInt((int) Universe.getBounds(i));
+			dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
 		}
 	}
 	
@@ -55,11 +61,19 @@ public class GravityWell {
 	}
 	
 	public void capture(Agent agent) {
-		agent.setVelZero();
-		agent.setLocation(Arrays.copyOf(dimLoc, dimLoc.length));
+		for (int currentDimension = 0; currentDimension < Universe.getDimensions(); currentDimension++) {
+			dimVel[currentDimension] += accelConst*agent.getVelArray()[currentDimension]/((2*agents.size())+1);
+		}
+		
+		Double[] tempLoc = new Double[Universe.getDimensions()];
+		for (int currentDimension = 0; currentDimension < Universe.getDimensions(); currentDimension++) {
+			tempLoc[currentDimension] = dimLoc[currentDimension];
+		}
+		
+		agent.setLocation(tempLoc);
 		agent.setCaptured(true);
-		agents.add(agent);
 		agent.increaseComfort();
+		agents.add(agent);
 	}
 	
 	public void increaseComfort() {
@@ -81,12 +95,13 @@ public class GravityWell {
 	public boolean ejectAgents() {
 		
 		for (int i = 0; i < agents.size(); i++) {
-			if (agents.get(i).getComfort() <= 0) {
-				agents.get(i).resetLocation();
+			if (agents.get(i).getComfort() < comfortThreshold) {
+				//agents.get(i).resetLocation();
 				agents.get(i).setCaptured(false);
+				//agents.get(i).setVelZero();
 				agents.remove(i);
 				
-				Driver.trace(getClass(), "ejecting an agent");
+				if (SecretAgents.SECRET_TRACING) Driver.trace(getClass(), "ejecting an agent");
 				return true;
 			}
 		}
@@ -110,11 +125,24 @@ public class GravityWell {
 	
 	public boolean isAllComfortZero() {
 		for (int i = 0; i < agents.size(); i++) {
-			if (agents.get(i).getComfort() > 0) {
+			if (agents.get(i).getComfort() >= comfortThreshold) {
+				if (SecretAgents.SECRET_TRACING) Driver.trace(getClass(), "this well has at least one agent with more than "+comfortThreshold+" comfort");
 				return false;
 			}
 		}
+		if (SecretAgents.SECRET_TRACING) Driver.trace(getClass(), "this well has comforts all less than "+comfortThreshold);
 		return true;
+	}
+	
+	public void applyVel() {
+		for (int i = 0; i < Universe.getDimensions(); i++) {
+			if (dimLoc[i] < 50 || dimLoc[i] > (Universe.getBounds(i) - 50)) {
+				dimVel[i] *= -1;
+			}
+			
+			dimVel[i] *= velocityDecay;
+			dimLoc[i] += dimVel[i];
+		}
 	}
 	
 	public Color getColour() {
