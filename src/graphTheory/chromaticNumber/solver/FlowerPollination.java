@@ -8,6 +8,8 @@ import graphTheory.chromaticNumber.loader.Driver;
 
 public class FlowerPollination {
 
+	boolean FLOWER_TRACE = true;
+	
 	Random r;
 
 	Double flowerbed[][];
@@ -49,6 +51,9 @@ public class FlowerPollination {
 		while (currentIter < iterationLimit) {
 			int internalIterationLimit = 10000;
 			internalSolve(toSolve, internalIterationLimit);
+			if (FLOWER_TRACE){
+				Driver.trace(getClass(), "Complete internalIteration");
+			}
 			currentIter++;
 		}
 		
@@ -91,6 +96,9 @@ public class FlowerPollination {
 			if (currentBestCost == 0) {
 				// legal coloring found
 				numColours--;
+				if (FLOWER_TRACE){
+					Driver.trace(getClass(), "Proper Coloring Found, now attempting k = " + numColours);
+				}
 				break;
 			}
 			currentIter++;
@@ -258,12 +266,22 @@ public class FlowerPollination {
 		tempFlower[minColPos] = flowerbed[flowerNum][maxColPos];
 		if (evalCost(toSolve, tempFlower) < getCost(toSolve, flowerNum)) {
 			flowerbed[flowerNum] = tempFlower;
+			
+			if (FLOWER_TRACE){
+				Driver.trace(getClass(), "Swap Performed");
+			}
 		}
+		
 	}
 
 	public int getResult(){
-		return 
+		if (currentBestCost == 0) {
+			return numColours;
+		}
+		return -1;
+		
 	}
+	
 }
 
 
