@@ -34,7 +34,7 @@ public class FlowerPollination {
 
 		// do initial setup of conditions
 		
-		if (FLOWER_TRACE){
+		if (FLOWER_TRACE) {
 			Driver.trace(getClass(), "Beginning Pollination");
 		}
 
@@ -70,13 +70,13 @@ public class FlowerPollination {
 			for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 				if (r.nextDouble() > switchP) {
 					if (FLOWER_TRACE){
-						Driver.trace(getClass(), "Beginning Global Pollination");
+						//Driver.trace(getClass(), "Beginning Global Pollination");
 					}
 					flowerbed[flowerNum] = doGlobalPoll(flowerNum);
 					
 				} else {
 					if (FLOWER_TRACE){
-						Driver.trace(getClass(), "Beginning Local Pollination");
+						//Driver.trace(getClass(), "Beginning Local Pollination");
 					}
 					flowerbed[flowerNum] = doLocalPoll(flowerNum);
 					
