@@ -33,6 +33,10 @@ public class FlowerPollination {
 	public void solve(Graph toSolve, int numFlowers, long iterationLimit) {
 
 		// do initial setup of conditions
+		
+		if (FLOWER_TRACE){
+			Driver.trace(getClass(), "Beginning Pollination");
+		}
 
 		numColours = toSolve.getMaximalDegree() + 1;
 
@@ -64,16 +68,18 @@ public class FlowerPollination {
 
 		while (currentIter < iterLimit) {
 			for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
-				if (r.nextDouble() < switchP) {
-					flowerbed[flowerNum] = doGlobalPoll(flowerNum); // returns a
-																	// solution
-																	// vector to
-																	// be stored
-																	// in
-																	// flowerbed
+				if (r.nextDouble() > switchP) {
+					if (FLOWER_TRACE){
+						Driver.trace(getClass(), "Beginning Global Pollination");
+					}
+					flowerbed[flowerNum] = doGlobalPoll(flowerNum);
+					
 				} else {
-					doLocalPoll(flowerNum);
+					if (FLOWER_TRACE){
+						Driver.trace(getClass(), "Beginning Local Pollination");
+					}
 					flowerbed[flowerNum] = doLocalPoll(flowerNum);
+					
 				}
 				doDiscAndCorr();
 
@@ -88,7 +94,6 @@ public class FlowerPollination {
 															// compared
 															// with
 															// current
-						flowerbed[flowerNum] = newFlower;
 					}
 				}
 			}
