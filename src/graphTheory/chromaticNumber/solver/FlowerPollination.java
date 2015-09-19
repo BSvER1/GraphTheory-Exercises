@@ -3,6 +3,9 @@ package graphTheory.chromaticNumber.solver;
 import java.util.Arrays;
 import java.util.Random;
 
+import org.apache.commons.math3.distribution.LevyDistribution;
+import org.apache.commons.math3.distribution.UniformRealDistribution;
+
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.loader.Driver;
 
@@ -23,11 +26,16 @@ public class FlowerPollination {
 
 	double switchP = 0.8;
 	int numColours;
+	
+	LevyDistribution ldist;
+	UniformRealDistribution udist;
 
 	public FlowerPollination() {
 
 		r = new Random();
 
+		ldist = new LevyDistribution(0, lambda);
+		udist = new UniformRealDistribution();
 	}
 
 	public void solve(Graph toSolve, int numFlowers, long iterationLimit) {
@@ -154,8 +162,9 @@ public class FlowerPollination {
 	}
 
 	private double levyFlightStep(double lambda, double stepSize) {
-		double levyStep = lambda * gamma(lambda) * Math.sin(lambda) / (Math.PI * Math.pow(stepSize, (1 + lambda)));
-		return levyStep;
+		return ldist.sample();
+		//double levyStep = lambda * gamma(lambda) * Math.sin(lambda) / (Math.PI * Math.pow(stepSize, (1 + lambda)));
+		//return levyStep;
 	}
 
 	private Double[] doGlobalPoll(int flowerNum) {
@@ -171,7 +180,9 @@ public class FlowerPollination {
 		int flowerOne = r.nextInt(flowerbed.length);
 		int flowerTwo = r.nextInt(flowerbed.length);
 
-		double scaleFactor = r.nextDouble();
+		
+		
+		double scaleFactor = udist.sample();
 
 		return subtractArrays(flowerbed[flowerOne], flowerbed[flowerTwo], scaleFactor);
 

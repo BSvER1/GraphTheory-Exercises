@@ -1,5 +1,6 @@
 package graphTheory.chromaticNumber.loader;
 
+
 public class Driver {
 	
 	final static boolean TRACING = true;
@@ -10,6 +11,7 @@ public class Driver {
 		trace(Driver.class, "Graph theory algorithm comparitor started.");
 		
 		new Control();
+
 	}
 	
 	@SuppressWarnings("rawtypes")
