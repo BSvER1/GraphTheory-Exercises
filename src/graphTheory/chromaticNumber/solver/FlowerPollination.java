@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import graphTheory.chromaticNumber.assets.Graph;
+import graphTheory.chromaticNumber.loader.Driver;
 
 public class FlowerPollination {
 
@@ -42,9 +43,15 @@ public class FlowerPollination {
 		}
 
 		findSolution(toSolve);
-
+		
+		long currentIter = 0;
 		// solve using those conditions
-		internalSolve(toSolve, iterationLimit);
+		while (currentIter < iterationLimit) {
+			int internalIterationLimit = 10000;
+			internalSolve(toSolve, internalIterationLimit);
+			currentIter++;
+		}
+		
 	}
 
 	private void internalSolve(Graph toSolve, long iterLimit) {
@@ -87,6 +94,10 @@ public class FlowerPollination {
 				break;
 			}
 			currentIter++;
+		}
+		
+		if (currentIter >= iterLimit) {
+			Driver.trace(getClass(), "hit iteration limit on internal solve");
 		}
 		// Output best solution
 	}
@@ -250,4 +261,9 @@ public class FlowerPollination {
 		}
 	}
 
+	public int getResult(){
+		return 
+	}
 }
+
+
