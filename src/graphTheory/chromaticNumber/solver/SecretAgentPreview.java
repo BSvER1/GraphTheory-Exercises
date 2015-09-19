@@ -10,6 +10,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
 import graphTheory.chromaticNumber.assets.Universe;
+import graphTheory.chromaticNumber.loader.Driver;
 
 
 
@@ -41,7 +42,7 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 		setMinimumSize(getMaximumSize());
 		setPreferredSize(getMaximumSize());
 
-		System.out.println("Starting preview window thread.");
+		Driver.trace(getClass(), "Starting preview window thread.");
 
 		//start thread
 		agentsPreview = new Thread(this);
@@ -110,7 +111,7 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		try {
-			// TODO draw here
+			//Draw wells
 			for (int i = 0; i < Universe.getWells().size(); i++) {
 				g.setColor(Universe.getWells().get(i).getColour());
 				g2d.drawOval((int) ((Universe.getWells().get(i).getLocation()[0]-(int) Universe.getWells().get(i).getRadius())*scale),
@@ -123,9 +124,15 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 					g2d.drawString(""+Universe.getWells().get(i).getCapturedAgents().size(), 
 							(int) (Universe.getWells().get(i).getLocation()[0]*scale), 
 							(int) (Universe.getWells().get(i).getLocation()[1]*scale)); 
+					
+					g2d.drawString(""+Universe.getWells().get(i).getMinComfort()+", "+ Universe.getWells().get(i).getMaxComfort(),
+							(int) (Universe.getWells().get(i).getLocation()[0]*scale),
+							(int) (Universe.getWells().get(i).getLocation()[1]*scale)+8);
 				}
+				
 			}
-
+			
+			//Draw agents
 			for (int i = 0; i < Universe.getAgents().size(); i++) {
 				if (!Universe.getAgents().get(i).isCaptured()) {
 					g.setColor(Color.RED);
@@ -140,13 +147,15 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 							(int) (Universe.getAgents().get(i).getLocation(0)*scale), 
 							(int) (Universe.getAgents().get(i).getLocation(1)*scale)); 
 
-					//System.out.println("["+(int) Universe.getAgents().get(i).getLocation(0)+", "
-					//		+ ""+(int) Universe.getAgents().get(i).getLocation(1)+"]");
 				}
 			}
-		} catch (IndexOutOfBoundsException e) {
 			
-		}
+			//draw HUD
+			g.setColor(Color.WHITE);
+			g2d.drawString(""+SecretAgents.getCurrentInternalIterationNum()+"/"+SecretAgents.getCurrentLargestWellComfort()*10,
+					2, 10);
+			g2d.drawString(""+SecretAgents.getCurrentIterationNum(), 2, 20);
+		} catch (IndexOutOfBoundsException e) {}
 		
 
 		g.dispose();

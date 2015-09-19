@@ -58,14 +58,38 @@ public class Agent {
 				}
 				
 				//System.out.println("distance between vertex "+ vertexAssociation+" and well "+ j+" is "+ Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc));
-				dimVel[i] += (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc), distPower)));
+				Double distance = Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc);
+				if (distance < 10.0) {
+					if (SecretAgents.SECRET_TRACING) 
+						Driver.trace(getClass(), "got a distance smaller than radius of a well. trying to add it.");
+
+					for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
+						if (Universe.getWells().get(wellNum).canCapture(this)) {
+							if (!Universe.getWells().get(wellNum).shouldRepelAgent(this)) {
+								Universe.getWells().get(wellNum).capture(this);
+								break;
+							}
+						}
+					}
+
+					Double[] tempWellLoc = new Double[Universe.getDimensions()];
+					for (int k = 0; k < Universe.getDimensions(); k++) {
+						tempWellLoc[k] = Universe.getWells().get(j).getLocation()[k];
+					}
+					return true;
+				}
+				
+				dimVel[i] += (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
 				if (dimVel[i].isNaN()) {
-					if (SecretAgents.SECRET_TRACING) Driver.trace(getClass(), "got a NaN in the velocity. means that there is a well at this location, yet isnt being captured.");
+					if (SecretAgents.SECRET_TRACING) 
+						Driver.trace(getClass(), "got a NaN in the velocity. means that there is a well at this location, yet isnt being captured.");
 					
 					for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
 						if (Universe.getWells().get(wellNum).canCapture(this)) {
-							Universe.getWells().get(wellNum).capture(this);
-							break;
+							if (!Universe.getWells().get(wellNum).shouldRepelAgent(this)) {
+								Universe.getWells().get(wellNum).capture(this);
+								break;
+							}
 						}
 					}
 					

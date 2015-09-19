@@ -15,12 +15,12 @@ public class GravityWell {
 	
 	Color col;
 	
-	long comfortThreshold = 1;
+	int comfortThreshold = 1;
 	
 	double radius = 10.0;
 	
 	double accelConst = 1.0;
-	double velocityDecay = 0.99;
+	double velocityDecay = 0.9999999;
 	
 	Double[] dimLoc;
 	Double[] dimVel;
@@ -135,14 +135,48 @@ public class GravityWell {
 	}
 	
 	public void applyVel() {
+		boolean torric = true;
+		
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			if (dimLoc[i] < 50 || dimLoc[i] > (Universe.getBounds(i) - 50)) {
-				dimVel[i] *= -1;
+			if (!torric) {
+				if (dimLoc[i] < 5 || dimLoc[i] > (Universe.getBounds(i) - 5)) {
+					
+					dimVel[i] *= -1;
+				}
+			} else {
+				if (dimLoc[i] < 5) {
+					dimLoc[i] = Universe.getBounds(i) -5;
+				} else if (dimLoc[i] > (Universe.getBounds(i) - 5)) {
+					dimLoc[i] = 5.0;
+				}
 			}
 			
 			dimVel[i] *= velocityDecay;
 			dimLoc[i] += dimVel[i];
 		}
+	}
+	
+	public long getMinComfort() {
+		long comfort = Integer.MAX_VALUE;
+		
+		for (int i = 0; i < agents.size(); i++) {
+			if (comfort > agents.get(i).getComfort()) {
+				comfort = agents.get(i).getComfort();
+			}
+		}
+		
+		return comfort;
+	}
+	
+	public long getMaxComfort() {
+		long comfort = 0;
+		
+		for (int i = 0; i < agents.size(); i++) {
+			if (comfort < agents.get(i).getComfort()) {
+				comfort = agents.get(i).getComfort();
+			}
+		}
+		return comfort;
 	}
 	
 	public Color getColour() {

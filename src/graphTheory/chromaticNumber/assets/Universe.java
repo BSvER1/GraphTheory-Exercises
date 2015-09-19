@@ -91,28 +91,51 @@ public class Universe {
 			}
 		}
 		
-		
 		Double result = Math.pow(getDistSum(wellLoc, agentLoc), Math.pow(getDimensions(),-1));
+		Double torricResult = Math.pow(getTorricDistSum(wellLoc, agentLoc), Math.pow(getDimensions(),-1));
 		if(result.isNaN()) {
 			//System.err.println("got NaN from distance function. Inputs were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
 		}
-		if (result.doubleValue() < 0.00001) {
+		if (result.doubleValue() < 5.0) {
 			//System.err.println("got 0 from distance function. Inputs were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
+		}
+		if(torricResult.isNaN()) {
+			//System.err.println("got NaN from distance function. Inputs were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
+		}
+		if (torricResult.doubleValue() < 5.0) {
+		//	//System.err.println("got 0 from torric distance function. Inputs were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
 		}
 		
 		
-		return result;
+		return Math.min(result, torricResult);
 	}
 	
 	private static double getDistSum(Double[] wellLoc, Double[] agentLoc) {	
-		double sum = 0;
+		double normalSum = 0;
+		//double torricSum = 0;
+		
 		for (int i = 0; i < wellLoc.length; i++) {
-			sum += (wellLoc[i] - agentLoc[i])*(wellLoc[i] - agentLoc[i]);
+			normalSum += (wellLoc[i] - agentLoc[i]) * (wellLoc[i] - agentLoc[i]);
+			//torricSum += (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i])) * (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i]));
 		}
 		
 		//Driver.trace(Universe.class, "got zero distance between agent and well. should be captured. isnt it?");
 		
-		return sum;
+		return normalSum;
+	}
+	
+	private static double getTorricDistSum(Double[] wellLoc, Double[] agentLoc) {
+		//double normalSum = 0;
+		double torricSum = 0;
+		
+		for (int i = 0; i < wellLoc.length; i++) {
+			//normalSum += (wellLoc[i] - agentLoc[i]) * (wellLoc[i] - agentLoc[i]);
+			torricSum += (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i])) * (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i]));
+		}
+		
+		//Driver.trace(Universe.class, "got zero distance between agent and well. should be captured. isnt it?");
+		
+		return torricSum;
 	}
 	
 	public static int getDimensions() {
