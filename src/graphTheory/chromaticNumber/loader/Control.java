@@ -9,6 +9,7 @@ import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.generator.RandomGen;
 import graphTheory.chromaticNumber.solver.AntColony;
 import graphTheory.chromaticNumber.solver.BruteBuckets;
+import graphTheory.chromaticNumber.solver.FlowerPollination;
 import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class Control {
@@ -63,6 +64,7 @@ public class Control {
 				+ "\t[R]andomized Brute Buckets\n"
 				+ "\t[A]nt Colony\n"
 				+ "\t[S]ecret Agents\n"
+				+ "\t[F]lower Pollination\n"
 				+ "\t");
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
@@ -73,6 +75,8 @@ public class Control {
 			initAntColony();
 		} else if (userChoice.toUpperCase().charAt(0) == 'S') { // secret agents
 			initSecretAgents();
+		} else if (userChoice.toUpperCase().charAt(0) == 'F') { // flower pollination
+			initFlowerPollination();
 		} 
 		
 		
@@ -225,6 +229,45 @@ public class Control {
 		System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
 	}
 	
+	public void initFlowerPollination() {
+		long limit = -1;
+		int flowers = 0;
+		System.out.println("This algorithm requires a specified exit point. "
+				+ "enter a number to specify the maximum number of iterations the simulation is allowed to perform. "
+				+ "or enter [n]o for the default number of iterations.");
+		
+		String userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			limit = 10000;
+			Driver.trace(this.getClass(), "user indicated that they wanted to run the default flower pollination simulation.");
+		} else if (userChoice.matches("[0-9]+")) {
+			limit = Integer.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			return;
+		}
+		
+		System.out.println("enter the number of flowers to polinate or [n] for the default configuration");
+		
+		userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			flowers = 20;
+			Driver.trace(this.getClass(), "user indicated that they wanted to run the default flower pollination simulation.");
+		} else if (userChoice.matches("[0-9]+")) {
+			flowers = Integer.valueOf(userChoice);
+			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+		} else {
+			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			return;
+		}
+		
+		
+		FlowerPollination fpa = new FlowerPollination();
+		fpa.solve(toSolve, flowers, limit);
+		
+		System.out.println("secret agent approach finished with " +fpa.getResult() + " colours");
+	}
 	
 	
 }
