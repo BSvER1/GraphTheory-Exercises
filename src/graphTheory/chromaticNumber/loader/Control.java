@@ -238,7 +238,7 @@ public class Control {
 		
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
-			limit = 10000;
+			limit = 20;
 			Driver.trace(this.getClass(), "user indicated that they wanted to run the default flower pollination simulation.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
