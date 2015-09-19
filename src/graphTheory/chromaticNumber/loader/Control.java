@@ -1,6 +1,10 @@
 package graphTheory.chromaticNumber.loader;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -256,17 +260,20 @@ public class Control {
 			Driver.trace(this.getClass(), "user indicated that they wanted to run the default flower pollination simulation.");
 		} else if (userChoice.matches("[0-9]+")) {
 			flowers = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+			Driver.trace(this.getClass(), "setting number of flowers to be "+ flowers);
 		} else {
 			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
 			return;
 		}
 		
+		try {
+			System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt"))));
+		} catch (FileNotFoundException e) {}
 		
 		FlowerPollination fpa = new FlowerPollination();
 		fpa.solve(toSolve, flowers, limit);
 		
-		System.out.println("secret agent approach finished with " +fpa.getResult() + " colours");
+		System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
 	}
 	
 	

@@ -33,8 +33,8 @@ public class FlowerPollination {
 	public void solve(Graph toSolve, int numFlowers, long iterationLimit) {
 
 		// do initial setup of conditions
-
-		if (FLOWER_TRACE){
+		
+		if (FLOWER_TRACE) {
 			Driver.trace(getClass(), "Beginning Pollination");
 		}
 
@@ -76,10 +76,16 @@ public class FlowerPollination {
 					Driver.trace(getClass(), "Pollinating flower "+flowerNum);
 				}
 				if (r.nextDouble() > switchP) {
+
+					if (FLOWER_TRACE){
+						//Driver.trace(getClass(), "Beginning Global Pollination");
+					}
 					flowerbed[flowerNum] = doGlobalPoll(flowerNum);
 
 				} else {
-
+					if (FLOWER_TRACE){
+						//Driver.trace(getClass(), "Beginning Local Pollination");
+					}
 					flowerbed[flowerNum] = doLocalPoll(flowerNum);
 
 				}
