@@ -53,7 +53,7 @@ public class FlowerPollination {
 		long currentIter = 0;
 		// solve using those conditions
 		while (currentIter < iterationLimit) {
-			int internalIterationLimit = 10000;
+			int internalIterationLimit = 100000;
 			internalSolve(toSolve, internalIterationLimit);
 			if (FLOWER_TRACE){
 				Driver.trace(getClass(), "Complete internalIteration");
