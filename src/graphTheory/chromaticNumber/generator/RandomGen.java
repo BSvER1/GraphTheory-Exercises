@@ -26,9 +26,12 @@ public class RandomGen {
 		
 		for (long i = 0; i < edgeLimit; i++) {
 			
-			if ((i % (edgeLimit/25)) == 0) {
-				System.out.print(".");
-			}
+			try {
+				if ((i % (edgeLimit/25)) == 0) {
+			
+					System.out.print(".");
+				}
+			} catch (ArithmeticException e) {}
 			
 			while (generated.isEdge(vertA, vertB)) {
 				vertA = r.nextInt(generated.getNumVertices());
