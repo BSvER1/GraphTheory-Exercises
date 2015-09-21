@@ -1,14 +1,17 @@
 package graphTheory.chromaticNumber.assets;
 
 import java.util.Arrays;
-import java.util.Random;
+//import java.util.Random;
+
+import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.loader.Driver;
 import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class Agent {
 
-	private Random r;
+	//private Random r;
+	private UniformRealDistribution udist;
 	
 	private double accelConst = 100.0;
 	private double distPower = 2;
@@ -25,7 +28,8 @@ public class Agent {
 	
 	
 	public Agent(int vertex) {
-		r = new Random();
+		//r = new Random();
+		udist = new UniformRealDistribution();
 		comfort = 0;
 		isCaptured = false;
 		
@@ -35,7 +39,8 @@ public class Agent {
 		dimVel = new Double[Universe.getDimensions()];
 		
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			dimLoc[i] = 0.0 + r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
+			dimLoc[i] = 0.0 + udist.sample() * (int) (Universe.getBounds(i) - 20) +10;
+			//dimLoc[i] = 0.0 + r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
 			dimVel[i] = 0.0;
 		}
 	}
@@ -124,7 +129,8 @@ public class Agent {
 	
 	public void resetLocation() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
+			dimLoc[i] = 0.0 + udist.sample() * (int) Universe.getBounds(i);
+			//dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
 			dimVel[i] = 0.0;
 		}
 		isCaptured = false;

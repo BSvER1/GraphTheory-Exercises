@@ -266,9 +266,9 @@ public class Control {
 			return;
 		}
 		
-		try {
-			System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt"))));
-		} catch (FileNotFoundException e) {}
+		//try {
+		//	System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt"))));
+		//} catch (FileNotFoundException e) {}
 		
 		FlowerPollination fpa = new FlowerPollination();
 		fpa.solve(toSolve, flowers, limit);

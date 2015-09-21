@@ -151,11 +151,15 @@ public class SecretAgentPreview extends Canvas implements Runnable{
 			}
 			
 			//draw HUD
+			g2d.setFont(new Font("Serif", Font.PLAIN, 8));
 			g.setColor(Color.WHITE);
-			g2d.drawString(""+SecretAgents.getCurrentInternalIterationNum()+"/"+SecretAgents.getCurrentLargestWellComfort()*10,
-					2, 10);
-			g2d.drawString(""+SecretAgents.getCurrentIterationNum(), 2, 20);
-		} catch (IndexOutOfBoundsException e) {}
+			g2d.drawString("Agents: "+SecretAgents.getNumAgents() , 2, 10);
+			g2d.drawString("Colours: "+SecretAgents.getNumColours(), 2, 20);
+			g2d.drawString("Internal Iteration: "+SecretAgents.getCurrentInternalIterationNum(), 2, 30);
+			g2d.drawString("Current Trial: "+SecretAgents.getCurrentIterationNum(), 2, 40);
+		} catch (IndexOutOfBoundsException e) {
+		} catch (NullPointerException e) {
+		}
 		
 
 		g.dispose();

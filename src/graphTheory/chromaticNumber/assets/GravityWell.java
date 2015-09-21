@@ -2,7 +2,9 @@ package graphTheory.chromaticNumber.assets;
 
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
+
+import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.loader.Driver;
 import graphTheory.chromaticNumber.solver.SecretAgents;
@@ -11,7 +13,8 @@ public class GravityWell {
 
 	ArrayList<Agent> agents;
 	
-	Random r;
+	//Random r;
+	UniformRealDistribution udist;
 	
 	Color col;
 	
@@ -26,7 +29,8 @@ public class GravityWell {
 	Double[] dimVel;
 	
 	public GravityWell() {
-		r = new Random();
+		//r = new Random();
+		udist = new UniformRealDistribution();
 		
 		agents = new ArrayList<Agent>();
 		
@@ -34,11 +38,16 @@ public class GravityWell {
 		dimVel = new Double[Universe.getDimensions()];
 		
 		for (int i = 0; i < Universe.getDimensions(); i++ ) {
-			dimLoc[i] = 0.0 + r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
+			dimLoc[i] = 0.0 + udist.sample() * (int) (Universe.getBounds(i) - 20) +10;
+			//dimLoc[i] = 0.0 + r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
 			dimVel[i] = 0.0;
 		}
 		
-		col = new Color(r.nextInt(127)+127, r.nextInt(127)+127, r.nextInt(127)+127);
+		col = new Color((int) Math.floor(udist.sample() * 127) + 127,
+				(int) Math.floor(udist.sample() * 127) + 127,
+				(int) Math.floor(udist.sample() * 127) + 127);
+		
+		//col = new Color(r.nextInt(127)+127, r.nextInt(127)+127, r.nextInt(127)+127);
 	}
 	
 	public Double[] getLocation() {
@@ -47,7 +56,8 @@ public class GravityWell {
 	
 	public void resetLocation() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
+			dimLoc[i] = 0.0 + udist.sample() * (int) Universe.getBounds(i);
+			//dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
 		}
 	}
 	

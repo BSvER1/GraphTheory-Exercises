@@ -11,20 +11,22 @@ import graphTheory.chromaticNumber.loader.Driver;
 
 public class FlowerPollination {
 
-	static boolean FLOWER_TRACE = true;
+	static boolean FLOWER_TRACE = false;
+	
+	boolean RANDOM_SEEDED = false;
 
 	Random r;
 
 	Double flowerbed[][];
 
 	double alpha = 1.0;
-	double lambda = 1.5;
+	double lambda = 1.0; // sample const
 	double stepSize = 1.0;
 
 	int currentBestFlower;
 	int currentBestCost;
 
-	double switchP = 0.8;
+	double switchP = 0.5; // larger = more local pollinations
 	int numColours;
 	
 	LevyDistribution ldist;
@@ -34,6 +36,7 @@ public class FlowerPollination {
 
 		r = new Random();
 
+		
 		ldist = new LevyDistribution(0, lambda);
 		udist = new UniformRealDistribution();
 	}
@@ -46,19 +49,19 @@ public class FlowerPollination {
 			Driver.trace(getClass(), "Beginning Pollination");
 		}
 
-		numColours = toSolve.getNumVertices(); //toSolve.getMaximalDegree() + 1;
+		numColours = toSolve.getMaximalDegree() + 1;
 		if (FLOWER_TRACE){
 			Driver.trace(getClass(), "Initial k: "+numColours);
 		}
 
 		long currentIter = 0;
 		while (currentIter < iterationLimit) {
-			int internalIterationLimit = 1;
+			int internalIterationLimit = 100000;
 			// init pop of N flowers
 			flowerbed = new Double[numFlowers][toSolve.getNumVertices()];
 			for (int flowerNum = 0; flowerNum < numFlowers; flowerNum++) {
 				for (int currentVertex = 0; currentVertex < toSolve.getNumVertices(); currentVertex++) {
-					flowerbed[flowerNum][currentVertex] = (double) r.nextInt(numColours);
+					flowerbed[flowerNum][currentVertex] = (double) (udist.sample() * numColours);
 				}
 			}
 
@@ -83,7 +86,7 @@ public class FlowerPollination {
 				if (FLOWER_TRACE){
 					Driver.trace(getClass(), "Pollinating flower "+flowerNum);
 				}
-				if (r.nextDouble() > switchP) {
+				if (udist.sample() > switchP) {
 
 					if (FLOWER_TRACE){
 						//Driver.trace(getClass(), "Beginning Global Pollination");
@@ -102,14 +105,9 @@ public class FlowerPollination {
 				if (checkCol(flowerNum)) {
 					swap(toSolve, flowerNum);
 					Double[] newFlower = doGlobalPoll(flowerNum);
-					if (evalCost(toSolve, newFlower) < getCost(toSolve, flowerNum)) {// returns
-						// a
-						flowerbed[flowerNum] = newFlower; // solution
-						// vector to
-						// be
-						// compared
-						// with
-						// current
+					if (evalCost(toSolve, newFlower) < getCost(toSolve, flowerNum)) {
+						
+						flowerbed[flowerNum] = newFlower; 
 					}
 				}
 			}
@@ -117,9 +115,9 @@ public class FlowerPollination {
 			if (currentBestCost == 0) {
 				// legal coloring found
 				numColours--;
-				if (FLOWER_TRACE){
+				//if (FLOWER_TRACE){
 					Driver.trace(getClass(), "Proper Coloring Found, now attempting k = " + numColours);
-				}
+				//}
 				break;
 			}
 			currentIter++;
@@ -145,9 +143,9 @@ public class FlowerPollination {
 			if (currentBestCost > newCost) {
 				currentBestFlower = flowerNum;
 				currentBestCost = newCost;
-				if (FLOWER_TRACE){
+				//if (FLOWER_TRACE){
 					Driver.trace(getClass(), "Cost: "+currentBestCost+" on flower: "+currentBestFlower);
-				}
+				//}
 			}
 		}
 	}
@@ -166,7 +164,7 @@ public class FlowerPollination {
 	}
 
 	private int getConflict(Graph toSolve, Double[] flower, int srcVert, int destVert) {
-		if (flower[srcVert] == flower[destVert] && toSolve.isEdge(srcVert, destVert)) {
+		if (flower[srcVert].equals(flower[destVert]) && toSolve.isEdge(srcVert, destVert)) {
 			if (FLOWER_TRACE){
 				//Driver.trace(getClass(), "Conflict exists");
 			}
@@ -179,7 +177,7 @@ public class FlowerPollination {
 	}
 
 	private boolean checkCol(int flowerNum) {
-		for (Double col = 0.0; col < numColours; col++) {
+		for (Double col = 0.0; col < numColours; col += 1.0) {
 			if (!Arrays.asList(flowerbed[flowerNum]).contains(col)) {
 				if (FLOWER_TRACE){
 					Driver.trace(getClass(), "color "+col+" is not present in flower "+flowerNum);
@@ -195,21 +193,21 @@ public class FlowerPollination {
 
 	private double levyFlightStep(double lambda, double stepSize) {
 
-		return ldist.sample();
+		double levyStep = ldist.sample();
+		
+		if (FLOWER_TRACE){
+			Driver.trace(getClass(), "Levy step is "+levyStep);
+		}
+		
+		return levyStep;
 
-		//double levyStep = (lambda * gamma(lambda) * Math.sin(Math.PI * lambda / 2)) / (Math.PI * Math.pow(stepSize, (1 + lambda)));
-		//if (FLOWER_TRACE){
-		//	Driver.trace(getClass(), "Levy step is "+levyStep);
-		//}
-		//return levyStep;
 	}
 
 	private Double[] doGlobalPoll(int flowerNum) {
 		if (FLOWER_TRACE){
 			Driver.trace(getClass(), "Beginning Global Pollination for "+flowerNum);
 		}
-		return addArrays(flowerbed[flowerNum], subtractArrays(flowerbed[currentBestFlower], flowerbed[flowerNum],
-				(alpha * levyFlightStep(lambda, stepSize))), 1.0);
+		return addArrays(flowerbed[flowerNum], applyLevyDist(subtractArrays(flowerbed[currentBestFlower], flowerbed[flowerNum])));
 
 	}
 
@@ -217,14 +215,14 @@ public class FlowerPollination {
 		if (FLOWER_TRACE){
 			Driver.trace(getClass(), "Beginning Local Pollination for "+flowerNum);
 		}
-		return addArrays(flowerbed[flowerNum], flowerPermute(), 1.0);
+		return addArrays(flowerbed[flowerNum], flowerPermute());
 	}
 
 	private Double[] flowerPermute() {
-		int flowerOne = r.nextInt(flowerbed.length);
-		int flowerTwo = r.nextInt(flowerbed.length);
+		int flowerOne = (int) Math.floor(udist.sample() * flowerbed.length); //r.nextInt(flowerbed.length);
+		int flowerTwo = (int) Math.floor(udist.sample() * flowerbed.length); //r.nextInt(flowerbed.length);
 		
-		double scaleFactor = udist.sample();
+		//double scaleFactor = udist.sample();
 		
 		if (FLOWER_TRACE){
 			Driver.trace(getClass(), "Permuting with flowers "+flowerOne+" and "+flowerTwo);
@@ -232,11 +230,11 @@ public class FlowerPollination {
 		
 		//double scaleFactor = r.nextDouble();
 
-		return subtractArrays(flowerbed[flowerOne], flowerbed[flowerTwo], scaleFactor);
+		return applyUniformDist(subtractArrays(flowerbed[flowerOne], flowerbed[flowerTwo]));
 
 	}
 
-	public Double[] subtractArrays(Double[] arrayOne, Double[] arrayTwo, double scale) {
+	public Double[] subtractArrays(Double[] arrayOne, Double[] arrayTwo) {
 
 		if (arrayOne.length != arrayTwo.length){
 			throw new RuntimeException("Lengths differ on subtraction");
@@ -244,12 +242,12 @@ public class FlowerPollination {
 		Double[] tmpArray = new Double[arrayOne.length];
 
 		for (int vertNum = 0; vertNum < arrayOne.length; vertNum++) {
-			tmpArray[vertNum] = scale * (arrayOne[vertNum] - arrayTwo[vertNum]);
+			tmpArray[vertNum] = (arrayOne[vertNum] - arrayTwo[vertNum]);
 		}
 		return tmpArray;
 	}
 
-	public Double[] addArrays(Double[] arrayOne, Double[] arrayTwo, double scale) {
+	public Double[] addArrays(Double[] arrayOne, Double[] arrayTwo) {
 
 		if (arrayOne.length != arrayTwo.length){
 			throw new RuntimeException("Lengths differ on addition");
@@ -258,40 +256,48 @@ public class FlowerPollination {
 		Double[] tmpArray = new Double[arrayOne.length];
 
 		for (int vertNum = 0; vertNum < arrayOne.length; vertNum++) {
-			tmpArray[vertNum] = scale * (arrayOne[vertNum] + arrayTwo[vertNum]);
+			tmpArray[vertNum] = (arrayOne[vertNum] + arrayTwo[vertNum]);
 		}
 
 		return tmpArray;
 	}
+	
+	public Double[] applyLevyDist(Double[] arrayOne) {
+		
+		Double[] tmpArray = new Double[arrayOne.length];
 
-	public static double logGamma(double x) {
-		double tmp = (x - 0.5) * Math.log(x + 4.5) - (x + 4.5);
-		double ser = 1.0 + 76.18009173 / (x + 0) - 86.50532033 / (x + 1) + 24.01409822 / (x + 2) - 1.231739516 / (x + 3)
-				+ 0.00120858003 / (x + 4) - 0.00000536382 / (x + 5);
-		return tmp + Math.log(ser * Math.sqrt(2 * Math.PI));
-	}
-
-	public static double gamma(double x) {
-		if (FLOWER_TRACE){
-			Driver.trace(FlowerPollination.class, "Gamma sample = "+Math.exp(logGamma(x)));
+		for (int vertNum = 0; vertNum < arrayOne.length; vertNum++) {
+			tmpArray[vertNum] = (alpha * levyFlightStep(lambda, stepSize)) * (arrayOne[vertNum]);
 		}
-		return Math.exp(logGamma(x));
+
+		return tmpArray;
 	}
+	
+public Double[] applyUniformDist(Double[] arrayOne) {
+		
+		Double[] tmpArray = new Double[arrayOne.length];
+
+		for (int vertNum = 0; vertNum < arrayOne.length; vertNum++) {
+			tmpArray[vertNum] = udist.sample() * (arrayOne[vertNum]);
+		}
+
+		return tmpArray;
+}
 
 	private void doDiscAndCorr() {
 		for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 			for (int vertNum = 0; vertNum < flowerbed[flowerNum].length; vertNum++) {
 				flowerbed[flowerNum][vertNum] = (double) Math.round(flowerbed[flowerNum][vertNum]);
-				if (flowerbed[flowerNum][vertNum] > numColours -1) {
+				if (flowerbed[flowerNum][vertNum].doubleValue() > (numColours -1)) {
 					flowerbed[flowerNum][vertNum] = (double) numColours -1;
 					if (FLOWER_TRACE){
-						Driver.trace(getClass(), "Too big color reduced");
+						//Driver.trace(getClass(), "Too big color reduced");
 					}
 					
-				} else if (flowerbed[flowerNum][vertNum] < 0.0) {
+				} else if (flowerbed[flowerNum][vertNum].doubleValue() < 0.0) {
 					flowerbed[flowerNum][vertNum] = 0.0;
 					if (FLOWER_TRACE){
-						Driver.trace(getClass(), "Too small color increased");
+						//Driver.trace(getClass(), "Too small color increased");
 					}
 				}
 			}
@@ -313,7 +319,7 @@ public class FlowerPollination {
 	}
 
 	private void swap(Graph toSolve, int flowerNum) {
-		int maxConfNode = 0;
+		//int maxConfNode = 0;
 		int maxConf = 0;
 		int sumConf = 0;
 		int maxCol = 0;
@@ -331,26 +337,31 @@ public class FlowerPollination {
 				sumConf += getConflict(toSolve, flowerbed[flowerNum], src, dest);
 			}
 			if (FLOWER_TRACE){
-				Driver.trace(getClass(), "CUrrent max conflict = "+maxConf+" contender conflict = "+sumConf);
+				Driver.trace(getClass(), "Current max conflict = "+maxConf+" contender conflict = "+sumConf);
 			}
-			if (sumConf > maxConf) {
+			if (maxConf < sumConf) {
 				maxConf = sumConf;
-				maxConfNode = src;
+				//maxConfNode = src;
 			}
-			colorCount[(int) Math.round(flowerbed[flowerNum][src])]++;
-			if (colorCount[(int) Math.round(flowerbed[flowerNum][src])] > maxCol) {
+			colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())]++;
+			
+			//TODO THIS IS BROKEN need to verify operation
+			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] > maxCol) {
 				maxColPos = src;
 				maxCol++;
 			}
-			if (colorCount[(int) Math.round(flowerbed[flowerNum][src])] < minCol) {
+			
+			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] < minCol) {
 				minColPos = src;
 				minCol--;
 			}
+			
+			System.out.print("");
 
 		}
 		Double[] tempFlower = Arrays.copyOf(flowerbed[flowerNum], flowerbed[flowerNum].length);
-		tempFlower[maxColPos] = flowerbed[flowerNum][minColPos];
-		tempFlower[minColPos] = flowerbed[flowerNum][maxColPos];
+		tempFlower[maxColPos] = flowerbed[flowerNum][minColPos].doubleValue();
+		tempFlower[minColPos] = flowerbed[flowerNum][maxColPos].doubleValue();
 		if (FLOWER_TRACE){
 			Driver.trace(getClass(), "Swap? "+minColPos+" "+maxColPos);
 		}
@@ -359,7 +370,7 @@ public class FlowerPollination {
 			Driver.trace(getClass(), "Cost: "+getCost(toSolve, flowerNum)+" contender Cost: "+evalCost(toSolve, tempFlower));
 		}
 		
-		if (evalCost(toSolve, tempFlower) <= getCost(toSolve, flowerNum)) {
+		if (evalCost(toSolve, tempFlower) < getCost(toSolve, flowerNum)) {
 			flowerbed[flowerNum] = tempFlower;
 
 			if (FLOWER_TRACE){
