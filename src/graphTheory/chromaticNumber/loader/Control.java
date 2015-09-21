@@ -1,10 +1,10 @@
 package graphTheory.chromaticNumber.loader;
 
-import java.io.BufferedOutputStream;
+//import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.PrintStream;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -35,21 +35,21 @@ public class Control {
 		System.out.print("Would you like to [I]mport a graph from file, use built-in [B]enchmark graphs or generate a [R]andom graph?\t");
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().charAt(0) == 'I') { // import graph
-			Driver.trace(this.getClass(), "importing graph");
+			Driver.trace("importing graph");
 			//show open file dialog.
 			int returnVal = fc.showOpenDialog(null);
 			 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
                 //This is where a real application would open the file.
-                Driver.trace(this.getClass(), "loading file \""+ file.getAbsolutePath() + "\"");
+                Driver.trace("loading file \""+ file.getAbsolutePath() + "\"");
                 
                 GraphLoader gl = new GraphLoader(file);
                 toSolve = gl.getGraph();
                 
-                Driver.trace(this.getClass(), "Graph imported successfully.");
+                Driver.trace("Graph imported successfully.");
             } else {
-            	Driver.trace(this.getClass(), "user didnt pick a file. quitting");
+            	Driver.trace("user didnt pick a file. quitting");
             	System.exit(0);
             }
 			
@@ -97,9 +97,9 @@ public class Control {
 		
 		if (userChoice.matches("[0-9]+")) {
 			vertNum = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting vertex count for generation to be "+ vertNum);
+			Driver.trace("setting vertex count for generation to be "+ vertNum);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			System.exit(0);
 		}
 		
@@ -112,9 +112,9 @@ public class Control {
 				System.out.println("that limit is too high! limit must be less than " + vertNum*vertNum/2+". Setting the limit to that instead.");
 				edgeLimit = (vertNum*vertNum/2)-1;
 			}
-			Driver.trace(this.getClass(), "setting edgeLimit for generation to be "+ edgeLimit);
+			Driver.trace("setting edgeLimit for generation to be "+ edgeLimit);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			System.exit(0);
 		}
 		
@@ -123,9 +123,9 @@ public class Control {
 		
 		if (userChoice.matches("^[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?$")) {
 			edgeProb = Float.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting edge probability for generation to be "+ edgeProb);
+			Driver.trace("setting edge probability for generation to be "+ edgeProb);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			System.exit(0);
 		}
 		
@@ -143,12 +143,12 @@ public class Control {
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
 			limit = Long.MAX_VALUE;
-			Driver.trace(this.getClass(), "user indicated that they wanted to continue uninterupted.");
+			Driver.trace("user indicated that they wanted to continue uninterupted.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting limit on permutations to be "+ limit);
+			Driver.trace("setting limit on permutations to be "+ limit);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
 		
@@ -166,12 +166,12 @@ public class Control {
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
 			limit = 1;
-			Driver.trace(this.getClass(), "user indicated that they wanted to run a single random bucket sort.");
+			Driver.trace("user indicated that they wanted to run a single random bucket sort.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+			Driver.trace("setting runtime to be "+ limit);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
 		
@@ -189,12 +189,12 @@ public class Control {
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
 			limit = 1;
-			Driver.trace(this.getClass(), "user indicated that they wanted to run a single ant colony sort.");
+			Driver.trace("user indicated that they wanted to run a single ant colony sort.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+			Driver.trace("setting runtime to be "+ limit);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
 		
@@ -202,7 +202,7 @@ public class Control {
 		//get naive limit
 		BruteBuckets bb = new BruteBuckets();
 		bb.solve(toSolve, 1);
-		Driver.trace(this.getClass(), "getting naive initial colouring from buckets for Ant Colony of " +bb.getResult() + " colours");
+		Driver.trace("getting naive initial colouring from buckets for Ant Colony of " +bb.getResult() + " colours");
 		
 		//bb.getResult()-1
 		ac.solve(toSolve, limit, toSolve.getNumVertices());
@@ -218,12 +218,12 @@ public class Control {
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
 			limit = 20;
-			Driver.trace(this.getClass(), "user indicated that they wanted to run the default secret agent simulation.");
+			Driver.trace("user indicated that they wanted to run the default secret agent simulation.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+			Driver.trace("setting runtime to be "+ limit);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
 		
@@ -243,12 +243,12 @@ public class Control {
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
 			limit = 20;
-			Driver.trace(this.getClass(), "user indicated that they wanted to run the default flower pollination simulation.");
+			Driver.trace("user indicated that they wanted to run the default flower pollination simulation.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting runtime to be "+ limit);
+			Driver.trace("setting runtime to be "+ limit);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
 		
@@ -257,12 +257,12 @@ public class Control {
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
 			flowers = 20;
-			Driver.trace(this.getClass(), "user indicated that they wanted to run the default flower pollination simulation.");
+			Driver.trace("user indicated that they wanted to run the default flower pollination simulation.");
 		} else if (userChoice.matches("[0-9]+")) {
 			flowers = Integer.valueOf(userChoice);
-			Driver.trace(this.getClass(), "setting number of flowers to be "+ flowers);
+			Driver.trace("setting number of flowers to be "+ flowers);
 		} else {
-			Driver.trace(this.getClass(), "got nonsensical data from the user. ");
+			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
 		

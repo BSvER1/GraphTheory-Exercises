@@ -46,12 +46,12 @@ public class FlowerPollination {
 		// do initial setup of conditions
 		
 		if (FLOWER_TRACE) {
-			Driver.trace(getClass(), "Beginning Pollination");
+			Driver.trace("Beginning Pollination");
 		}
 
 		numColours = toSolve.getMaximalDegree() + 1;
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Initial k: "+numColours);
+			Driver.trace("Initial k: "+numColours);
 		}
 
 		long currentIter = 0;
@@ -70,7 +70,7 @@ public class FlowerPollination {
 
 			internalSolve(toSolve, internalIterationLimit);
 			if (FLOWER_TRACE){
-				Driver.trace(getClass(), "k = "+numColours+" cost = "+currentBestCost);
+				Driver.trace("k = "+numColours+" cost = "+currentBestCost);
 			}
 			currentIter++;
 		}
@@ -84,7 +84,7 @@ public class FlowerPollination {
 		while (currentIter < iterLimit) {
 			for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 				if (FLOWER_TRACE){
-					Driver.trace(getClass(), "Pollinating flower "+flowerNum);
+					Driver.trace("Pollinating flower "+flowerNum);
 				}
 				if (udist.sample() > switchP) {
 
@@ -116,7 +116,7 @@ public class FlowerPollination {
 				// legal coloring found
 				numColours--;
 				//if (FLOWER_TRACE){
-					Driver.trace(getClass(), "Proper Coloring Found, now attempting k = " + numColours);
+					Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
 				//}
 				break;
 			}
@@ -124,7 +124,7 @@ public class FlowerPollination {
 		}
 
 		if (currentIter >= iterLimit) {
-			Driver.trace(getClass(), "hit iteration limit on internal solve");
+			Driver.trace("hit iteration limit on internal solve");
 		}
 		// Output best solution
 	}
@@ -134,17 +134,17 @@ public class FlowerPollination {
 
 		for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 			if (FLOWER_TRACE){
-				Driver.trace(getClass(), "Searching for new best solution on flower "+flowerNum);
+				Driver.trace("Searching for new best solution on flower "+flowerNum);
 			}
 			int newCost = getCost(toSolve, flowerNum);
 			if (FLOWER_TRACE){
-				Driver.trace(getClass(), "New cost = "+newCost);
+				Driver.trace("New cost = "+newCost);
 			}
 			if (currentBestCost > newCost) {
 				currentBestFlower = flowerNum;
 				currentBestCost = newCost;
 				//if (FLOWER_TRACE){
-					Driver.trace(getClass(), "Cost: "+currentBestCost+" on flower: "+currentBestFlower);
+					Driver.trace("Cost: "+currentBestCost+" on flower: "+currentBestFlower);
 				//}
 			}
 		}
@@ -180,13 +180,13 @@ public class FlowerPollination {
 		for (Double col = 0.0; col < numColours; col += 1.0) {
 			if (!Arrays.asList(flowerbed[flowerNum]).contains(col)) {
 				if (FLOWER_TRACE){
-					Driver.trace(getClass(), "color "+col+" is not present in flower "+flowerNum);
+					Driver.trace("color "+col+" is not present in flower "+flowerNum);
 				}	
 				return false;
 			}
 		}
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "all colors are present and accounted for");
+			Driver.trace("all colors are present and accounted for");
 		}
 		return true;
 	}
@@ -196,7 +196,7 @@ public class FlowerPollination {
 		double levyStep = ldist.sample();
 		
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Levy step is "+levyStep);
+			Driver.trace("Levy step is "+levyStep);
 		}
 		
 		return levyStep;
@@ -205,7 +205,7 @@ public class FlowerPollination {
 
 	private Double[] doGlobalPoll(int flowerNum) {
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Beginning Global Pollination for "+flowerNum);
+			Driver.trace("Beginning Global Pollination for "+flowerNum);
 		}
 		return addArrays(flowerbed[flowerNum], applyLevyDist(subtractArrays(flowerbed[currentBestFlower], flowerbed[flowerNum])));
 
@@ -213,7 +213,7 @@ public class FlowerPollination {
 
 	private Double[] doLocalPoll(int flowerNum) {
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Beginning Local Pollination for "+flowerNum);
+			Driver.trace("Beginning Local Pollination for "+flowerNum);
 		}
 		return addArrays(flowerbed[flowerNum], flowerPermute());
 	}
@@ -225,7 +225,7 @@ public class FlowerPollination {
 		//double scaleFactor = udist.sample();
 		
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Permuting with flowers "+flowerOne+" and "+flowerTwo);
+			Driver.trace("Permuting with flowers "+flowerOne+" and "+flowerTwo);
 		}
 		
 		//double scaleFactor = r.nextDouble();
@@ -337,7 +337,7 @@ public Double[] applyUniformDist(Double[] arrayOne) {
 				sumConf += getConflict(toSolve, flowerbed[flowerNum], src, dest);
 			}
 			if (FLOWER_TRACE){
-				Driver.trace(getClass(), "Current max conflict = "+maxConf+" contender conflict = "+sumConf);
+				Driver.trace("Current max conflict = "+maxConf+" contender conflict = "+sumConf);
 			}
 			if (maxConf < sumConf) {
 				maxConf = sumConf;
@@ -363,18 +363,18 @@ public Double[] applyUniformDist(Double[] arrayOne) {
 		tempFlower[maxColPos] = flowerbed[flowerNum][minColPos].doubleValue();
 		tempFlower[minColPos] = flowerbed[flowerNum][maxColPos].doubleValue();
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Swap? "+minColPos+" "+maxColPos);
+			Driver.trace("Swap? "+minColPos+" "+maxColPos);
 		}
 		
 		if (FLOWER_TRACE){
-			Driver.trace(getClass(), "Cost: "+getCost(toSolve, flowerNum)+" contender Cost: "+evalCost(toSolve, tempFlower));
+			Driver.trace("Cost: "+getCost(toSolve, flowerNum)+" contender Cost: "+evalCost(toSolve, tempFlower));
 		}
 		
 		if (evalCost(toSolve, tempFlower) < getCost(toSolve, flowerNum)) {
 			flowerbed[flowerNum] = tempFlower;
 
 			if (FLOWER_TRACE){
-				Driver.trace(getClass(), "Swap Performed");
+				Driver.trace("Swap Performed");
 			}
 		}
 

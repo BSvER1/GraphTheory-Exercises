@@ -53,12 +53,12 @@ public class Agent {
 				for (int k = 0; k < dimLoc.length; k++) {
 					if (dimLoc[k].isNaN()) {
 						dimLoc[k] = Universe.getBounds(k)/2;
-						Driver.trace(getClass(), "got an agent NaN. resetting the location in dim "+k+" to "+Universe.getBounds(k)/2);
+						Driver.trace("got an agent NaN. resetting the location in dim "+k+" to "+Universe.getBounds(k)/2);
 					}
 					
 					if (Universe.getWells().get(j).getLocation()[k].isNaN()) {
 						Universe.getWells().get(j).resetLocation();
-						Driver.trace(getClass(), "got a well NaN. resetting the location");
+						Driver.trace("got a well NaN. resetting the location");
 					}
 				}
 				
@@ -66,7 +66,7 @@ public class Agent {
 				Double distance = Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc);
 				if (distance < 10.0) {
 					if (SecretAgents.SECRET_TRACING) 
-						Driver.trace(getClass(), "got a distance smaller than radius of a well. trying to add it.");
+						Driver.trace("got a distance smaller than radius of a well. trying to add it.");
 
 					for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
 						if (Universe.getWells().get(wellNum).canCapture(this)) {
@@ -87,7 +87,7 @@ public class Agent {
 				dimVel[i] += (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
 				if (dimVel[i].isNaN()) {
 					if (SecretAgents.SECRET_TRACING) 
-						Driver.trace(getClass(), "got a NaN in the velocity. means that there is a well at this location, yet isnt being captured.");
+						Driver.trace("got a NaN in the velocity. means that there is a well at this location, yet isnt being captured.");
 					
 					for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
 						if (Universe.getWells().get(wellNum).canCapture(this)) {
@@ -114,14 +114,14 @@ public class Agent {
 	public void applyVelocities() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
 			if(dimLoc[i].isNaN()) {
-				if (SecretAgents.SECRET_TRACING) Driver.trace(getClass(), "got a NaN for location when applying velocities");
+				if (SecretAgents.SECRET_TRACING) Driver.trace("got a NaN for location when applying velocities");
 				dimLoc[i] = Universe.getBounds(i)/2;
 			}
 			
 			dimLoc[i] += dimVel[i];
 			if (SecretAgents.SECRET_TRACING) {
-				Driver.trace(getClass(), "velocity of agent in direction "+i+" is "+dimVel[i]);
-				Driver.trace(getClass(), "location of agent direction "+i+" is "+dimLoc[i]);
+				Driver.trace("velocity of agent in direction "+i+" is "+dimVel[i]);
+				Driver.trace("location of agent direction "+i+" is "+dimLoc[i]);
 			}
 		}
 	}
