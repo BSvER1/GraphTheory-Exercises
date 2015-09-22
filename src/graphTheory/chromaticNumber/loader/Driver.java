@@ -7,7 +7,7 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		trace(Driver.class, "Graph theory algorithm comparitor started.");
+		trace("Graph theory algorithm comparitor started.");
 		
 		new Control();
 
@@ -45,10 +45,21 @@ public class Driver {
 	 */
 	public static void trace(long time, String msg) {
 		if (TRACING) {
-			System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
-					+ "" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()] {"+time+"ms}: " + msg);
+			
+			if (time > 3600000) {
+				System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
+						+ "" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()] {"+1.0f*time/3600000+"h}: " + msg);
+			} else if (time > 60000) {
+				System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
+						+ "" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()] {"+1.0f*time/60000+"m}: " + msg);
+			} else if (time > 1000) {
+				System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
+						+ "" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()] {"+1.0f*time/1000+"s}: " + msg);
+			} else {
+				System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
+						+ "" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()] {"+time+"ms}: " + msg);
+			}
 			
 		}
 	}
-
 }

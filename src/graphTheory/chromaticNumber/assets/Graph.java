@@ -6,9 +6,9 @@ public class Graph {
 	
 	final boolean DIRECTED = false;
 
-	public String graphName;
+	private String graphName;
 	//public ArrayList<Vertex> vertices;
-	public boolean[][] adj;
+	private boolean[][] adj;
 	
 	public Graph(int numVertices) {
 		//vertices = new ArrayList<Vertex>(numVertices);
@@ -63,5 +63,13 @@ public class Graph {
 		
 		
 		return maxDegree;
+	}
+
+	public String getGraphName() {
+		return graphName;
+	}
+
+	public void setGraphName(String graphName) {
+		this.graphName = graphName;
 	}
 }

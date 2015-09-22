@@ -54,6 +54,8 @@ public class GraphLoader {
 		} catch (IOException e) {
 			System.err.println("Something went wrong when reading file " + file.getAbsolutePath());
 		}
+		
+		g.setGraphName(file.getName());
 	}
 
 	public Graph getGraph() {

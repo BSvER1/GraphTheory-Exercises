@@ -1,9 +1,11 @@
 package graphTheory.chromaticNumber.solver;
 
 import java.awt.EventQueue;
-import java.util.Random;
+//import java.util.Random;
 
 import javax.swing.JFrame;
+
+import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.assets.Universe;
@@ -13,6 +15,8 @@ import net.miginfocom.swing.MigLayout;
 public class SecretAgents {
 
 	private boolean VISUALS_ENABLED = true;
+
+	UniformRealDistribution udist;
 
 	public static boolean SECRET_TRACING = false;
 	boolean SLOW_MODE = false;
@@ -30,21 +34,26 @@ public class SecretAgents {
 	static int currentBest;
 
 	private JFrame frame;
+	private SecretAgentPreview sap;
 
 	Universe u;
 
-	public SecretAgents() {
+	public SecretAgents(String graphName) {
+
+		udist = new UniformRealDistribution();
+
 		if (VISUALS_ENABLED) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						frame = new JFrame();
+						frame = new JFrame("Secret Agents Chromatic Number Solver: " +graphName);
 						frame.setBounds(100, 100, 850, 850);
 						frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						frame.getContentPane().setLayout(new MigLayout("",
 								"[0px,growprio 50,grow,shrinkprio 50][800px][0px,growprio 50,grow,shrinkprio 50]",
 								"[0px,growprio 50,grow,shrinkprio 50][800px][0px,growprio 50,grow,shrinkprio 50]"));
-						frame.add(new SecretAgentPreview(), "cell 1 1");
+						sap = new SecretAgentPreview();
+						frame.add(sap, "cell 1 1");
 						frame.setVisible(true);
 						frame.setAlwaysOnTop(true);
 						frame.setAlwaysOnTop(false);
@@ -57,95 +66,100 @@ public class SecretAgents {
 	}
 
 	public void solve(Graph toSolve, long iterationLimit) {
+		long timeStart = System.currentTimeMillis();
 		currentIterationNum = 0;
 
 		int currentNumColours = toSolve.getMaximalDegree() + 1;
+		currentBest = currentNumColours;
 
-		do {
+		//do {
 
-			while (currentNumColours > 0) {
-				currentNumColours--;
+		while (currentNumColours > 0 && currentIterationNum < iterationLimit) {
+			currentNumColours--;
 
-				Driver.trace("solving with " + currentNumColours + " colours");
+			Driver.trace(System.currentTimeMillis() - timeStart, "solving with " + currentNumColours + " colours");
 
-				currentInternalIterationNum = 0;
+			currentInternalIterationNum = 0;
 
-				setupUniverse(toSolve, currentNumColours);
+			setupUniverse(toSolve, currentNumColours);
 
-				// do while solution not found and computation limit is not
-				// reached
-				do {
+			// do while solution not found and computation limit is not
+			// reached
+			do {
 
-					if (SLOW_MODE) {
-						try {
-							Thread.sleep(SLOW_SPEED);
-						} catch (InterruptedException e) {
-						}
+				if (SLOW_MODE) {
+					try {
+						Thread.sleep(SLOW_SPEED);
+					} catch (InterruptedException e) {
 					}
-
-					currentInternalIterationNum++;
-
-					boolean captureSuccessful = false;
-					// if agents not captured and are close enough to be
-					// captured
-					for (int currentAgent = 0; currentAgent < Universe.getAgents().size(); currentAgent++) {
-						if (tryCapture(currentAgent) && !captureSuccessful) {
-							captureSuccessful = true;
-						}
-						// captureSuccessful = tryCapture(currentAgent);
-					}
-
-					// move all agents (method checks if they are captured
-					// itself)
-					for (int currentAgent = 0; currentAgent < Universe.getAgents().size(); currentAgent++) {
-						doGravity(currentAgent);
-					}
-
-					for (int currentWell = 0; currentWell < Universe.getWells().size(); currentWell++) {
-						// apply movement on the wells
-						if (WELLS_MOVE) {
-							Universe.getWells().get(currentWell).applyVel();
-						}
-
-						ejectAgents(currentWell);
-
-						if (captureSuccessful) {
-							makeComfort(currentWell);
-						}
-					}
-
-					checkForSolution(toSolve);
-
-					currentLargestWellComfort = 0;
-					for (int i = 0; i < Universe.getWells().size(); i++) {
-						if (currentLargestWellComfort < Universe.getWells().get(i).getMaxComfort()) {
-							currentLargestWellComfort = Universe.getWells().get(i).getMaxComfort();
-						}
-					}
-
-				} while (!solutionFound && currentInternalIterationNum < (100 * Math.pow(toSolve.getNumVertices(), 2)));
-
-				// Driver.trace(getClass(), "we are outside the main loop.");
-				if (currentInternalIterationNum >= (100 * Math.pow(toSolve.getNumVertices(), 2))) {
-					Driver.trace("hit iteration limit. resetting wells.");
-					currentIterationNum++;
-					currentNumColours++;
-				} else {
-					int empties = 0;
-					for (int j = 0; j < Universe.getWells().size(); j++) {
-						if (Universe.getWells().get(j).getCapturedAgents().size() == 0) {
-							empties++;
-						}
-					}
-
-					currentIterationNum = 0;
-					Driver.trace("found a new best colouring of " + (currentNumColours - empties));
-					currentNumColours -= empties;
-					currentBest = currentNumColours;
 				}
-			}
 
-		} while (currentIterationNum < iterationLimit);
+				currentInternalIterationNum++;
+
+				boolean captureSuccessful = false;
+				// if agents not captured and are close enough to be
+				// captured
+				for (int currentAgent = 0; currentAgent < Universe.getAgents().size(); currentAgent++) {
+					if (tryCapture(currentAgent) && !captureSuccessful) {
+						captureSuccessful = true;
+					}
+					// captureSuccessful = tryCapture(currentAgent);
+				}
+
+				// move all agents (method checks if they are captured
+				// itself)
+				for (int currentAgent = 0; currentAgent < Universe.getAgents().size(); currentAgent++) {
+					doGravity(currentAgent);
+				}
+
+				for (int currentWell = 0; currentWell < Universe.getWells().size(); currentWell++) {
+					// apply movement on the wells
+					if (WELLS_MOVE) {
+						Universe.getWells().get(currentWell).applyVel();
+					}
+
+					ejectAgents(currentWell);
+
+					if (captureSuccessful) {
+						makeComfort(currentWell);
+					}
+				}
+
+				checkForSolution(toSolve);
+
+				currentLargestWellComfort = 0;
+				for (int i = 0; i < Universe.getWells().size(); i++) {
+					if (currentLargestWellComfort < Universe.getWells().get(i).getMaxComfort()) {
+						currentLargestWellComfort = Universe.getWells().get(i).getMaxComfort();
+					}
+				}
+
+			} while (!solutionFound && currentInternalIterationNum < (100 * Math.pow(toSolve.getNumVertices(), 2)));
+
+			// Driver.trace(getClass(), "we are outside the main loop.");
+			if (currentInternalIterationNum >= (100 * Math.pow(toSolve.getNumVertices(), 2))) {
+				Driver.trace("hit iteration limit. resetting wells.");
+				currentIterationNum++;
+				currentNumColours++;
+			} else {
+				int empties = 0;
+				for (int j = 0; j < Universe.getWells().size(); j++) {
+					if (Universe.getWells().get(j).getCapturedAgents().size() == 0) {
+						empties++;
+					}
+				}
+
+				currentIterationNum = 0;
+				Driver.trace("found a new best colouring of " + (currentNumColours - empties));
+				currentNumColours -= empties;
+				currentBest = currentNumColours;
+			}
+		}
+
+		//} while (currentIterationNum < iterationLimit);
+
+		SecretAgentPreview.setRunning(false);
+		frame.dispose();
 
 	}
 
@@ -153,7 +167,7 @@ public class SecretAgents {
 		// create universe
 		if (SECRET_TRACING)
 			Driver.trace("creating universe");
-		u = new Universe(toSolve, 2, numWells * 20);
+		u = new Universe(toSolve, 2, numWells * 25);
 
 		// create wells
 		if (SECRET_TRACING)
@@ -189,7 +203,7 @@ public class SecretAgents {
 						for (int capturedAgentNum = 0; capturedAgentNum < Universe.getWells().get(wellNum)
 								.getCapturedAgents().size(); capturedAgentNum++) {
 							Universe.getWells().get(wellNum).getCapturedAgents().get(capturedAgentNum)
-									.decreaseComfort();
+							.decreaseComfort();
 						}
 
 						// if all agents are of comfort 0
@@ -230,15 +244,16 @@ public class SecretAgents {
 
 	private void makeComfort(int wellNum) {
 
-		Random r = new Random();
+		//Random r = new Random();
 
 		// increase all comfort levels of captured agents
 		// Driver.trace(getClass(), "increasing comfort of all agents that are
 		// currently in wells.");
 		for (int agentNum = 0; agentNum < Universe.getWells().get(wellNum).getCapturedAgents().size(); agentNum++) {
-			double comfortProb = 10.0 / Universe.getWells().get(wellNum).getMinComfort();
+			double comfortProb = (10.0 / Universe.getWells().get(wellNum).getMinComfort()) - 0.05;
 
-			if (r.nextDouble() < comfortProb) {
+			if (udist.sample() < comfortProb) {
+				//if (r.nextDouble() < comfortProb) {
 				Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).increaseComfort();
 			}
 
@@ -302,12 +317,12 @@ public class SecretAgents {
 							.get(wellNum).getCapturedAgents().size(); secondCapturedAgentNum++) {
 						if (toSolve.isEdge(
 								Universe.getWells().get(wellNum).getCapturedAgents().get(capturedAgentNum)
-										.getVertexAssociation() - 1,
+								.getVertexAssociation() - 1,
 								Universe.getWells().get(wellNum).getCapturedAgents().get(secondCapturedAgentNum)
-										.getVertexAssociation() - 1)) {
+								.getVertexAssociation() - 1)) {
 							solutionFound = false;
 							Universe.getWells().get(wellNum).getCapturedAgents().get(secondCapturedAgentNum)
-									.setCaptured(false);
+							.setCaptured(false);
 							Universe.getWells().get(wellNum).getCapturedAgents().remove(secondCapturedAgentNum);
 							finished = false;
 						}

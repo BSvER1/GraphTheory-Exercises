@@ -62,27 +62,37 @@ public class Control {
 			System.exit(0);
 		}
 		
-		
-		System.out.print("What solving algorithm would you like to use?\n"
-				+ "\t[B]rute Buckets\n"
-				+ "\t[R]andomized Brute Buckets\n"
-				+ "\t[A]nt Colony\n"
-				+ "\t[S]ecret Agents\n"
-				+ "\t[F]lower Pollination\n"
-				+ "\t");
-		userChoice = sc.nextLine();
-		if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
-			initBruteBuckets();
-		} else if (userChoice.toUpperCase().charAt(0) == 'R') { //Random Brute buckets
-			initRandomBruteBuckets();
-		} else if (userChoice.toUpperCase().charAt(0) == 'A') { // ants
-			initAntColony();
-		} else if (userChoice.toUpperCase().charAt(0) == 'S') { // secret agents
-			initSecretAgents();
-		} else if (userChoice.toUpperCase().charAt(0) == 'F') { // flower pollination
-			initFlowerPollination();
-		} 
-		
+		do {
+			System.out.print("\nWhat solving algorithm would you like to use? or [Q]uit\n"
+					+ "\t[B]rute Buckets\n"
+					+ "\t[R]andomized Brute Buckets\n"
+					+ "\t[A]nt Colony\n"
+					+ "\t[S]ecret Agents\n"
+					+ "\t[F]lower Pollination\n"
+					+ "\t");
+			userChoice = sc.nextLine();
+			if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
+				initBruteBuckets();
+			} else if (userChoice.toUpperCase().charAt(0) == 'R') { //Random Brute buckets
+				initRandomBruteBuckets();
+			} else if (userChoice.toUpperCase().charAt(0) == 'A') { // ants
+				initAntColony();
+			} else if (userChoice.toUpperCase().charAt(0) == 'S') { // secret agents
+				initSecretAgents();
+			} else if (userChoice.toUpperCase().charAt(0) == 'F') { // flower pollination
+				initFlowerPollination();
+			} //More options here
+			
+			
+			
+			else if (userChoice.toUpperCase().charAt(0) == 'Q') {
+				Driver.trace("user wants to quit");
+			} else {
+				Driver.trace("couldnt understand the user's input. quitting.");
+				userChoice = "Q";
+			}
+			
+		} while (userChoice.toUpperCase().charAt(0) != 'Q');
 		
 		System.out.println("Computation has finished.");
 	}
@@ -227,7 +237,7 @@ public class Control {
 			return;
 		}
 		
-		SecretAgents sa = new SecretAgents();
+		SecretAgents sa = new SecretAgents(toSolve.getGraphName());
 		sa.solve(toSolve, limit);
 		
 		System.out.println("secret agent approach finished with " +sa.getResult() + " colours");

@@ -69,8 +69,8 @@ public class BruteBuckets {
 					sortVertex(g, random.remove(r.nextInt(random.size())));
 				} else {
 					// broken = true;
-					// if (BB_TRACING)
-					Driver.trace("found equality in number of buckets, moving on");
+					 if (BB_TRACING)
+						 Driver.trace("found equality in number of buckets, moving on");
 					break;
 				}
 			}

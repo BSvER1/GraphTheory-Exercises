@@ -16,6 +16,7 @@ public class RandomGen {
 		
 		r = new Random();
 		generated = new Graph(vertNum);
+		generated.setGraphName("Random: "+vertNum+"v, "+edgeLimit+"e, "+edgeProb+"p");
 		
 		init(edgeLimit, edgeProb);
 	}

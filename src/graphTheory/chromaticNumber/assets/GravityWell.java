@@ -57,7 +57,7 @@ public class GravityWell {
 
 	public void resetLocation() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			dimLoc[i] = 0.0 + udist.sample() * (int) Universe.getBounds(i);
+			dimLoc[i] = udist.sample() * Universe.getBounds(i);
 			// dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
 		}
 	}
