@@ -275,8 +275,7 @@ public class SecretAgents {
 
 			// Driver.trace(getClass(), "starting to eject agents that have no
 			// comfort level");
-			while (Universe.getWells().get(wellNum).ejectAgents())
-				;
+			while (Universe.getWells().get(wellNum).ejectAgents());
 
 			for (int agentNum = 0; agentNum < Universe.getWells().get(wellNum).getCapturedAgents().size(); agentNum++) {
 				if (!Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).isCaptured()) {
