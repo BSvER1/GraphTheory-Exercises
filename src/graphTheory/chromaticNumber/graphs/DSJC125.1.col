@@ -1,0 +1,122 @@
+c FILE: DSJC125.1
+c
+c SOURCE: David Johnson (dsj@research.att.com)
+c
+c DESCRIPTION: Random graph used in the paper
+c              "Optimization by Simulated Annealing: An
+c               Experimental Evaluation; Part II, Graph
+c               Coloring and Number Partitioning" by
+c              David S. Johnson, Cecilia R. Aragon, 
+c              Lyle A. McGeoch and Catherine Schevon
+c              Operations Research, 39, 378-406 (1991)
+c
+p edge 125 1472
+e 15 8
+e 19 8
+e 21 8
+e 29 24
+e 34 32
+e 35 16
+e 35 24
+e 41 16
+e 42 8
+e 45 16
+e 45 24
+e 48 24
+e 50 24
+e 50 32
+e 51 48
+e 52 48
+e 54 48
+e 57 8
+e 58 8
+e 59 16
+e 60 56
+e 62 8
+e 62 16
+e 62 24
+e 62 32
+e 62 56
+e 63 24
+e 65 8
+e 65 48
+e 66 64
+e 70 32
+e 71 40
+e 71 56
+e 72 40
+e 73 24
+e 73 48
+e 73 72
+e 76 24
+e 76 32
+e 76 40
+e 77 64
+e 78 16
+e 78 72
+e 82 40
+e 82 80
+e 84 24
+e 84 56
+e 85 32
+e 85 40
+e 86 32
+e 86 48
+e 87 16
+e 87 72
+e 88 24
+e 91 24
+e 91 64
+e 91 72
+e 91 80
+e 91 88
+e 92 40
+e 93 48
+e 97 80
+e 97 96
+e 98 16
+e 98 32
+e 99 56
+e 100 48
+e 101 32
+e 103 8
+e 103 32
+e 104 16
+e 105 8
+e 105 16
+e 105 32
+e 105 56
+e 105 80
+e 105 88
+e 105 104
+e 106 16
+e 106 64
+e 106 80
+e 106 88
+e 107 72
+e 107 88
+e 108 64
+e 110 8
+e 111 40
+e 111 48
+e 112 24
+e 112 32
+e 113 72
+e 113 96
+e 113 112
+e 114 16
+e 114 80
+e 115 64
+e 117 80
+e 117 96
+e 118 56
+e 119 40
+e 119 64
+e 120 24
+e 121 64
+e 122 96
+e 122 104
+e 123 88
+e 124 40
+e 124 72
+e 125 80

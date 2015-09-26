@@ -64,6 +64,11 @@ public class SecretAgents {
 			});
 		}
 	}
+	
+	public SecretAgents(String graphName, boolean unmanaged) {
+
+		udist = new UniformRealDistribution();
+	}
 
 	public void solve(Graph toSolve, long iterationLimit) {
 		long timeStart = System.currentTimeMillis();

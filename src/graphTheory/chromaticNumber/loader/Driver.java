@@ -3,13 +3,18 @@ package graphTheory.chromaticNumber.loader;
 public class Driver {
 	
 	final static boolean TRACING = true;
+	private static boolean managed = false;
+	private static boolean runAllTests = true;
 	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		trace("Graph theory algorithm comparitor started.");
 		
-		new Control();
+		if (managed)
+			new Control();
+		else
+			new Control(runAllTests);
 
 	}
 	
