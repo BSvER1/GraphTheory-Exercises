@@ -46,6 +46,7 @@ public class Control {
 		if (userChoice.toUpperCase().charAt(0) == 'I') { // import graph
 			Driver.trace("importing graph");
 			//show open file dialog.
+			fc.setCurrentDirectory(new File("src/graphTheory/chromaticNumber/graphs"));
 			int returnVal = fc.showOpenDialog(null);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
