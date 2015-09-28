@@ -10,6 +10,7 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.assets.Universe;
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.loader.ResultsModule;
 import net.miginfocom.swing.MigLayout;
 
 public class SecretAgents {
@@ -27,6 +28,8 @@ public class SecretAgents {
 	static long currentInternalIterationNum;
 	static long currentIterationNum;
 	static long currentLargestWellComfort;
+	
+	long numInternalIterations = 1000000;
 
 	boolean successful;
 	boolean solutionFound;
@@ -139,10 +142,10 @@ public class SecretAgents {
 					}
 				}
 
-			} while (!solutionFound && currentInternalIterationNum < (100 * Math.pow(toSolve.getNumVertices(), 2)));
+			} while (!solutionFound && currentInternalIterationNum < numInternalIterations);
 
 			// Driver.trace(getClass(), "we are outside the main loop.");
-			if (currentInternalIterationNum >= (100 * Math.pow(toSolve.getNumVertices(), 2))) {
+			if (currentInternalIterationNum >= numInternalIterations) {
 				Driver.trace("hit iteration limit. resetting wells.");
 				currentIterationNum++;
 				currentNumColours++;
@@ -158,13 +161,19 @@ public class SecretAgents {
 				Driver.trace("found a new best colouring of " + (currentNumColours - empties));
 				currentNumColours -= empties;
 				currentBest = currentNumColours;
+				ResultsModule.writeIncrementalResultToFile(toSolve, SecretAgents.class, currentBest, 
+						System.currentTimeMillis() - timeStart, numInternalIterations);
 			}
 		}
 
 		//} while (currentIterationNum < iterationLimit);
 
-		SecretAgentPreview.setRunning(false);
-		frame.dispose();
+		try {
+			SecretAgentPreview.setRunning(false);
+			frame.dispose();
+		} catch (NullPointerException e) {
+		}
+		
 
 	}
 
@@ -359,5 +368,13 @@ public class SecretAgents {
 
 	public static int getNumColours() {
 		return currentBest - 1;
+	}
+
+	public long getNumInternalIterations() {
+		return numInternalIterations;
+	}
+
+	public void setNumInternalIterations(long numInternalIterations) {
+		this.numInternalIterations = numInternalIterations;
 	}
 }

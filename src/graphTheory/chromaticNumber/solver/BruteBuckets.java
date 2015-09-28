@@ -6,6 +6,7 @@ import java.util.Random;
 import graphTheory.chromaticNumber.assets.Bucket;
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.loader.ResultsModule;
 
 public class BruteBuckets {
 
@@ -55,6 +56,7 @@ public class BruteBuckets {
 	}
 
 	public void solveRandom(Graph g, long limit) {
+		long timeStart = System.currentTimeMillis();
 		for (int j = 0; j < limit; j++) {
 			Random r = new Random();
 			buckets = new ArrayList<Bucket>();
@@ -69,14 +71,15 @@ public class BruteBuckets {
 					sortVertex(g, random.remove(r.nextInt(random.size())));
 				} else {
 					// broken = true;
-					 if (BB_TRACING)
-						 Driver.trace("found equality in number of buckets, moving on");
+					if (BB_TRACING)
+						Driver.trace("found equality in number of buckets, moving on");
 					break;
 				}
 			}
 
 			if (random.isEmpty() && buckets.size() < currentBest) {
 				currentBest = buckets.size();
+				ResultsModule.writeIncrementalResultToFile(g, BruteBuckets.class, currentBest, System.currentTimeMillis()- timeStart, limit);
 				Driver.trace("successfully found a new best colouring: " + currentBest);
 			}
 		}

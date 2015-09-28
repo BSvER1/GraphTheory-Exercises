@@ -1,0 +1,9 @@
+# Graph | Solver | Colouring | Avg Time (ms) | Solve Count | Iteration Limit
+anna.col,BruteBuckets,11,8402.842105263158,20,200000
+anna.col,SecretAgents,11,347222.8125,17,1000000
+anna.col,SecretAgents,12,276350.5,3,1000000
+bvtester - small.col,BruteBuckets,3,133.42105263157896,20,200000
+bvtester - small.col,SecretAgents,3,66124.47368421052,20,1000000
+david.col,BruteBuckets,11,4048.0,20,200000
+david.col,SecretAgents,11,304552.9166666666,13,1000000
+david.col,SecretAgents,12,196199,1,1000000

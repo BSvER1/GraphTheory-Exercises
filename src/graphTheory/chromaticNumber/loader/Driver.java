@@ -3,7 +3,7 @@ package graphTheory.chromaticNumber.loader;
 public class Driver {
 	
 	final static boolean TRACING = true;
-	private static boolean managed = true;
+	private static boolean managed = false;
 	private static boolean runAllTests = true;
 	
 	

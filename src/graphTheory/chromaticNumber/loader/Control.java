@@ -121,30 +121,40 @@ public class Control {
 				
 				GraphLoader gl = new GraphLoader(child);
 				toSolve = gl.getGraph();
+				if (toSolve != null) {
 				
-				//randomised brute buckets - make sure its working
-				for (int i = 0; i < testCount; i++) {
-					long rbbLimit = 200000;
-					BruteBuckets bb = new BruteBuckets();
-					bb.solveRandom(toSolve, rbbLimit);
-					System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
-				}
-				
-				//secret agents - Brendon
-				for (int i = 0; i < testCount; i++) {
-					long saLimit = 1;
-					SecretAgents sa = new SecretAgents(toSolve.getGraphName(), true);
-					sa.solve(toSolve, saLimit);
-					System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
-				}
-				
-				//flower pollination - Scott
-				for (int i = 0; i < testCount; i++) {
-					long fpLimit = 100000;
-					int flowerCount = 20;
-					FlowerPollination fpa = new FlowerPollination();
-					fpa.solve(toSolve, flowerCount, fpLimit);
-					System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
+					//randomised brute buckets - make sure its working
+					for (int i = 0; i < testCount; i++) {
+						long rbbLimit = 200000;
+						long timeStart = System.currentTimeMillis();
+						BruteBuckets bb = new BruteBuckets();
+						bb.solveRandom(toSolve, rbbLimit);
+						ResultsModule.writeRuntimeResultToFile(toSolve, BruteBuckets.class, bb.getResult(), 
+								System.currentTimeMillis()-timeStart, rbbLimit);
+						System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
+					}
+					
+					//secret agents - Brendon
+					for (int i = 0; i < testCount; i++) {
+						long saLimit = 10;
+						long timeStart = System.currentTimeMillis();
+						SecretAgents sa = new SecretAgents(toSolve.getGraphName(), true);
+						sa.solve(toSolve, saLimit);
+						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, sa.getResult(), 
+								System.currentTimeMillis()-timeStart, sa.getNumInternalIterations());
+						System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
+					}
+					
+					//flower pollination - Scott
+					/*for (int i = 0; i < testCount; i++) {
+						long fpLimit = 100000;
+						int flowerCount = 20;
+						long timeStart = System.currentTimeMillis();
+						FlowerPollination fpa = new FlowerPollination();
+						fpa.solve(toSolve, flowerCount, fpLimit);
+						ResultsModule.writeBestResultToFile(toSolve, FlowerPollination.class, fpa.getResult(), System.currentTimeMillis()-timeStart);
+						System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
+					} /**/
 				}
 				
 			}
@@ -249,10 +259,30 @@ public class Control {
 			Driver.trace("got nonsensical data from the user. ");
 			return;
 		}
+		
+		int runCount = 0;
+		System.out.println("How many times would you like to run the solver?");
+		userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			limit = 1;
+			Driver.trace("user indicated that they wanted to run a single random bucket sort.");
+		} else if (userChoice.matches("[0-9]+")) {
+			runCount = Integer.valueOf(userChoice);
+			Driver.trace("setting runtime to be "+ limit);
+		} else {
+			Driver.trace("got nonsensical data from the user. ");
+			return;
+		}
+		
 
-		BruteBuckets bb = new BruteBuckets();
-		bb.solveRandom(toSolve, limit);
-		System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
+		for (int i = 0; i < runCount; i++) {
+			long timeStart = System.currentTimeMillis();
+			BruteBuckets bb = new BruteBuckets();
+			bb.solveRandom(toSolve, limit);
+			ResultsModule.writeRuntimeResultToFile(toSolve, BruteBuckets.class, bb.getResult(), 
+					System.currentTimeMillis()-timeStart, limit);
+			System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
+		}
 	}
 
 	public void initAntColony() {
@@ -302,9 +332,11 @@ public class Control {
 			return;
 		}
 
+		long timeStart = System.currentTimeMillis();
 		SecretAgents sa = new SecretAgents(toSolve.getGraphName());
 		sa.solve(toSolve, limit);
-
+		ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, sa.getResult(), 
+				System.currentTimeMillis()-timeStart, limit);
 		System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
 	}
 

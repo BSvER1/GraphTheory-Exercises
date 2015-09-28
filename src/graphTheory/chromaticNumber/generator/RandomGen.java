@@ -16,23 +16,17 @@ public class RandomGen {
 		
 		r = new Random();
 		generated = new Graph(vertNum);
-		generated.setGraphName("Random: "+vertNum+"v, "+edgeLimit+"e, "+edgeProb+"p");
+		generated.setGraphName("Random "+vertNum+"v "+edgeLimit+"e "+edgeProb+"p");
 		
 		init(edgeLimit, edgeProb);
 	}
 	
 	private void init(long edgeLimit, float edgeProb) {
 		
-		int vertA = r.nextInt(generated.getNumVertices()), vertB = r.nextInt(generated.getNumVertices());
+		int vertA = r.nextInt(generated.getNumVertices());
+		int vertB = r.nextInt(generated.getNumVertices());
 		
 		for (long i = 0; i < edgeLimit; i++) {
-			
-			try {
-				if ((i % (edgeLimit/25)) == 0) {
-			
-					System.out.print(".");
-				}
-			} catch (ArithmeticException e) {}
 			
 			while (generated.isEdge(vertA, vertB)) {
 				vertA = r.nextInt(generated.getNumVertices());

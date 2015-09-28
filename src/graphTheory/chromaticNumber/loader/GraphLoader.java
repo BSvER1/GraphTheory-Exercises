@@ -26,7 +26,7 @@ public class GraphLoader {
 			loadGraphCol(file);
 		} else {
 			Driver.trace("the file supplied does not have the correct file format");
-			System.exit(0);
+			//System.exit(0);
 		}
 	}
 
