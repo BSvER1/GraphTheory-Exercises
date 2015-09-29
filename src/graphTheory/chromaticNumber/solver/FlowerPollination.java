@@ -23,10 +23,11 @@ public class FlowerPollination {
 	double lambda = 1.0; // sample const
 	double stepSize = 1.0;
 
-	int currentBestFlower;
+	Double[] currentBestFlower;
+	int currentBestFlowerPos;
 	int currentBestCost;
 
-	double switchP = 0.5; // larger = more local pollinations
+	double switchP = 0.8; // larger = more local pollinations
 	int numColours;
 	
 	LevyDistribution ldist;
@@ -42,7 +43,7 @@ public class FlowerPollination {
 	}
 
 	public void solve(Graph toSolve, int numFlowers, long iterationLimit) {
-
+		
 		// do initial setup of conditions
 		
 		if (FLOWER_TRACE) {
@@ -55,8 +56,9 @@ public class FlowerPollination {
 		}
 
 		long currentIter = 0;
-		while (currentIter < iterationLimit) {
+		while (numColours > 0 && currentIter < iterationLimit) {
 			int internalIterationLimit = 100000;
+			currentBestCost = Integer.MAX_VALUE;
 			// init pop of N flowers
 			flowerbed = new Double[numFlowers][toSolve.getNumVertices()];
 			for (int flowerNum = 0; flowerNum < numFlowers; flowerNum++) {
@@ -79,9 +81,8 @@ public class FlowerPollination {
 
 	private void internalSolve(Graph toSolve, long iterLimit) {
 		long currentIter = 0;
-		currentBestCost = Integer.MAX_VALUE;
 
-		while (currentIter < iterLimit) {
+		while (numColours > 0 && currentIter < iterLimit) {
 			for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 				if (FLOWER_TRACE){
 					Driver.trace("Pollinating flower "+flowerNum);
@@ -106,18 +107,18 @@ public class FlowerPollination {
 					swap(toSolve, flowerNum);
 					Double[] newFlower = doGlobalPoll(flowerNum);
 					if (evalCost(toSolve, newFlower) < getCost(toSolve, flowerNum)) {
-						
 						flowerbed[flowerNum] = newFlower; 
 					}
 				}
 			}
 			findSolution(toSolve);
+			//Driver.trace("Checking for legal coloring on k = " + numColours);
+			//Driver.trace("Current cost is" + currentBestCost);
 			if (currentBestCost == 0) {
 				// legal coloring found
 				numColours--;
-				//if (FLOWER_TRACE){
-					Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
-				//}
+				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
+
 				break;
 			}
 			currentIter++;
@@ -141,13 +142,15 @@ public class FlowerPollination {
 				Driver.trace("New cost = "+newCost);
 			}
 			if (currentBestCost > newCost) {
-				currentBestFlower = flowerNum;
+				currentBestFlowerPos = flowerNum;
 				currentBestCost = newCost;
 				//if (FLOWER_TRACE){
-					Driver.trace("Cost: "+currentBestCost+" on flower: "+currentBestFlower);
+					Driver.trace("Cost: "+currentBestCost+" on flower: "+currentBestFlowerPos);
 				//}
 			}
 		}
+		currentBestFlower = Arrays.copyOf(flowerbed[currentBestFlowerPos], flowerbed[currentBestFlowerPos].length);
+
 	}
 
 	private int getCost(Graph toSolve, int flowerNum) {
@@ -160,14 +163,16 @@ public class FlowerPollination {
 				}
 			}
 		}
+		Driver.trace( "Number of conflicts is: "+sum+" for flower "+flowerNum);
+
 		return sum;
 	}
 
 	private int getConflict(Graph toSolve, Double[] flower, int srcVert, int destVert) {
-		if (flower[srcVert].equals(flower[destVert]) && toSolve.isEdge(srcVert, destVert)) {
-			if (FLOWER_TRACE){
-				//Driver.trace(getClass(), "Conflict exists");
-			}
+		if (flower[srcVert].doubleValue() == flower[destVert].doubleValue() && toSolve.isEdge(srcVert, destVert)) {
+			//if (FLOWER_TRACE){
+			//	Driver.trace ("Conflict exists");
+			//}
 			return 1;
 		}
 		if (FLOWER_TRACE){
@@ -207,7 +212,7 @@ public class FlowerPollination {
 		if (FLOWER_TRACE){
 			Driver.trace("Beginning Global Pollination for "+flowerNum);
 		}
-		return addArrays(flowerbed[flowerNum], applyLevyDist(subtractArrays(flowerbed[currentBestFlower], flowerbed[flowerNum])));
+		return addArrays(flowerbed[flowerNum], applyLevyDist(subtractArrays(currentBestFlower, flowerbed[flowerNum])));
 
 	}
 
@@ -273,16 +278,16 @@ public class FlowerPollination {
 		return tmpArray;
 	}
 	
-public Double[] applyUniformDist(Double[] arrayOne) {
-		
-		Double[] tmpArray = new Double[arrayOne.length];
-
-		for (int vertNum = 0; vertNum < arrayOne.length; vertNum++) {
-			tmpArray[vertNum] = udist.sample() * (arrayOne[vertNum]);
-		}
-
-		return tmpArray;
-}
+	public Double[] applyUniformDist(Double[] arrayOne) {
+			
+			Double[] tmpArray = new Double[arrayOne.length];
+	
+			for (int vertNum = 0; vertNum < arrayOne.length; vertNum++) {
+				tmpArray[vertNum] = udist.sample() * (arrayOne[vertNum]);
+			}
+	
+			return tmpArray;
+	}
 
 	private void doDiscAndCorr() {
 		for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
@@ -321,16 +326,20 @@ public Double[] applyUniformDist(Double[] arrayOne) {
 	private void swap(Graph toSolve, int flowerNum) {
 		//int maxConfNode = 0;
 		int maxConf = 0;
+		int maxConfPos = 0;
 		int sumConf = 0;
-		int maxCol = 0;
+		//int maxCol = 0;
 		int minCol = numColours;
-		int maxColPos = 0;
+		//int maxColPos = 0;
 		int minColPos = 0;
 		int[] colorCount = new int[numColours];
 		for (int ii = 0; ii < numColours; ii++) {
 			colorCount[ii] = 0;
 		}
-
+		for (int vert = 0; vert < toSolve.getNumVertices(); vert++) {
+			colorCount[(int) Math.round(flowerbed[flowerNum][vert].doubleValue())]++;
+		}
+		
 		for (int src = 0; src < toSolve.getNumVertices(); src++) {
 			sumConf = 0;
 			for (int dest = 0; dest < toSolve.getNumVertices(); dest++) {
@@ -341,15 +350,14 @@ public Double[] applyUniformDist(Double[] arrayOne) {
 			}
 			if (maxConf < sumConf) {
 				maxConf = sumConf;
-				//maxConfNode = src;
+				maxConfPos = src;
 			}
-			colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())]++;
 			
 			//TODO THIS IS BROKEN need to verify operation
-			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] > maxCol) {
-				maxColPos = src;
-				maxCol++;
-			}
+//			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] > maxCol) {
+//				maxColPos = src;
+//				maxCol++;
+//			}
 			
 			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] < minCol) {
 				minColPos = src;
@@ -360,10 +368,10 @@ public Double[] applyUniformDist(Double[] arrayOne) {
 
 		}
 		Double[] tempFlower = Arrays.copyOf(flowerbed[flowerNum], flowerbed[flowerNum].length);
-		tempFlower[maxColPos] = flowerbed[flowerNum][minColPos].doubleValue();
-		tempFlower[minColPos] = flowerbed[flowerNum][maxColPos].doubleValue();
+		tempFlower[maxConfPos] = flowerbed[flowerNum][minColPos].doubleValue();
+		tempFlower[minColPos] = flowerbed[flowerNum][maxConfPos].doubleValue();
 		if (FLOWER_TRACE){
-			Driver.trace("Swap? "+minColPos+" "+maxColPos);
+			Driver.trace("Swap? "+minColPos+" "+maxConfPos);
 		}
 		
 		if (FLOWER_TRACE){
@@ -382,7 +390,7 @@ public Double[] applyUniformDist(Double[] arrayOne) {
 
 	public int getResult(){
 		if (currentBestCost == 0) {
-			return numColours;
+			return numColours+1;
 		}
 		return -1;
 
