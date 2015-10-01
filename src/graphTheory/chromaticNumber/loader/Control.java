@@ -178,7 +178,8 @@ public class Control {
 
 	public void genRandom() {
 		RandomGen gen;
-		int vertNum = 0, edgeLimit = 0;
+		int vertNum = 0;
+		long edgeLimit = 0;
 		float edgeProb = 0;
 
 		System.out.print("Please enter the number of vertices the graph will contain:\t");
