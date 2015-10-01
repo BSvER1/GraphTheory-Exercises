@@ -1,7 +1,11 @@
 package graphTheory.chromaticNumber.loader;
 
+import java.io.BufferedOutputStream;
 //import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
 //import java.io.PrintStream;
@@ -373,13 +377,19 @@ public class Control {
 			return;
 		}
 
-		//try {
-		//	System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt"))));
-		//} catch (FileNotFoundException e) {}
+		//PrintStream currentOut = new PrintStream(System.out);
+		
+//		try {
+//			System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt"))));
+//		} catch (FileNotFoundException e) {}
 
 		FlowerPollination fpa = new FlowerPollination();
 		fpa.solve(toSolve, flowers, limit);
 
+		//try {
+		//	System.setOut(currentOut);
+		//} catch (RuntimeException e) {}
+		
 		System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
 	}
 

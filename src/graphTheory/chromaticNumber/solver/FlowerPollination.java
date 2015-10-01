@@ -20,8 +20,8 @@ public class FlowerPollination {
 	Double flowerbed[][];
 
 	double alpha = 1.0;
-	double lambda = 1.0; // sample const
-	double stepSize = 1.0;
+	double lambda = 1; // sample const
+	double stepSize = 1.5;
 
 	Double[] currentBestFlower;
 	int currentBestFlowerPos;
@@ -50,20 +50,21 @@ public class FlowerPollination {
 			Driver.trace("Beginning Pollination");
 		}
 
-		numColours = toSolve.getMaximalDegree() + 1;
-		if (FLOWER_TRACE){
-			Driver.trace("Initial k: "+numColours);
-		}
+		numColours = toSolve.getMaximalDegree();
+		//if (FLOWER_TRACE){
+			//Driver.trace("Initial k: "+numColours);
+		//}
 
 		long currentIter = 0;
 		while (numColours > 0 && currentIter < iterationLimit) {
-			int internalIterationLimit = 100000;
+			Driver.trace("Solving for k: "+numColours);
+			int internalIterationLimit = 20000;
 			currentBestCost = Integer.MAX_VALUE;
 			// init pop of N flowers
 			flowerbed = new Double[numFlowers][toSolve.getNumVertices()];
 			for (int flowerNum = 0; flowerNum < numFlowers; flowerNum++) {
 				for (int currentVertex = 0; currentVertex < toSolve.getNumVertices(); currentVertex++) {
-					flowerbed[flowerNum][currentVertex] = (double) (udist.sample() * numColours);
+					flowerbed[flowerNum][currentVertex] = (double) Math.round( (udist.sample() * numColours) );
 				}
 			}
 
@@ -82,73 +83,142 @@ public class FlowerPollination {
 	private void internalSolve(Graph toSolve, long iterLimit) {
 		long currentIter = 0;
 
-		while (numColours > 0 && currentIter < iterLimit) {
-			for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
-				if (FLOWER_TRACE){
-					Driver.trace("Pollinating flower "+flowerNum);
-				}
-				if (udist.sample() > switchP) {
-
+		if (evalCost(toSolve, currentBestFlower) != 0) {
+			while (numColours > 0 && currentIter < iterLimit) {
+				for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 					if (FLOWER_TRACE){
-						//Driver.trace(getClass(), "Beginning Global Pollination");
+						Driver.trace("Pollinating flower "+flowerNum);
 					}
-					flowerbed[flowerNum] = doGlobalPoll(flowerNum);
-
-				} else {
-					if (FLOWER_TRACE){
-						//Driver.trace(getClass(), "Beginning Local Pollination");
+					if (udist.sample() > switchP) {
+	
+						if (FLOWER_TRACE){
+							//Driver.trace(getClass(), "Beginning Global Pollination");
+						}
+						flowerbed[flowerNum] = doGlobalPoll(flowerNum);
+	
+					} else {
+						if (FLOWER_TRACE){
+							//Driver.trace(getClass(), "Beginning Local Pollination");
+						}
+						flowerbed[flowerNum] = doLocalPoll(flowerNum);
+	
 					}
-					flowerbed[flowerNum] = doLocalPoll(flowerNum);
-
-				}
-				doDiscAndCorr();
-
-				if (checkCol(flowerNum)) {
-					swap(toSolve, flowerNum);
-					Double[] newFlower = doGlobalPoll(flowerNum);
+					
+					doDiscAndCorr();
+					findSolution(toSolve);
+					//Driver.trace("Checking for legal coloring on k = " + numColours);
+					//if (FLOWER_TRACE) {
+						Driver.trace("Current best flower is: "+ currentBestFlowerPos+" has internals of: ");
+						String output = "";
+						for (int i = 0; i < currentBestFlower.length; i++) {
+							if (i == 0) {
+								output = output.concat(""+currentBestFlower[i]);
+							} else {
+								output = output.concat(", "+currentBestFlower[i]);
+							}
+						}
+						Driver.trace(output);
+					//}
+					if (evalCost(toSolve, currentBestFlower) == 0) {
+						// legal coloring found
+						numColours--;
+						Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
+		
+						break;
+					}
+					
+					//if (checkCol(flowerNum)) {
+					for (int i = 0; i < Math.sqrt(numColours); i++ ){
+						swap(toSolve, flowerNum);
+					}
+					
+					Double[] newFlower = doLocalPoll(flowerNum);
+					if (udist.sample() > switchP) {
+						newFlower = doGlobalPoll(flowerNum);
+					}
+					//Double[] newFlower = doGlobalPoll(flowerNum);
 					if (evalCost(toSolve, newFlower) < getCost(toSolve, flowerNum)) {
 						flowerbed[flowerNum] = newFlower; 
 					}
-				}
-			}
-			findSolution(toSolve);
-			//Driver.trace("Checking for legal coloring on k = " + numColours);
-			//Driver.trace("Current cost is" + currentBestCost);
-			if (currentBestCost == 0) {
-				// legal coloring found
-				numColours--;
-				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
+					//}
 
-				break;
+					doDiscAndCorr();
+				}
+				findSolution(toSolve);
+				//Driver.trace("Checking for legal coloring on k = " + numColours);
+				//if (FLOWER_TRACE) {
+					Driver.trace("Current best flower is: "+ currentBestFlowerPos+" has internals of: ");
+					String output = "";
+					for (int i = 0; i < currentBestFlower.length; i++) {
+						if (i == 0) {
+							output = output.concat(""+currentBestFlower[i]);
+						} else {
+							output = output.concat(", "+currentBestFlower[i]);
+						}
+					}
+					Driver.trace(output);
+				//}
+				
+				//Driver.trace("Current best cost is:");
+				
+				if (evalCost(toSolve, currentBestFlower) == 0) {
+					// legal coloring found
+					numColours--;
+					Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
+	
+					break;
+				}
+				currentIter++;
 			}
-			currentIter++;
+		} else {
+			// Output best solution
+			numColours--;
+			Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
+			return;
 		}
 
 		if (currentIter >= iterLimit) {
 			Driver.trace("hit iteration limit on internal solve");
-		}
-		// Output best solution
+		} 
+		
 	}
 
 	// g-star
 	private void findSolution(Graph toSolve) {
 
+		int cost[] = new int[flowerbed.length];
+		
 		for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 			if (FLOWER_TRACE){
 				Driver.trace("Searching for new best solution on flower "+flowerNum);
 			}
-			int newCost = getCost(toSolve, flowerNum);
+			cost[flowerNum] = getCost(toSolve, flowerNum);
 			if (FLOWER_TRACE){
-				Driver.trace("New cost = "+newCost);
+				Driver.trace("New cost = "+cost[flowerNum]);
 			}
-			if (currentBestCost > newCost) {
+			if (currentBestCost > cost[flowerNum]) {
 				currentBestFlowerPos = flowerNum;
-				currentBestCost = newCost;
+				currentBestCost = cost[flowerNum];
 				//if (FLOWER_TRACE){
 					Driver.trace("Cost: "+currentBestCost+" on flower: "+currentBestFlowerPos);
 				//}
 			}
 		}
+		
+		Driver.trace("flower costs:");
+		String output = "";
+		for (int i = 0; i < flowerbed.length; i++) {
+			if (i == 0) {
+				output = output.concat(""+cost[i]);
+			}
+			if (i == currentBestFlowerPos) {
+				output = output.concat(", ["+ cost[i]+"]");
+			} else {
+				output = output.concat(", "+ cost[i]);
+			}
+		}
+		Driver.trace(output);
+		
 		currentBestFlower = Arrays.copyOf(flowerbed[currentBestFlowerPos], flowerbed[currentBestFlowerPos].length);
 
 	}
@@ -156,20 +226,21 @@ public class FlowerPollination {
 	private int getCost(Graph toSolve, int flowerNum) {
 		int sum = 0;
 		for (int src = 0; src < toSolve.getNumVertices(); src++) {
-			for (int dest = 0; dest < toSolve.getNumVertices(); dest++) {
+			for (int dest = src; dest < toSolve.getNumVertices(); dest++) {
 				sum += getConflict(toSolve, flowerbed[flowerNum], src, dest);
 				if (FLOWER_TRACE){
 					//Driver.trace(getClass(), "Cost updated to: "+sum+" for flower "+flowerNum+" on source "+src+" to destination"+dest);
 				}
 			}
 		}
-		Driver.trace( "Number of conflicts is: "+sum+" for flower "+flowerNum);
+		//Driver.trace( "Number of conflicts is: "+sum+" for flower "+flowerNum);
 
 		return sum;
 	}
 
 	private int getConflict(Graph toSolve, Double[] flower, int srcVert, int destVert) {
-		if (flower[srcVert].doubleValue() == flower[destVert].doubleValue() && toSolve.isEdge(srcVert, destVert)) {
+		if ((Math.round(flower[srcVert].doubleValue()) == Math.round(flower[destVert].doubleValue())) &&
+				toSolve.isEdge(srcVert, destVert)) {
 			//if (FLOWER_TRACE){
 			//	Driver.trace ("Conflict exists");
 			//}
@@ -198,10 +269,14 @@ public class FlowerPollination {
 
 	private double levyFlightStep(double lambda, double stepSize) {
 
-		double levyStep = ldist.sample();
+		Double levyStep = ldist.sample();
 		
 		if (FLOWER_TRACE){
 			Driver.trace("Levy step is "+levyStep);
+		}
+		
+		if (levyStep.isInfinite()) {
+			return 1.0;
 		}
 		
 		return levyStep;
@@ -294,16 +369,18 @@ public class FlowerPollination {
 			for (int vertNum = 0; vertNum < flowerbed[flowerNum].length; vertNum++) {
 				flowerbed[flowerNum][vertNum] = (double) Math.round(flowerbed[flowerNum][vertNum]);
 				if (flowerbed[flowerNum][vertNum].doubleValue() > (numColours -1)) {
-					flowerbed[flowerNum][vertNum] = (double) numColours -1;
-					if (FLOWER_TRACE){
-						//Driver.trace(getClass(), "Too big color reduced");
-					}
+					flowerbed[flowerNum][vertNum] = (double) (numColours -1);
+//					if (FLOWER_TRACE){
+//						Driver.trace(getClass(), "Too big color reduced");
+//					}
 					
 				} else if (flowerbed[flowerNum][vertNum].doubleValue() < 0.0) {
 					flowerbed[flowerNum][vertNum] = 0.0;
-					if (FLOWER_TRACE){
-						//Driver.trace(getClass(), "Too small color increased");
-					}
+//					if (FLOWER_TRACE){
+//						Driver.trace(getClass(), "Too small color increased");
+//					}
+				} else if (flowerbed[flowerNum][vertNum].isInfinite() || flowerbed[flowerNum][vertNum].isNaN()) {
+					flowerbed[flowerNum][vertNum] = (double) (numColours -1);
 				}
 			}
 		}
@@ -314,8 +391,9 @@ public class FlowerPollination {
 	private int evalCost(Graph toSolve, Double[] flower) {
 
 		int sum = 0;
+		
 		for (int src = 0; src < toSolve.getNumVertices(); src++) {
-			for (int dest = 0; dest < toSolve.getNumVertices(); dest++) {
+			for (int dest = src; dest < toSolve.getNumVertices(); dest++) {
 				sum += getConflict(toSolve, flower, src, dest);
 			}
 		}
