@@ -23,13 +23,13 @@ public class SecretAgents {
 	boolean SLOW_MODE = false;
 	boolean WELLS_MOVE = false;
 
-	int SLOW_SPEED = 50; // larger is slower. default to 2
+	int SLOW_SPEED = 5; // larger is slower. default to 2
 
 	static long currentInternalIterationNum;
 	static long currentIterationNum;
 	static long currentLargestWellComfort;
 	
-	long numInternalIterations = 1000000;
+	long numInternalIterations = 200000;
 
 	boolean successful;
 	boolean solutionFound;

@@ -1,4 +1,19 @@
 # Graph | Solver | Colouring | Avg Time (ms) | Solve Count | Iteration Limit
+Random 1000v 200000e 0.5p,BruteBuckets,51,2412,1,200000
+Random 1000v 200000e 0.5p,BruteBuckets,52,162,1,200000
+Random 1000v 200000e 0.5p,BruteBuckets,53,26,1,200000
+Random 50v 750e 0.5p,BruteBuckets,10,0.0,3,200000
+Random 50v 750e 0.5p,BruteBuckets,7,9.31578947368421,20,200000
+Random 50v 750e 0.5p,BruteBuckets,8,0.631578947368421,20,200000
+Random 50v 750e 0.5p,BruteBuckets,9,0.13333333333333333,16,200000
+Random 50v 750e 0.5p,SecretAgents,10,595,1,200000
+Random 50v 750e 0.5p,SecretAgents,11,542,1,200000
+Random 50v 750e 0.5p,SecretAgents,12,472,1,200000
+Random 50v 750e 0.5p,SecretAgents,13,357,1,200000
+Random 50v 750e 0.5p,SecretAgents,14,282,1,200000
+Random 50v 750e 0.5p,SecretAgents,15,217,1,200000
+Random 50v 750e 0.5p,SecretAgents,17,140,1,200000
+Random 50v 750e 0.5p,SecretAgents,9,633,1,200000
 anna.col,BruteBuckets,11,0.0,20,200000
 anna.col,BruteBuckets,12,0.0,2,200000
 anna.col,SecretAgents,11,92262.5294117647,18,1000000
@@ -75,3 +90,15 @@ david.col,SecretAgents,44,590,1,1000000
 david.col,SecretAgents,45,583.0,2,1000000
 david.col,SecretAgents,47,598.0,2,1000000
 david.col,SecretAgents,48,627,1,1000000
+miles1500.col,SecretAgents,77,471818,1,200000
+miles1500.col,SecretAgents,78,342691,1,200000
+miles1500.col,SecretAgents,79,36883,1,200000
+miles1500.col,SecretAgents,85,20879,1,200000
+miles1500.col,SecretAgents,89,8443,1,200000
+queen7_7.col,SecretAgents,10,14398,1,200000
+queen7_7.col,SecretAgents,11,862,1,200000
+queen7_7.col,SecretAgents,12,734,1,200000
+queen7_7.col,SecretAgents,13,555,1,200000
+queen7_7.col,SecretAgents,14,455,1,200000
+queen7_7.col,SecretAgents,17,332,1,200000
+queen7_7.col,SecretAgents,19,234,1,200000
