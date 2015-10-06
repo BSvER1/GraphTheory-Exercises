@@ -1,14 +1,6 @@
 package graphTheory.chromaticNumber.loader;
 
-import java.io.BufferedOutputStream;
-//import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.PrintStream;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -171,15 +163,6 @@ public class Control {
 		} else {
 			Driver.trace("could not find a list of files to iterate over.");
 		}
-		
-
-
-		//File temp = new File("src/graphTheory/chromaticNumber/graphs/queen7_7.col");
-
-		//GraphLoader gl = new GraphLoader(temp);
-		//toSolve = gl.getGraph();
-
-
 	}
 
 	public void genRandom() {
@@ -285,7 +268,6 @@ public class Control {
 			return;
 		}
 		
-
 		for (int i = 0; i < runCount; i++) {
 			long timeStart = System.currentTimeMillis();
 			BruteBuckets bb = new BruteBuckets();
@@ -384,18 +366,8 @@ public class Control {
 			return;
 		}
 
-		//PrintStream currentOut = new PrintStream(System.out);
-		
-//		try {
-//			System.setOut(new PrintStream(new BufferedOutputStream(new FileOutputStream("output.txt"))));
-//		} catch (FileNotFoundException e) {}
-
 		FlowerPollination fpa = new FlowerPollination();
 		fpa.solve(toSolve, flowers, limit);
-
-		//try {
-		//	System.setOut(currentOut);
-		//} catch (RuntimeException e) {}
 		
 		System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
 	}
