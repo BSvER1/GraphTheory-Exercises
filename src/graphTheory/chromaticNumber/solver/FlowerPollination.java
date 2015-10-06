@@ -20,14 +20,14 @@ public class FlowerPollination {
 	Double flowerbed[][];
 
 	double alpha = 1.0;
-	double lambda = 1; // sample const
-	double stepSize = 1.5;
+	double lambda = 1.5; // sample const
+	double stepSize = 1;
 
 	Double[] currentBestFlower;
 	int currentBestFlowerPos;
 	int currentBestCost;
 
-	double switchP = 0.8; // larger = more local pollinations
+	double switchP = 1.0; // larger = more local pollinations
 	int numColours;
 	
 	LevyDistribution ldist;
@@ -38,7 +38,7 @@ public class FlowerPollination {
 		r = new Random();
 
 		
-		ldist = new LevyDistribution(0, lambda);
+		ldist = new LevyDistribution(stepSize, lambda);
 		udist = new UniformRealDistribution();
 	}
 
@@ -58,7 +58,7 @@ public class FlowerPollination {
 		long currentIter = 0;
 		while (numColours > 0 && currentIter < iterationLimit) {
 			Driver.trace("Solving for k: "+numColours);
-			int internalIterationLimit = 20000;
+			int internalIterationLimit = 10000;
 			currentBestCost = Integer.MAX_VALUE;
 			// init pop of N flowers
 			flowerbed = new Double[numFlowers][toSolve.getNumVertices()];
@@ -82,10 +82,11 @@ public class FlowerPollination {
 
 	private void internalSolve(Graph toSolve, long iterLimit) {
 		long currentIter = 0;
-
+		
 		if (evalCost(toSolve, currentBestFlower) != 0) {
 			while (numColours > 0 && currentIter < iterLimit) {
 				for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
+					while (checkCol(flowerNum));
 					if (FLOWER_TRACE){
 						Driver.trace("Pollinating flower "+flowerNum);
 					}
@@ -127,10 +128,8 @@ public class FlowerPollination {
 						break;
 					}
 					
-					//if (checkCol(flowerNum)) {
-					for (int i = 0; i < Math.sqrt(numColours); i++ ){
-						swap(toSolve, flowerNum);
-					}
+					while (checkCol(flowerNum));
+					swap(toSolve, flowerNum);
 					
 					Double[] newFlower = doLocalPoll(flowerNum);
 					if (udist.sample() > switchP) {
@@ -140,7 +139,6 @@ public class FlowerPollination {
 					if (evalCost(toSolve, newFlower) < getCost(toSolve, flowerNum)) {
 						flowerbed[flowerNum] = newFlower; 
 					}
-					//}
 
 					doDiscAndCorr();
 				}
@@ -255,16 +253,18 @@ public class FlowerPollination {
 	private boolean checkCol(int flowerNum) {
 		for (Double col = 0.0; col < numColours; col += 1.0) {
 			if (!Arrays.asList(flowerbed[flowerNum]).contains(col)) {
-				if (FLOWER_TRACE){
+				//if (FLOWER_TRACE){
 					Driver.trace("color "+col+" is not present in flower "+flowerNum);
-				}	
-				return false;
+				//}
+				flowerbed[flowerNum][(int) (flowerbed[flowerNum].length*udist.sample())] = col;
+				
+				return true;
 			}
 		}
-		if (FLOWER_TRACE){
+		//if (FLOWER_TRACE){
 			Driver.trace("all colors are present and accounted for");
-		}
-		return true;
+		//}
+		return false;
 	}
 
 	private double levyFlightStep(double lambda, double stepSize) {

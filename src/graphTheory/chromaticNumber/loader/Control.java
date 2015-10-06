@@ -69,6 +69,12 @@ public class Control {
 
 		} else if (userChoice.toUpperCase().charAt(0) == 'B') { // use benchmark
 			System.out.println("The standard benchmarking graphs are not yet implemented");
+			
+			File file = new File("src/graphTheory/chromaticNumber/graphs/queen7_7.col");
+			Driver.trace("loading file \""+ file.getAbsolutePath() + "\"");
+			GraphLoader gl = new GraphLoader(file);
+			toSolve = gl.getGraph();
+			
 		}else if (userChoice.toUpperCase().charAt(0) == 'R') { // use benchmark
 			genRandom();
 		} else {
