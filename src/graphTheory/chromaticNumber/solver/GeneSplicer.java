@@ -1,10 +1,7 @@
 package graphTheory.chromaticNumber.solver;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Random;
 
 import org.apache.commons.math3.distribution.UniformIntegerDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
@@ -13,6 +10,7 @@ import graphTheory.chromaticNumber.assets.Chromosome;
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.assets.SortedArrayList;
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.loader.ResultsModule;
 
 public class GeneSplicer {
 
@@ -88,6 +86,9 @@ public class GeneSplicer {
 	}
 	
 	private boolean internalSolve(Graph toSolve, int numChromosomes, long iterationLimit) {
+		long timeStart = System.currentTimeMillis();
+		long lastPrintTime = System.currentTimeMillis();
+		boolean shouldPrint = false;
 		long currentIteration = 0;
 		long currentPrintIteration = 0;
 		int iterationIncrementThreshold = (int) (numChromosomes * keepDropRatio) - 2;
@@ -95,8 +96,11 @@ public class GeneSplicer {
 		//int equalLimit = 3*numChromosomes/4 - 6;
 		
 		while (currentIteration < iterationLimit && population.get(0).calculateCost(toSolve)!=0) {
-			if (currentPrintIteration % 1000 == 0)
-				Driver.trace("["+currentIteration+"] beginning to solve with "+currentNumColours+" colours");
+			if (System.currentTimeMillis() - lastPrintTime > 2000) {
+					Driver.trace("["+currentIteration+"] beginning to solve with "+currentNumColours+" colours");
+					lastPrintTime = System.currentTimeMillis();
+					shouldPrint = true;
+			}
 			currentPrintIteration++;
 			if (population.get(iterationIncrementThreshold).calculateCost(toSolve) < votingThreshold)
 				currentIteration++;
@@ -177,30 +181,34 @@ public class GeneSplicer {
 			}
 			//updateCosts(toSolve);
 			
-			if (currentPrintIteration % 1000 == 0) {
+			if (shouldPrint) {
 				//Driver.trace("finished round of mutation with values:");
 				String fitness = "";
 				for (int i = 0; i < numChromosomes * keepDropRatio-1; i++) {
 					fitness = fitness.concat(""+population.get(i).getCost()+" ");
 				}
 				Driver.trace(fitness);
+				shouldPrint = false;
 			}
 		}
 		
 		if (currentIteration >= iterationLimit) {
-			Driver.trace("hit comfort limit");
 			wisdomOfArtificialCrowds(toSolve);
 			if (aggregateChromosome.calculateCost(toSolve) == 0) {
-				Driver.trace("got a solution with k="+ currentNumColours+" from aggregate");
+				Driver.trace("["+currentPrintIteration+"] got a solution with k="+ currentNumColours+" from aggregate");
+				ResultsModule.writeIncrementalResultToFile(toSolve, BruteBuckets.class, currentNumColours, System.currentTimeMillis()- timeStart, iterationLimit);
 				currentNumColours--;
 				return true;
 			}
+			Driver.trace("["+currentPrintIteration+"] could not find a colouring on this run");
 		} 
 		if (population.get(0).calculateCost(toSolve) == 0) {
-			Driver.trace("got a solution with k="+ currentNumColours);
+			Driver.trace("["+currentPrintIteration+"] got a solution with k="+ currentNumColours);
+			ResultsModule.writeIncrementalResultToFile(toSolve, BruteBuckets.class, currentNumColours, System.currentTimeMillis()- timeStart, iterationLimit);
 			currentNumColours--;
 			return true;
 		}
+
 		return false;
 	}
 	

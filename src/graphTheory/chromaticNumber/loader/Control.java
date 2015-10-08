@@ -152,15 +152,28 @@ public class Control {
 					}
 					
 					//flower pollination - Scott
-					/*for (int i = 0; i < testCount; i++) {
+					for (int i = 0; i < testCount; i++) {
 						long fpLimit = 100000;
 						int flowerCount = 20;
 						long timeStart = System.currentTimeMillis();
 						FlowerPollination fpa = new FlowerPollination();
 						fpa.solve(toSolve, flowerCount, fpLimit);
-						ResultsModule.writeBestResultToFile(toSolve, FlowerPollination.class, fpa.getResult(), System.currentTimeMillis()-timeStart);
+						ResultsModule.writeRuntimeResultToFile(toSolve, FlowerPollination.class, fpa.getResult(), 
+								System.currentTimeMillis()-timeStart, fpLimit);
 						System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
-					} /**/
+					}
+					
+					//Genetic Algorithm
+					for (int i = 0; i < testCount; i++) {
+						long gaLimit = 20;
+						int chromosomeCount = 50;
+						long timeStart = System.currentTimeMillis();
+						GeneSplicer gcp = new GeneSplicer(toSolve.getNumVertices(), chromosomeCount);
+						gcp.solve(toSolve, chromosomeCount, gaLimit);
+						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, gcp.getResult(), 
+								System.currentTimeMillis()-timeStart, 20000);
+						System.out.println("secret agent approach finished with " +gcp.getResult() + " colours");
+					}
 				}
 				
 			}

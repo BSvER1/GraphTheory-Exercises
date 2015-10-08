@@ -51,11 +51,11 @@ public class GraphLoader {
 			}
 
 			br.close();
+			
+			g.setGraphName(file.getName());
 		} catch (IOException e) {
 			System.err.println("Something went wrong when reading file " + file.getAbsolutePath());
 		}
-		
-		g.setGraphName(file.getName());
 	}
 
 	public Graph getGraph() {
