@@ -369,7 +369,7 @@ public class Control {
 			return;
 		}
 
-		System.out.println("enter the number of flowers to polinate or [n] for the default configuration");
+		System.out.println("enter the number of flowers to pollinate or [n] for the default configuration");
 
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
