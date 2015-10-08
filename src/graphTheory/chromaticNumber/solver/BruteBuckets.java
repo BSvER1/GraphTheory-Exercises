@@ -57,7 +57,12 @@ public class BruteBuckets {
 
 	public void solveRandom(Graph g, long limit) {
 		long timeStart = System.currentTimeMillis();
+		long lastPrintTime = System.currentTimeMillis();
 		for (int j = 0; j < limit; j++) {
+			if (System.currentTimeMillis() - lastPrintTime > 1000) {
+				Driver.trace("starting round "+ j);
+				lastPrintTime = System.currentTimeMillis();
+			}
 			Random r = new Random();
 			buckets = new ArrayList<Bucket>();
 			// boolean broken = false;
@@ -80,7 +85,7 @@ public class BruteBuckets {
 			if (random.isEmpty() && buckets.size() < currentBest) {
 				currentBest = buckets.size();
 				ResultsModule.writeIncrementalResultToFile(g, BruteBuckets.class, currentBest, System.currentTimeMillis()- timeStart, limit);
-				Driver.trace("successfully found a new best colouring: " + currentBest);
+				Driver.trace("["+j+"] successfully found a new best colouring: " + currentBest);
 			}
 		}
 	}

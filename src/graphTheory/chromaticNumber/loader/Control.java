@@ -10,6 +10,7 @@ import graphTheory.chromaticNumber.generator.RandomGen;
 import graphTheory.chromaticNumber.solver.AntColony;
 import graphTheory.chromaticNumber.solver.BruteBuckets;
 import graphTheory.chromaticNumber.solver.FlowerPollination;
+import graphTheory.chromaticNumber.solver.GeneSplicer;
 import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class Control {
@@ -81,6 +82,7 @@ public class Control {
 					+ "\t[A]nt Colony\n"
 					+ "\t[S]ecret Agents\n"
 					+ "\t[F]lower Pollination\n"
+					+ "\t[G]enetic Algorithm\n"
 					+ "\t");
 			userChoice = sc.nextLine();
 			if (userChoice.toUpperCase().charAt(0) == 'B') { //Brute buckets
@@ -93,6 +95,8 @@ public class Control {
 				initSecretAgents();
 			} else if (userChoice.toUpperCase().charAt(0) == 'F') { // flower pollination
 				initFlowerPollination();
+			} else if (userChoice.toUpperCase().charAt(0) == 'G') { // genetic algorithm
+				initGeneticAlgorithm();
 			} //More options here
 
 
@@ -188,8 +192,8 @@ public class Control {
 		if (userChoice.matches("[0-9]+")) {
 			edgeLimit = Integer.valueOf(userChoice);
 			if (edgeLimit > (vertNum*vertNum)/2) {
-				System.out.println("that limit is too high! limit must be less than " + vertNum*vertNum/2+". Setting the limit to that instead.");
-				edgeLimit = (vertNum*vertNum/2)-1;
+				edgeLimit = (vertNum * (vertNum-1))/2;
+				System.out.println("that limit is too high! limit must be less than " + edgeLimit+". Setting the limit to that instead.");
 			}
 			Driver.trace("setting edgeLimit for generation to be "+ edgeLimit);
 		} else {
@@ -240,12 +244,12 @@ public class Control {
 		long limit = -1;
 		System.out.println("This algorithm is very inefficient. "
 				+ "Would you like to set how many iterations it can perform? "
-				+ "Enter [N]o to run a single computation.");
+				+ "Enter [N]o to run the default computation.");
 
 		String userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
-			limit = 1;
-			Driver.trace("user indicated that they wanted to run a single random bucket sort.");
+			limit = 20000;
+			Driver.trace("user indicated that they wanted to run the default random bucket sort.");
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
 			Driver.trace("setting runtime to be "+ limit);
@@ -258,11 +262,11 @@ public class Control {
 		System.out.println("How many times would you like to run the solver?");
 		userChoice = sc.nextLine();
 		if (userChoice.toUpperCase().matches("N(.*)")) {
-			limit = 1;
-			Driver.trace("user indicated that they wanted to run a single random bucket sort.");
+			runCount = 1;
+			Driver.trace("user indicated that they wanted to run a single random bucket sort round.");
 		} else if (userChoice.matches("[0-9]+")) {
 			runCount = Integer.valueOf(userChoice);
-			Driver.trace("setting runtime to be "+ limit);
+			Driver.trace("setting number of rounds to be "+ runCount);
 		} else {
 			Driver.trace("got nonsensical data from the user. ");
 			return;
@@ -370,6 +374,46 @@ public class Control {
 		fpa.solve(toSolve, flowers, limit);
 		
 		System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
+	}
+	
+	public void initGeneticAlgorithm() {
+		long limit;
+		int chromosomeCount;
+		System.out.println("This algorithm requires a specified exit point. "
+				+ "enter a number to specify the maximum number of iterations the simulation is allowed to perform. "
+				+ "or enter [n]o for the default number of iterations.");
+
+		String userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			limit = 20;
+			Driver.trace("user indicated that they wanted to run the default flower pollination simulation.");
+		} else if (userChoice.matches("[0-9]+")) {
+			limit = Integer.valueOf(userChoice);
+			Driver.trace("setting runtime to be "+ limit);
+		} else {
+			Driver.trace("got nonsensical data from the user. ");
+			return;
+		}
+		
+		System.out.println("enter the number of chromosomes to mutate or [n] for the default configuration");
+
+		userChoice = sc.nextLine();
+		if (userChoice.toUpperCase().matches("N(.*)")) {
+			chromosomeCount = 50;
+			Driver.trace("user indicated that they wanted to run the default genetic algorithm.");
+		} else if (userChoice.matches("[0-9]+")) {
+			chromosomeCount = Integer.valueOf(userChoice);
+			Driver.trace("setting number of chromosomes to be "+ chromosomeCount);
+		} else {
+			Driver.trace("got nonsensical data from the user. ");
+			return;
+		}
+
+
+		GeneSplicer gcp = new GeneSplicer(toSolve.getNumVertices(), chromosomeCount);
+		gcp.solve(toSolve, chromosomeCount, limit);
+		
+		System.out.println("flower power approach finished with " +gcp.getResult() + " colours");
 	}
 
 

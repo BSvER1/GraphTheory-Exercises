@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.apache.commons.math3.distribution.LevyDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
+import org.apache.commons.math3.stat.descriptive.rank.Median;
 
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.loader.Driver;
@@ -22,6 +23,7 @@ public class FlowerPollination {
 	double alpha = 1.0;
 	double lambda = 1.5; // sample const
 	double stepSize = 1;
+	double cullRate = 0.5;
 
 	Double[] currentBestFlower;
 	int currentBestFlowerPos;
@@ -58,7 +60,7 @@ public class FlowerPollination {
 		long currentIter = 0;
 		while (numColours > 0 && currentIter < iterationLimit) {
 			Driver.trace("Solving for k: "+numColours);
-			int internalIterationLimit = 10000;
+			int internalIterationLimit = 20000;
 			currentBestCost = Integer.MAX_VALUE;
 			// init pop of N flowers
 			flowerbed = new Double[numFlowers][toSolve.getNumVertices()];
@@ -71,16 +73,20 @@ public class FlowerPollination {
 			findSolution(toSolve);
 			// solve using those conditions
 
-			internalSolve(toSolve, internalIterationLimit);
+			if (!internalSolve(toSolve, internalIterationLimit)) {
+				currentIter++;
+			} else {
+				currentIter = 0;
+			}
 			if (FLOWER_TRACE){
 				Driver.trace("k = "+numColours+" cost = "+currentBestCost);
 			}
-			currentIter++;
+			
 		}
 
 	}
 
-	private void internalSolve(Graph toSolve, long iterLimit) {
+	private boolean internalSolve(Graph toSolve, long iterLimit) {
 		long currentIter = 0;
 		
 		if (evalCost(toSolve, currentBestFlower) != 0) {
@@ -108,7 +114,7 @@ public class FlowerPollination {
 					doDiscAndCorr();
 					findSolution(toSolve);
 					//Driver.trace("Checking for legal coloring on k = " + numColours);
-					//if (FLOWER_TRACE) {
+					if (FLOWER_TRACE) {
 						Driver.trace("Current best flower is: "+ currentBestFlowerPos+" has internals of: ");
 						String output = "";
 						for (int i = 0; i < currentBestFlower.length; i++) {
@@ -119,32 +125,27 @@ public class FlowerPollination {
 							}
 						}
 						Driver.trace(output);
-					//}
+					}
 					if (evalCost(toSolve, currentBestFlower) == 0) {
 						// legal coloring found
 						numColours--;
 						Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
 		
-						break;
+						return true;
 					}
 					
 					while (checkCol(flowerNum));
 					swap(toSolve, flowerNum);
-					
-					Double[] newFlower = doLocalPoll(flowerNum);
-					if (udist.sample() > switchP) {
-						newFlower = doGlobalPoll(flowerNum);
-					}
-					//Double[] newFlower = doGlobalPoll(flowerNum);
-					if (evalCost(toSolve, newFlower) < getCost(toSolve, flowerNum)) {
-						flowerbed[flowerNum] = newFlower; 
-					}
-
 					doDiscAndCorr();
 				}
+				
+
+				flowerbed = doNaturalSelection(toSolve);
+				
+				
 				findSolution(toSolve);
 				//Driver.trace("Checking for legal coloring on k = " + numColours);
-				//if (FLOWER_TRACE) {
+				if (FLOWER_TRACE) {
 					Driver.trace("Current best flower is: "+ currentBestFlowerPos+" has internals of: ");
 					String output = "";
 					for (int i = 0; i < currentBestFlower.length; i++) {
@@ -155,7 +156,7 @@ public class FlowerPollination {
 						}
 					}
 					Driver.trace(output);
-				//}
+				}
 				
 				//Driver.trace("Current best cost is:");
 				
@@ -164,21 +165,23 @@ public class FlowerPollination {
 					numColours--;
 					Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
 	
-					break;
+					return true;
 				}
+				
 				currentIter++;
 			}
 		} else {
 			// Output best solution
 			numColours--;
 			Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
-			return;
+			return true;
 		}
 
 		if (currentIter >= iterLimit) {
 			Driver.trace("hit iteration limit on internal solve");
 		} 
 		
+		return false;
 	}
 
 	// g-star
@@ -197,13 +200,13 @@ public class FlowerPollination {
 			if (currentBestCost > cost[flowerNum]) {
 				currentBestFlowerPos = flowerNum;
 				currentBestCost = cost[flowerNum];
-				//if (FLOWER_TRACE){
+				if (FLOWER_TRACE){
 					Driver.trace("Cost: "+currentBestCost+" on flower: "+currentBestFlowerPos);
-				//}
+				}
 			}
 		}
 		
-		Driver.trace("flower costs:");
+		//Driver.trace("flower costs:");
 		String output = "";
 		for (int i = 0; i < flowerbed.length; i++) {
 			if (i == 0) {
@@ -215,7 +218,7 @@ public class FlowerPollination {
 				output = output.concat(", "+ cost[i]);
 			}
 		}
-		Driver.trace(output);
+		//Driver.trace(output);
 		
 		currentBestFlower = Arrays.copyOf(flowerbed[currentBestFlowerPos], flowerbed[currentBestFlowerPos].length);
 
@@ -254,7 +257,7 @@ public class FlowerPollination {
 		for (Double col = 0.0; col < numColours; col += 1.0) {
 			if (!Arrays.asList(flowerbed[flowerNum]).contains(col)) {
 				//if (FLOWER_TRACE){
-					Driver.trace("color "+col+" is not present in flower "+flowerNum);
+				//	Driver.trace("color "+col+" is not present in flower "+flowerNum);
 				//}
 				flowerbed[flowerNum][(int) (flowerbed[flowerNum].length*udist.sample())] = col;
 				
@@ -262,7 +265,7 @@ public class FlowerPollination {
 			}
 		}
 		//if (FLOWER_TRACE){
-			Driver.trace("all colors are present and accounted for");
+		//	Driver.trace("all colors are present and accounted for");
 		//}
 		return false;
 	}
@@ -431,12 +434,6 @@ public class FlowerPollination {
 				maxConfPos = src;
 			}
 			
-			//TODO THIS IS BROKEN need to verify operation
-//			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] > maxCol) {
-//				maxColPos = src;
-//				maxCol++;
-//			}
-			
 			if (colorCount[(int) Math.round(flowerbed[flowerNum][src].doubleValue())] < minCol) {
 				minColPos = src;
 				minCol--;
@@ -465,6 +462,38 @@ public class FlowerPollination {
 		}
 
 	}
+	
+	private Double[][] doNaturalSelection(Graph toSolve){
+		Double newFlowerbed[][] = new Double[flowerbed.length][toSolve.getNumVertices()];
+		Integer costs[] = new Integer[flowerbed.length];
+		for (int i = 0; i < flowerbed.length; i++){
+			costs[i] = Integer.MAX_VALUE;
+		}
+		
+		for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++){
+			costs[flowerNum] = evalCost(toSolve, flowerbed[flowerNum]);
+		}
+		Integer numArray[] = Arrays.copyOf(costs, costs.length);
+		Arrays.sort(numArray);
+		double median;
+		if (numArray.length % 2 == 0){
+		    median = ((double)numArray[numArray.length/2] + (double)numArray[numArray.length/2 - 1])/2;
+		}
+		else{
+		    median = (double) numArray[numArray.length/2];
+		}
+		for (int flowerNum = 0; flowerNum < newFlowerbed.length; flowerNum++){
+			if (costs[flowerNum] > median){
+				for (int currentVertex = 0; currentVertex < toSolve.getNumVertices(); currentVertex++) {
+					newFlowerbed[flowerNum][currentVertex] = (double) Math.round( (udist.sample() * numColours) );
+				}
+			}
+			else {
+				newFlowerbed[flowerNum] = Arrays.copyOf(flowerbed[flowerNum], flowerbed[flowerNum].length);
+			}
+		}
+		return newFlowerbed;
+	}
 
 	public int getResult(){
 		if (currentBestCost == 0) {
@@ -473,6 +502,7 @@ public class FlowerPollination {
 		return -1;
 
 	}
+	
 }
 
 
