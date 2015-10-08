@@ -52,6 +52,7 @@ public class GeneSplicer {
 	}
 	
 	public void solve(Graph toSolve, int numChromosomes, long attemptLimit) {
+		long timeStart = System.currentTimeMillis();
 		currentNumColours = toSolve.getMaximalDegree()+1;
 		//currentNumColours = 30;
 		long currentAttempt = 0;
@@ -76,6 +77,8 @@ public class GeneSplicer {
 			} else {
 				aggregateChromosome = new Chromosome(toSolve, currentNumColours);
 				currentAttempt = 0;
+				ResultsModule.writeIncrementalResultToFile(toSolve, BruteBuckets.class, currentNumColours, 
+						System.currentTimeMillis()- timeStart, generationLimit);
 			}
 		}
 		
@@ -86,7 +89,6 @@ public class GeneSplicer {
 	}
 	
 	private boolean internalSolve(Graph toSolve, int numChromosomes, long iterationLimit) {
-		long timeStart = System.currentTimeMillis();
 		long lastPrintTime = System.currentTimeMillis();
 		boolean shouldPrint = false;
 		long currentIteration = 0;
@@ -196,7 +198,6 @@ public class GeneSplicer {
 			wisdomOfArtificialCrowds(toSolve);
 			if (aggregateChromosome.calculateCost(toSolve) == 0) {
 				Driver.trace("["+currentPrintIteration+"] got a solution with k="+ currentNumColours+" from aggregate");
-				ResultsModule.writeIncrementalResultToFile(toSolve, BruteBuckets.class, currentNumColours, System.currentTimeMillis()- timeStart, iterationLimit);
 				currentNumColours--;
 				return true;
 			}
@@ -204,7 +205,6 @@ public class GeneSplicer {
 		} 
 		if (population.get(0).calculateCost(toSolve) == 0) {
 			Driver.trace("["+currentPrintIteration+"] got a solution with k="+ currentNumColours);
-			ResultsModule.writeIncrementalResultToFile(toSolve, BruteBuckets.class, currentNumColours, System.currentTimeMillis()- timeStart, iterationLimit);
 			currentNumColours--;
 			return true;
 		}

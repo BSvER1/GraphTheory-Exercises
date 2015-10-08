@@ -129,9 +129,9 @@ public class Control {
 				toSolve = gl.getGraph();
 				if (toSolve != null) {
 				
-					//randomised brute buckets - make sure its working
+					//randomised brute buckets - Brendon
 					for (int i = 0; i < testCount; i++) {
-						long rbbLimit = 200000;
+						long rbbLimit = 100000;
 						long timeStart = System.currentTimeMillis();
 						BruteBuckets bb = new BruteBuckets();
 						bb.solveRandom(toSolve, rbbLimit);
@@ -140,7 +140,8 @@ public class Control {
 						System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
 					}
 					
-					//secret agents - Brendon
+					
+					//Secret Agents - Brendon
 					for (int i = 0; i < testCount; i++) {
 						long saLimit = 10;
 						long timeStart = System.currentTimeMillis();
@@ -151,10 +152,10 @@ public class Control {
 						System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
 					}
 					
-					//flower pollination - Scott
+					//Flower Pollination - Scott
 					for (int i = 0; i < testCount; i++) {
-						long fpLimit = 100000;
-						int flowerCount = 20;
+						long fpLimit = 15;
+						int flowerCount = 40;
 						long timeStart = System.currentTimeMillis();
 						FlowerPollination fpa = new FlowerPollination();
 						fpa.solve(toSolve, flowerCount, fpLimit);
@@ -163,17 +164,17 @@ public class Control {
 						System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
 					}
 					
-					//Genetic Algorithm
+					//Genetic Algorithm - Collaborative
 					for (int i = 0; i < testCount; i++) {
-						long gaLimit = 20;
+						long gaLimit = 15;
 						int chromosomeCount = 50;
 						long timeStart = System.currentTimeMillis();
 						GeneSplicer gcp = new GeneSplicer(toSolve.getNumVertices(), chromosomeCount);
 						gcp.solve(toSolve, chromosomeCount, gaLimit);
-						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, gcp.getResult(), 
+						ResultsModule.writeRuntimeResultToFile(toSolve, GeneSplicer.class, gcp.getResult(), 
 								System.currentTimeMillis()-timeStart, 20000);
 						System.out.println("secret agent approach finished with " +gcp.getResult() + " colours");
-					}
+					}/**/
 				}
 				
 			}

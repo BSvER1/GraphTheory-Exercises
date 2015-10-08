@@ -8,6 +8,7 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.loader.ResultsModule;
 
 public class FlowerPollination {
 
@@ -42,7 +43,7 @@ public class FlowerPollination {
 	}
 
 	public void solve(Graph toSolve, int numFlowers, long iterationLimit) {
-		
+		long timeStart = System.currentTimeMillis();
 		// do initial setup of conditions
 		
 		if (FLOWER_TRACE) {
@@ -73,8 +74,7 @@ public class FlowerPollination {
 				// legal coloring found
 				numColours--;
 				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
-			}
-			else{
+			} else {
 				if (!internalSolve(toSolve, internalIterationLimit)) {
 					currentIter++;
 				} else {
@@ -89,10 +89,16 @@ public class FlowerPollination {
 	}
 
 	private boolean internalSolve(Graph toSolve, long iterLimit) {
+		long lastPrintTime = System.currentTimeMillis();
 		long currentIter = 0;
 		
 		if (evalCost(toSolve, currentBestFlower) != 0) {
 			while (numColours > 0 && currentIter < iterLimit) {
+				if (System.currentTimeMillis() - lastPrintTime > 2000) {
+					Driver.trace("beginning iteration "+ currentIter);
+					lastPrintTime = System.currentTimeMillis();
+				}
+				
 				for (int flowerNum = 0; flowerNum < flowerbed.length; flowerNum++) {
 					while (checkCol(flowerNum));
 					if (FLOWER_TRACE){

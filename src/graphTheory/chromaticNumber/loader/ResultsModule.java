@@ -72,7 +72,7 @@ public class ResultsModule {
 							lineString[5].equalsIgnoreCase("" + iterCount)) {
 						lineString[3] = "" + ((((Double.valueOf(lineString[4])-1) * Double.valueOf(lineString[3]))+time)/Double.valueOf(lineString[4]));
 						lineString[4] = "" + (Integer.valueOf(lineString[4])+1);
-						line.add(""+lineString[0]+","+lineString[1]+","+lineString[2]+","+lineString[3]+","+lineString[4]+","+lineString[5]);
+						line.add(""+lineString[0].toLowerCase()+","+lineString[1]+","+lineString[2]+","+lineString[3]+","+lineString[4]+","+lineString[5]);
 						line.remove(lineNum);
 						broken = true;
 						break;
@@ -81,7 +81,7 @@ public class ResultsModule {
 			}
 		}
 		if (!broken) {
-			line.add(""+toSolve.getGraphName()+","+solver.getSimpleName()+","+colouring+","+time+",1,"+iterCount);
+			line.add(""+toSolve.getGraphName().toLowerCase()+","+solver.getSimpleName()+","+colouring+","+time+",1,"+iterCount);
 		}
 		
 		//removeNulls
@@ -182,7 +182,7 @@ public class ResultsModule {
 							lineString[5].equalsIgnoreCase("" + iterCount)) {
 						lineString[3] = "" + ((((Double.valueOf(lineString[4])-1) * Double.valueOf(lineString[3]))+time)/Double.valueOf(lineString[4]));
 						lineString[4] = "" + (Integer.valueOf(lineString[4])+1);
-						line.add(""+lineString[0]+","+lineString[1]+","+lineString[2]+","+lineString[3]+","+lineString[4]+","+lineString[5]);
+						line.add(""+lineString[0].toLowerCase()+","+lineString[1]+","+lineString[2]+","+lineString[3]+","+lineString[4]+","+lineString[5]);
 						line.remove(lineNum);
 						broken = true;
 						break;
@@ -191,7 +191,7 @@ public class ResultsModule {
 			}
 		}
 		if (!broken) {
-			line.add(""+toSolve.getGraphName()+","+solver.getSimpleName()+","+colouring+","+time+",1,"+iterCount);
+			line.add(""+toSolve.getGraphName().toLowerCase()+","+solver.getSimpleName()+","+colouring+","+time+",1,"+iterCount);
 		}
 		
 		//remove nulls

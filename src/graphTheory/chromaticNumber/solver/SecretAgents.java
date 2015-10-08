@@ -74,6 +74,7 @@ public class SecretAgents {
 	}
 
 	public void solve(Graph toSolve, long iterationLimit) {
+		long lastPrintTime = System.currentTimeMillis();
 		long timeStart = System.currentTimeMillis();
 		currentIterationNum = 0;
 
@@ -101,7 +102,11 @@ public class SecretAgents {
 					} catch (InterruptedException e) {
 					}
 				}
-
+				
+				if (System.currentTimeMillis() - lastPrintTime > 2000) {
+					Driver.trace("beginning iteration "+ currentInternalIterationNum);
+					lastPrintTime = System.currentTimeMillis();
+				}
 				currentInternalIterationNum++;
 
 				boolean captureSuccessful = false;
