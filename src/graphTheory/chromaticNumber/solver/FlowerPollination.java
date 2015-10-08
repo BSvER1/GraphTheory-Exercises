@@ -69,16 +69,21 @@ public class FlowerPollination {
 
 			findSolution(toSolve);
 			// solve using those conditions
-
-			if (!internalSolve(toSolve, internalIterationLimit)) {
-				currentIter++;
-			} else {
-				currentIter = 0;
+			if (evalCost(toSolve, currentBestFlower) == 0) {
+				// legal coloring found
+				numColours--;
+				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
 			}
-			if (FLOWER_TRACE){
-				Driver.trace("k = "+numColours+" cost = "+currentBestCost);
+			else{
+				if (!internalSolve(toSolve, internalIterationLimit)) {
+					currentIter++;
+				} else {
+					currentIter = 0;
+				}
+				if (FLOWER_TRACE){
+					Driver.trace("k = "+numColours+" cost = "+currentBestCost);
+				}
 			}
-			
 		}
 
 	}
