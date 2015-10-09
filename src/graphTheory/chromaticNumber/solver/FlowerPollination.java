@@ -70,20 +70,22 @@ public class FlowerPollination {
 
 			findSolution(toSolve);
 			// solve using those conditions
-			if (evalCost(toSolve, currentBestFlower) == 0) {
-				// legal coloring found
-				numColours--;
-				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
-			} else {
+//			if (evalCost(toSolve, currentBestFlower) == 0) {
+//				// legal coloring found
+//				numColours--;
+//				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
+//			} else {
 				if (!internalSolve(toSolve, internalIterationLimit)) {
 					currentIter++;
 				} else {
 					currentIter = 0;
+					ResultsModule.writeIncrementalResultToFile(toSolve, FlowerPollination.class, numColours+1, 
+							System.currentTimeMillis()- timeStart, internalIterationLimit);
 				}
 				if (FLOWER_TRACE){
 					Driver.trace("k = "+numColours+" cost = "+currentBestCost);
 				}
-			}
+//			}
 		}
 
 	}

@@ -77,7 +77,7 @@ public class GeneSplicer {
 			} else {
 				aggregateChromosome = new Chromosome(toSolve, currentNumColours);
 				currentAttempt = 0;
-				ResultsModule.writeIncrementalResultToFile(toSolve, BruteBuckets.class, currentNumColours, 
+				ResultsModule.writeIncrementalResultToFile(toSolve, GeneSplicer.class, currentNumColours, 
 						System.currentTimeMillis()- timeStart, generationLimit);
 			}
 		}
