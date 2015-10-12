@@ -20,7 +20,7 @@ public class SecretAgents {
 	UniformRealDistribution udist;
 
 	public static boolean SECRET_TRACING = false;
-	boolean SLOW_MODE = false;
+	boolean SLOW_MODE = true;
 	boolean WELLS_MOVE = false;
 
 	int SLOW_SPEED = 5; // larger is slower. default to 2
@@ -30,6 +30,7 @@ public class SecretAgents {
 	static long currentLargestWellComfort;
 	
 	long numInternalIterations = 200000;
+	long runStart;
 
 	boolean successful;
 	boolean solutionFound;
@@ -74,6 +75,7 @@ public class SecretAgents {
 	}
 
 	public void solve(Graph toSolve, long iterationLimit) {
+		runStart = System.currentTimeMillis();
 		long lastPrintTime = System.currentTimeMillis();
 		long timeStart = System.currentTimeMillis();
 		currentIterationNum = 0;
@@ -84,6 +86,9 @@ public class SecretAgents {
 		//do {
 
 		while (currentNumColours > 0 && currentIterationNum < iterationLimit) {
+			if (System.currentTimeMillis() - runStart > 1000*60*60*6) {
+				break;
+			}
 			currentNumColours--;
 
 			Driver.trace(System.currentTimeMillis() - timeStart, "solving with " + currentNumColours + " colours");

@@ -30,6 +30,8 @@ public class FlowerPollination {
 	double switchP = 0.6; // larger = more local pollinations
 	int numColours;
 	
+	long runStart;
+	
 	LevyDistribution ldist;
 	UniformRealDistribution udist;
 
@@ -43,6 +45,7 @@ public class FlowerPollination {
 	}
 
 	public void solve(Graph toSolve, int numFlowers, long iterationLimit) {
+		runStart = System.currentTimeMillis();
 		long timeStart = System.currentTimeMillis();
 		// do initial setup of conditions
 		
@@ -75,6 +78,7 @@ public class FlowerPollination {
 //				numColours--;
 //				Driver.trace("Proper Coloring Found, now attempting k = " + numColours);
 //			} else {
+			if (System.currentTimeMillis() - runStart < 1000*60*60*6) {
 				if (!internalSolve(toSolve, internalIterationLimit)) {
 					currentIter++;
 				} else {
@@ -85,6 +89,7 @@ public class FlowerPollination {
 				if (FLOWER_TRACE){
 					Driver.trace("k = "+numColours+" cost = "+currentBestCost);
 				}
+			}
 //			}
 		}
 
@@ -96,6 +101,9 @@ public class FlowerPollination {
 		
 		if (evalCost(toSolve, currentBestFlower) != 0) {
 			while (numColours > 0 && currentIter < iterLimit) {
+				if (System.currentTimeMillis() - runStart > 1000*60*60*6) {
+					break;
+				}
 				if (System.currentTimeMillis() - lastPrintTime > 2000) {
 					Driver.trace("beginning iteration "+ currentIter);
 					lastPrintTime = System.currentTimeMillis();

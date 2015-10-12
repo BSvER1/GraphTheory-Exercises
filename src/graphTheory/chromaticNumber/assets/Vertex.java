@@ -1,23 +1,18 @@
 package graphTheory.chromaticNumber.assets;
 
-import java.util.ArrayList;
-
 public class Vertex {
 	
-	String friendlyName;
-	int identifier;
+	int id;
 	
-	ArrayList<Edge> edges;
-	
-	public Vertex(int identifier, String friendlyName) {
-		this.identifier = identifier;
-		this.friendlyName = friendlyName;
-		
-		init();
+	public Vertex(int id) {
+		this.id = id;
 	}
 	
-	private void init() {
-		edges = new ArrayList<Edge>();
+	public int getID() {
+		return id;
 	}
 	
+	public void setID(int id) {
+		this.id = id;
+	}
 }

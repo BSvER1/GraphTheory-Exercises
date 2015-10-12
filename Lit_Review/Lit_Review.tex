@@ -1,52 +1,35 @@
-\documentclass[11pt,a4paper]{report}
+\documentclass{report}%[11pt,a4paper]
 
 
-\usepackage{float}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+%\usepackage{float}
 \usepackage{enumerate}
-\usepackage{url}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+%\usepackage{url}
 \usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+%\usepackage{makeidx}
+%\makeindex
 
 \begin{document}
+
+\title{Literature Review of Optimisation Techniques to the Graph Colouring Problem}
+\author{Scott Whitemore \& Brendon Veronese}
 
 \floatstyle{boxed} 
 \restylefloat{figure}
 
-\chapter{Literature Review}
+\maketitle
+\begin{abstract}
+This is an abstract.
+\end{abstract}
 
-\section{Introduction}
+\include{literature_review_section}
+\include{implementations_and_original_contributions}
+\include{results_discussion}
+\include{bibliography}
 
-\section{Johnson - Simulated Annealing}
-
-\section{Gravitational Swarm Intelligence}
-
-\section{Genetic Algorithm}
-
-\section{Flower Pollination}
-
-
-\chapter{Implementations and Original Contributions}
-
-\section{Introduction}
-
-\section{Random Brute Buckets}
-\subsection{Implementation and Problems}
-\subsection{Workarounds}
-\subsection{Additions}
-
-\section{Gravitational Swarm Intelligence}
-\subsection{Implementation and Problems}
-\subsection{Workarounds}
-\subsection{Additions}
-
-\section{Genetic Algorithm}
-\subsection{Implementation and Problems}
-\subsection{Workarounds}
-\subsection{Additions}
-
-\section{Flower Pollination}
-\subsection{Implementation and Problems}
-\subsection{Workarounds}
-\subsection{Additions}
-
-
-\chapter{Results and Discussion}
+\end{document}

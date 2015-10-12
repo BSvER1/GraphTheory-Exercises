@@ -1,0 +1,123 @@
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  12 OCT 2015 23:01
+ restricted \write18 enabled.
+**gravitational_swarm_intelligence_algorithm.tex
+(./gravitational_swarm_intelligence_algorithm.tex
+LaTeX2e <2015/10/01> patch level 1
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+! Undefined control sequence.
+l.1 \section
+          {Gravitational Swarm Intelligence}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \section{G
+            ravitational Swarm Intelligence}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+\citation{bib:GravSwarm}
+! Undefined control sequence.
+<write> ... Warning: Citation `\@citeb ' on page \thepage 
+                                                  \space undefined\on@line .
+l.2 ...rael Carlos Rebollo Ruiz \cite{bib:GravSwarm}
+                                                  . Swarm Intelligence is a ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Citation `bib:GravSwarm' on page  undefined on input line 2.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1--3
+[][]Gravitational
+ []
+
+
+Overfull \hbox (5.43053pt too wide) in paragraph at lines 1--3
+[[]].
+ []
+
+! Undefined control sequence.
+l.4 \subsection
+             {Implementation and Problems}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \subsection{I
+               mplementation and Problems}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 4--6
+[][]Implementation
+ []
+
+! Undefined control sequence.
+l.7 \includegraphics
+                  [scale=0.65]{gs-cp-flow}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.11 \subsection
+              {Workarounds}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.12 \subsection
+              {Additions}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+)
+! Emergency stop.
+<*> gravitational_swarm_intelligence_algorithm.tex
+                                               
+*** (job aborted, no legal \end found)
+
+
+
+Here is how much of LuaTeX's memory you used:
+ 12 strings out of 494897
+ 100000,89155 words of node,token memory allocated 11008 words of node memory still in use:
+   14 hlist, 314 glue, 10 penalty, 1541 glyph, 63 glue_spec, 1 temp, 5 local_par
+, 1 dir nodes
+   avail lists: 1:1,2:11,3:1,4:84,7:187,10:152
+ 3796 multiletter control sequences out of 65536+600000
+ 16 fonts using 641263 bytes
+ 20i,2n,26p,1206b,94s stack positions out of 5000i,500n,10000p,200000b,100000s
+!  ==> Fatal error occurred, no output PDF file produced!

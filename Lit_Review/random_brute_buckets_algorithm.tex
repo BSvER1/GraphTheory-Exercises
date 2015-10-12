@@ -1,0 +1,46 @@
+\section{Random Brute Buckets}
+The Random Brute Buckets (RBB) algorithm presented here is a class of Successive Augmentation Technique. It is at its core an implementation of an insertion sort algorithm which samples vertices from the graph in a random order. This algorithm is guaranteed to find a valid colouring for graphs that are directed and undirected. It is however not bounded, and there is no guarantee that the algorithm will converge upon the best colouring. 
+
+\subsection{Implementation and Problems}
+The RBB algorithm is presented in Algorithm \ref{alg:RBB} below.
+\begin{algorithm}[H]
+    \caption{Random Brute Buckets}
+    \label{alg:RBB}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{solve}{Graph $g$, long $iterationLimit$} \Comment{$g$ is predefined}			
+			\State $currentIteration \gets 0$	
+			\State $currentBestColouring \gets \infty$ \label{alg:RRB_initialColouring}
+			\State Create empty list of buckets $b$
+			\While{$currentIteration < iterationLimit$}         
+            		\State Populate vertex set $V$
+            		\While{$V \neq \emptyset$ \&\& $|b| < currentBestColouring$}
+                		\State $v \gets $random vertex from $V$ \Comment{Remove $v$ from $V$}
+					\State $vertexPlaced \gets FALSE$                		
+                		\ForAll{$bucket \in b$}
+                			\If{$bucket$ contains no conflicts with $v$}
+                				\State add $v$ to $bucket$
+                				\State $vertexPlaced \gets TRUE$
+                				\State \textbf{break for}
+                			\Else \textbf{ continue}
+                			\EndIf
+                		\EndFor
+                		\If{!$vertexPlaced$} \Comment{create a place for the vertex}
+                			\State create new bucket $b_0$
+                			\State add $v$ to $b_0$
+                			\State add $b_0$ to $b$
+                		\EndIf
+                	\EndWhile
+            		\If{$|b| < currentBestColouring$}
+            			\State $currentBestColouring = |b|$
+            		\EndIf
+            		\State $currentIteration++$
+            \EndWhile
+            \State \textbf{return} $currentBestColouring$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+This algorithm always improves upon the best colouring (which is initially set to $\infty$ on line \ref{alg:RRB_initialColouring}) in the first iteration, and upon subsequent iterations, if a better solution is stumbled upon randomly, that solution is set as the current best solution. The algorithm returns the best solution found after a set number of iterations set at runtime. 
+
+\subsection{Workarounds}
+This algorithm is very fast at finding initial solutions. This algorithm does not try to improve upon solutions that it finds, so local minima offer no resistance to finding the solution. This algorithm is not guaranteed to find the best solution. Indeed even after infinite attempts, there is no guarantee that the best solution will be found. That being said, the algorithm is generally able to find solutions close to the optimal colouring for most graphs extremely quickly and with a minimum use of resources (compared to other algorithms presented in this paper).

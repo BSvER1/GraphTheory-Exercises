@@ -59,7 +59,7 @@ public class BruteBuckets {
 		long timeStart = System.currentTimeMillis();
 		long lastPrintTime = System.currentTimeMillis();
 		for (int j = 0; j < limit; j++) {
-			if (System.currentTimeMillis() - lastPrintTime > 1000) {
+			if (System.currentTimeMillis() - lastPrintTime > 5000) {
 				Driver.trace("starting round "+ j);
 				lastPrintTime = System.currentTimeMillis();
 			}

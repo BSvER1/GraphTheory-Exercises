@@ -37,6 +37,8 @@ public class GeneSplicer {
 	
 	int votingThreshold = 10;
 	
+	long runStart;
+	
 	//int generationComfort;
 	//int generationComfortLimit = 20000;
 	
@@ -52,6 +54,7 @@ public class GeneSplicer {
 	}
 	
 	public void solve(Graph toSolve, int numChromosomes, long attemptLimit) {
+		runStart = System.currentTimeMillis();
 		long timeStart = System.currentTimeMillis();
 		currentNumColours = toSolve.getMaximalDegree()+1;
 		//currentNumColours = 30;
@@ -72,13 +75,15 @@ public class GeneSplicer {
 			
 			Collections.sort(population);
 			
-			if (!internalSolve(toSolve, numChromosomes, generationLimit)) {
-				currentAttempt++;
-			} else {
-				aggregateChromosome = new Chromosome(toSolve, currentNumColours);
-				currentAttempt = 0;
-				ResultsModule.writeIncrementalResultToFile(toSolve, GeneSplicer.class, currentNumColours, 
-						System.currentTimeMillis()- timeStart, generationLimit);
+			if (System.currentTimeMillis() - runStart < 1000*60*60*6) {
+				if (!internalSolve(toSolve, numChromosomes, generationLimit)) {
+					currentAttempt++;
+				} else {
+					aggregateChromosome = new Chromosome(toSolve, currentNumColours);
+					currentAttempt = 0;
+					ResultsModule.writeIncrementalResultToFile(toSolve, GeneSplicer.class, currentNumColours, 
+							System.currentTimeMillis()- timeStart, generationLimit);
+				}
 			}
 		}
 		
@@ -98,6 +103,10 @@ public class GeneSplicer {
 		//int equalLimit = 3*numChromosomes/4 - 6;
 		
 		while (currentIteration < iterationLimit && population.get(0).calculateCost(toSolve)!=0) {
+			if (System.currentTimeMillis() - runStart > 1000*60*60*6) {
+				break;
+			}
+			
 			if (System.currentTimeMillis() - lastPrintTime > 2000) {
 					Driver.trace("["+currentIteration+"] beginning to solve with "+currentNumColours+" colours");
 					lastPrintTime = System.currentTimeMillis();

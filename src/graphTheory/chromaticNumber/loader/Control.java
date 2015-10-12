@@ -1,6 +1,7 @@
 package graphTheory.chromaticNumber.loader;
 
 import java.io.File;
+import java.nio.file.FileSystemException;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
@@ -18,6 +19,8 @@ public class Control {
 	Scanner sc;
 	JFileChooser fc;
 	Graph toSolve;
+	
+	int maxRunHrs = 6;
 
 	public Control() {
 		sc = new Scanner(System.in);
@@ -51,8 +54,15 @@ public class Control {
 				//This is where a real application would open the file.
 				Driver.trace("loading file \""+ file.getAbsolutePath() + "\"");
 
-				GraphLoader gl = new GraphLoader(file);
-				toSolve = gl.getGraph();
+				GraphLoader gl;
+				try {
+					gl = new GraphLoader(file);
+					toSolve = gl.getGraph();
+				} catch (FileSystemException e) {
+					Driver.trace("the selected file is too large for the program to process");
+					System.exit(0);
+				}
+				
 
 				Driver.trace("Graph imported successfully.");
 			} else {
@@ -65,12 +75,24 @@ public class Control {
 			
 			File file = new File("src/graphTheory/chromaticNumber/graphs/queen7_7.col");
 			Driver.trace("loading file \""+ file.getAbsolutePath() + "\"");
-			GraphLoader gl = new GraphLoader(file);
-			toSolve = gl.getGraph();
-			
-		}else if (userChoice.toUpperCase().charAt(0) == 'R') { // use benchmark
+
+			try {
+				GraphLoader gl = new GraphLoader(file);
+				toSolve = gl.getGraph();
+			} catch (FileSystemException e) {
+				Driver.trace("the selected file is too large for the program to process");
+				System.exit(0);
+			}
+
+		} else if (userChoice.toUpperCase().charAt(0) == 'R') { // use benchmark
 			genRandom();
-		} else {
+		} else if (userChoice.toUpperCase().charAt(0) == 'Z') { //convert to Matlab
+			runMatlabConversion();
+		//} else if (userChoice.toUpperCase().charAt(0) == 'F') { //just for fun
+		//	justForFun();
+		}
+		
+		else {
 			System.out.println("you entered an invalid input. quitting.");
 			System.exit(0);
 		}
@@ -113,8 +135,61 @@ public class Control {
 		System.out.println("Computation has finished.");
 	}
 
+	public void runMatlabConversion() {
+		File dir = new File("src/graphTheory/chromaticNumber/graphsToConvert");
+		File[] directoryListing = dir.listFiles();
+		if (directoryListing != null) {
+			for (File child : directoryListing) {
+				//run each method
+				Driver.trace("loading file \""+ child.getAbsolutePath() + "\"");
+				
+				
+				try {
+					GraphLoader gl = new GraphLoader(child);
+					gl.outputGraphToMatlab();
+				} catch (FileSystemException e) {
+					Driver.trace("the selected file is too large for the program to process");
+					//System.exit(0);
+				}
+				
+			}
+		}
+	}
+	
+	public void justForFun() {		
+		File dir = new File("src/graphTheory/chromaticNumber/graphsToConvert");
+		File[] directoryListing = dir.listFiles();
+		if (directoryListing != null) {
+			for (File child : directoryListing) {
+				//run each method
+				Driver.trace("loading file \""+ child.getAbsolutePath() + "\"");
+				
+				try {
+					GraphLoader gl = new GraphLoader(child);
+					gl.outputGraphToMatlab();
+					toSolve = gl.getGraph();
+				} catch (FileSystemException e) {
+					Driver.trace("the selected file is too large for the program to process");
+					//System.exit(0);
+					toSolve = null;
+				}
+				
+				if (toSolve != null) {
+					long rbbLimit = 20000;
+					long timeStart = System.currentTimeMillis();
+					BruteBuckets bb = new BruteBuckets();
+					bb.solveRandom(toSolve, rbbLimit);
+					ResultsModule.writeRuntimeResultToFile(toSolve, BruteBuckets.class, bb.getResult(), 
+							System.currentTimeMillis()-timeStart, rbbLimit);
+					System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
+				}	
+			}
+		}
+	}
+	
 	public void performBenchmark() {
 
+		long runStart;
 		int testCount = 20;
 		
 		//for each graph in folder
@@ -125,10 +200,18 @@ public class Control {
 				//run each method
 				Driver.trace("loading file \""+ child.getAbsolutePath() + "\"");
 				
-				GraphLoader gl = new GraphLoader(child);
-				toSolve = gl.getGraph();
+				try {
+					GraphLoader gl = new GraphLoader(child);
+					toSolve = gl.getGraph();
+				} catch (FileSystemException e) {
+					Driver.trace("the selected file is too large for the program to process");
+					//System.exit(0);
+					toSolve = null;
+				}
+				
 				if (toSolve != null) {
 				
+					runStart = System.currentTimeMillis();
 					//randomised brute buckets - Brendon
 					for (int i = 0; i < testCount; i++) {
 						long rbbLimit = 100000;
@@ -138,9 +221,12 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, BruteBuckets.class, bb.getResult(), 
 								System.currentTimeMillis()-timeStart, rbbLimit);
 						System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
+						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
+							break;
+						}
 					}
 					
-					
+					runStart = System.currentTimeMillis();
 					//Secret Agents - Brendon
 					for (int i = 0; i < testCount; i++) {
 						long saLimit = 10;
@@ -150,8 +236,12 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, sa.getResult(), 
 								System.currentTimeMillis()-timeStart, sa.getNumInternalIterations());
 						System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
+						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
+							break;
+						}
 					}
 					
+					runStart = System.currentTimeMillis();
 					//Flower Pollination - Scott
 					for (int i = 0; i < testCount; i++) {
 						long fpLimit = 15;
@@ -162,8 +252,12 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, FlowerPollination.class, fpa.getResult(), 
 								System.currentTimeMillis()-timeStart, fpLimit);
 						System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
+						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
+							break;
+						}
 					}
 					
+					runStart = System.currentTimeMillis();
 					//Genetic Algorithm - Collaborative
 					for (int i = 0; i < testCount; i++) {
 						long gaLimit = 15;
@@ -174,6 +268,9 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, GeneSplicer.class, gcp.getResult(), 
 								System.currentTimeMillis()-timeStart, 20000);
 						System.out.println("secret agent approach finished with " +gcp.getResult() + " colours");
+						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
+							break;
+						}
 					}/**/
 				}
 				
