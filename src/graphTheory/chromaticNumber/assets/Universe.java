@@ -19,6 +19,8 @@ public class Universe {
 	private static double[] dimSize;
 
 	private static int dimensions;
+	
+	private static int gradientMap[][];
 
 	public Universe(Graph toSolve, int numDims, double dimSize) {
 		// r = new Random();
@@ -31,6 +33,7 @@ public class Universe {
 		dimensions = numDims;
 
 		Universe.dimSize = new double[numDims];
+		gradientMap = new int[(int) (dimSize+1)][(int) (dimSize+1)];
 
 		for (int i = 0; i < numDims; i++) {
 			Universe.dimSize[i] = dimSize;
@@ -81,7 +84,7 @@ public class Universe {
 	}
 
 	public static boolean getIsTorricDistShorter(Double[] wellLoc, Double[] agentLoc, int dim) {
-		return Universe.getBounds(dim) - Math.abs(wellLoc[dim] - agentLoc[dim]) < Math.abs(wellLoc[dim] - agentLoc[dim]);
+		return Universe.getBounds(dim) - (wellLoc[dim] + agentLoc[dim]) < Math.abs(wellLoc[dim] - agentLoc[dim]);
 	}
 
 	public static double getDist(Double[] wellLoc, Double[] agentLoc) {
@@ -118,5 +121,13 @@ public class Universe {
 
 	public static Graph getGraph() {
 		return toSolve;
+	}
+	
+	public void setGradient(int posX, int posY, int val) {
+		gradientMap[posX][posY] = val;
+	}
+	
+	public static int getGradientMapVal(int posX, int posY) {
+		return gradientMap[posX][posY];
 	}
 }

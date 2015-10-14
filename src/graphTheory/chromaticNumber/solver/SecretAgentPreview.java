@@ -19,6 +19,7 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 	Thread agentsPreview;
 
 	static boolean running;
+	boolean drawGradientMap = false;
 
 	double scale;
 	int xOffset = 40;
@@ -93,6 +94,8 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
+		
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2d.setFont(new Font("Serif", Font.PLAIN, (int) (0.01 * scale * Universe.getBounds(0))));
 		// System.out.println("setting font size to be "+(int)
@@ -101,16 +104,21 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, (int) getBounds().getWidth(), (int) getBounds().getHeight());
 
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
 		try {
 			// Draw wells
 			for (int i = 0; i < Universe.getWells().size(); i++) {
 				g.setColor(Universe.getWells().get(i).getColour());
-				Universe.getWells().get(i);
-				Universe.getWells().get(i);
-				Universe.getWells().get(i);
-				Universe.getWells().get(i);
+				g.setColor(g.getColor().darker().darker().darker().darker());
+				if (drawGradientMap) {
+					for (int posX = 0; posX < Universe.getBounds(0); posX++) {
+						for (int posY = 0; posY < Universe.getBounds(1); posY++) {
+							if (Universe.getGradientMapVal(posX, posY) == i) {
+								g2d.drawRect((int) (posX * scale), (int) (posY * scale), (int) scale, (int) scale);
+							}
+						}
+					}
+				}
+				g.setColor(Universe.getWells().get(i).getColour());
 				g2d.drawOval(
 						(int) ((Universe.getWells().get(i).getLocation()[0]
 								- (int) GravityWell.getRadius()) * scale),

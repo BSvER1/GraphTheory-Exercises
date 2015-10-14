@@ -21,7 +21,7 @@ public class SecretAgents {
 	UniformRealDistribution udist;
 
 	public static boolean SECRET_TRACING = false;
-	boolean SLOW_MODE = true;
+	boolean SLOW_MODE = false;
 	boolean WELLS_MOVE = false;
 
 	int SLOW_SPEED = 5; // larger is slower. default to 2
@@ -237,6 +237,8 @@ public class SecretAgents {
 		if (SECRET_TRACING)
 			Driver.trace("adding agents");
 		u.addAgents(toSolve.getNumVertices());
+		
+		createGradientMap();
 	}
 
 	private boolean tryCapture(int agentNum) {
@@ -391,6 +393,38 @@ public class SecretAgents {
 			}
 		}
 		// Driver.trace(getClass(), "we have a solution: "+ solutionFound);
+	}
+	
+	private void createGradientMap() {
+		Double loc[] = new Double[2];
+		for (int i = 0; i < Universe.getBounds(0); i++) {
+			
+			for (int j = 0; j < Universe.getBounds(1); j++) {
+				loc[0] = (double) i;
+				loc[1] = (double) j;
+				
+				double maxForce = 0;
+				int currentSmallest = 0;
+				for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
+					double distance = Universe.getDist(Universe.getWells().get(wellNum).getLocation(), loc);
+					
+					double dist, force = 0;
+					for (int k = 0; k < 2; k++) {
+						dist = Math.max((Universe.getWells().get(wellNum).getLocation()[k] - loc[k]), 
+							Universe.getBounds(k) - (Universe.getWells().get(wellNum).getLocation()[k] - loc[k]));
+					
+						force = Math.max((100*(dist)/(Math.pow(distance, 2))), force);
+					}
+					
+					if (maxForce < force) {
+						maxForce = force;
+						currentSmallest = wellNum;
+					}
+					
+				}
+				u.setGradient(i, j, currentSmallest);
+			}
+		}
 	}
 
 	public int getResult() {

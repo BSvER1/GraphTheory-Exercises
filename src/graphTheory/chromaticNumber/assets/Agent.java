@@ -45,7 +45,7 @@ public class Agent {
 		}
 	}
 	
-	public boolean calcVelocities() {
+	public void calcVelocities() {
 		for (int i = 0; i < Universe.getDimensions(); i ++) {
 			dimVel[i] = 0.0;
 			for (int j = 0; j < Universe.getWells().size(); j++) {
@@ -81,17 +81,20 @@ public class Agent {
 					for (int k = 0; k < Universe.getDimensions(); k++) {
 						tempWellLoc[k] = Universe.getWells().get(j).getLocation()[k];
 					}
-					return true;
+					//return true;
 				}
 				
-				
+				//double dist;
+				//if (Universe.getWells().get(j).getLocation()[i] - dimLoc[i] > 0) {// well is to the right \
+				//	dist = 100;
+				//} else {
+				//	dist = -100;
+				//}
 				double dist = Math.min((Universe.getWells().get(j).getLocation()[i] - dimLoc[i]), 
 							Universe.getBounds(i) - (Universe.getWells().get(j).getLocation()[i] - dimLoc[i]));
+				//double distB = Universe.getWells().get(j).getLocation()[i] - dimLoc[i];
 				
 				double force = (accelConst*(dist)/(Math.pow(distance, distPower)));
-				if (Universe.getIsTorricDistShorter(Universe.getWells().get(j).getLocation(), dimLoc, i)) {
-					force *= -1;
-				}
 				
 				//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
 				//Driver.trace("force is: " + force);
@@ -115,11 +118,11 @@ public class Agent {
 					for (int k = 0; k < Universe.getDimensions(); k++) {
 						tempWellLoc[k] = Universe.getWells().get(j).getLocation()[k];
 					}
-					return true;
+					//return true;
 				}
 			}
 		}
-		return false;
+		//return false;
 		
 		//System.out.println("Velocity : ["+dimVel[0]+", "+dimVel[1]+"]");
 	}
