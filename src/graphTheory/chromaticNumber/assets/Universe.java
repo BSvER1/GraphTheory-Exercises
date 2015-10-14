@@ -42,11 +42,11 @@ public class Universe {
 		if (SecretAgents.SECRET_TRACING)
 			Driver.trace("adding wells");
 		for (int i = 0; i < numWells; i++) {
-			addWell(numWells);
+			addWell();
 		}
 	}
 
-	private void addWell(int numWells) {
+	private void addWell() {
 		boolean successful;
 		GravityWell tempWell = new GravityWell();
 
@@ -61,7 +61,7 @@ public class Universe {
 					break;
 				}
 
-				if (getDistance(tempWell.getLocation(), wells.get(i).getLocation()) < (2.5 * tempWell.getRadius())) {
+				if (getDist(tempWell.getLocation(), wells.get(i).getLocation()) < (2.5 * GravityWell.getRadius())) {
 					tempWell.resetLocation();
 					successful = false;
 					break;
@@ -80,70 +80,20 @@ public class Universe {
 		}
 	}
 
-	public static double getDistance(Double[] wellLoc, Double[] agentLoc) {
+	public static boolean getIsTorricDistShorter(Double[] wellLoc, Double[] agentLoc, int dim) {
+		return Universe.getBounds(dim) - Math.abs(wellLoc[dim] - agentLoc[dim]) < Math.abs(wellLoc[dim] - agentLoc[dim]);
+	}
 
+	public static double getDist(Double[] wellLoc, Double[] agentLoc) {
+		
+		double sum = 0;
+		
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			if (wellLoc[i].isNaN()) {
-				// System.err.println("wellLoc is not a number");
-			}
-			if (agentLoc[i].isNaN()) {
-				// System.err.println("agentLoc is not a number");
-			}
+			sum += Math.pow(Math.min(Math.abs(wellLoc[i] - agentLoc[i]), Universe.getBounds(i) - Math.abs(wellLoc[i] - agentLoc[i])),2);
 		}
-
-		Double result = Math.pow(getDistSum(wellLoc, agentLoc), Math.pow(getDimensions(), -1));
-		Double torricResult = Math.pow(getTorricDistSum(wellLoc, agentLoc), Math.pow(getDimensions(), -1));
-		if (result.isNaN()) {
-			// System.err.println("got NaN from distance function. Inputs
-			// were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
-		}
-		if (result.doubleValue() < 5.0) {
-			// System.err.println("got 0 from distance function. Inputs
-			// were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
-		}
-		if (torricResult.isNaN()) {
-			// System.err.println("got NaN from distance function. Inputs
-			// were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
-		}
-		if (torricResult.doubleValue() < 5.0) {
-			// //System.err.println("got 0 from torric distance function. Inputs
-			// were"+wellLoc+", "+ agentLoc+", "+ getDimensions());
-		}
-
-		return Math.min(result, torricResult);
-	}
-
-	private static double getDistSum(Double[] wellLoc, Double[] agentLoc) {
-		double normalSum = 0;
-		// double torricSum = 0;
-
-		for (int i = 0; i < wellLoc.length; i++) {
-			normalSum += (wellLoc[i] - agentLoc[i]) * (wellLoc[i] - agentLoc[i]);
-			// torricSum += (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i]))
-			// * (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i]));
-		}
-
-		// Driver.trace(Universe.class, "got zero distance between agent and
-		// well. should be captured. isnt it?");
-
-		return normalSum;
-	}
-
-	private static double getTorricDistSum(Double[] wellLoc, Double[] agentLoc) {
-		// double normalSum = 0;
-		double torricSum = 0;
-
-		for (int i = 0; i < wellLoc.length; i++) {
-			// normalSum += (wellLoc[i] - agentLoc[i]) * (wellLoc[i] -
-			// agentLoc[i]);
-			torricSum += (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i]))
-					* (Universe.getBounds(i) - (wellLoc[i] - agentLoc[i]));
-		}
-
-		// Driver.trace(Universe.class, "got zero distance between agent and
-		// well. should be captured. isnt it?");
-
-		return torricSum;
+		
+		//Driver.trace("dist "+Math.sqrt(sum));
+		return Math.sqrt(sum);
 	}
 
 	public static int getDimensions() {

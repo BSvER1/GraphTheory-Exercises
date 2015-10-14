@@ -10,13 +10,13 @@ The RBB algorithm is presented in Algorithm \ref{alg:RBB} below.
         \Procedure{solve}{Graph $g$, long $iterationLimit$} \Comment{$g$ is predefined}			
 			\State $currentIteration \gets 0$	
 			\State $currentBestColouring \gets \infty$ \label{alg:RRB_initialColouring}
-			\State Create empty list of buckets $b$
+			\State Create empty list of buckets $bList$
 			\While{$currentIteration < iterationLimit$}         
             		\State Populate vertex set $V$
-            		\While{$V \neq \emptyset$ \&\& $|b| < currentBestColouring$}
+            		\While{$V \neq \emptyset$ \&\& $|bList| < currentBestColouring$}
                 		\State $v \gets $random vertex from $V$ \Comment{Remove $v$ from $V$}
 					\State $vertexPlaced \gets FALSE$                		
-                		\ForAll{$bucket \in b$}
+                		\ForAll{$bucket \in bList$}
                 			\If{$bucket$ contains no conflicts with $v$}
                 				\State add $v$ to $bucket$
                 				\State $vertexPlaced \gets TRUE$
@@ -27,11 +27,11 @@ The RBB algorithm is presented in Algorithm \ref{alg:RBB} below.
                 		\If{!$vertexPlaced$} \Comment{create a place for the vertex}
                 			\State create new bucket $b_0$
                 			\State add $v$ to $b_0$
-                			\State add $b_0$ to $b$
+                			\State add $b_0$ to $bList$
                 		\EndIf
                 	\EndWhile
             		\If{$|b| < currentBestColouring$}
-            			\State $currentBestColouring = |b|$
+            			\State $currentBestColouring = |bList|$
             		\EndIf
             		\State $currentIteration++$
             \EndWhile

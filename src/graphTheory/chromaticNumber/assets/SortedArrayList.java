@@ -2,7 +2,6 @@ package graphTheory.chromaticNumber.assets;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 @SuppressWarnings("serial")
 public class SortedArrayList<T> extends ArrayList<T> {

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.assets.Graph;
+import graphTheory.chromaticNumber.assets.GravityWell;
 import graphTheory.chromaticNumber.assets.Universe;
 import graphTheory.chromaticNumber.loader.Driver;
 import graphTheory.chromaticNumber.loader.ResultsModule;
@@ -31,6 +32,7 @@ public class SecretAgents {
 	
 	long numInternalIterations = 200000;
 	long runStart;
+	long comfortLimit = 10;
 
 	boolean successful;
 	boolean solutionFound;
@@ -60,7 +62,7 @@ public class SecretAgents {
 						frame.add(sap, "cell 1 1");
 						frame.setVisible(true);
 						frame.setAlwaysOnTop(true);
-						frame.setAlwaysOnTop(false);
+						//frame.setAlwaysOnTop(false);
 						frame.requestFocus();
 					} catch (Exception e) {
 					}
@@ -72,6 +74,39 @@ public class SecretAgents {
 	public SecretAgents(String graphName, boolean unmanaged) {
 
 		udist = new UniformRealDistribution();
+	}
+	
+	public void simGravity() {
+		u = new Universe(null, 2, 10 * 3.5 * GravityWell.radius);
+		u.addWells(1);
+		Universe.getWells().get(0).setLocation(new Double[] {Universe.getBounds(0)-30.0,30.0});
+		u.addAgents(1);
+		
+		while (true) {
+			try {
+				Thread.sleep(2);
+			} catch (InterruptedException e) {
+			}
+//			boolean torric = false;
+//			while (!torric) {
+//				for (int i = 0; i < Universe.getDimensions(); i++) {
+//					if (Universe.getIsTorricDistShorter(Universe.getWells().get(0).getLocation(),
+//							Universe.getAgents().get(0).getLocationArray(), i)) {
+//						torric = true;
+//					}
+//				}
+//				if (!torric) {
+//					Universe.getAgents().get(0).resetLocation();
+//				}
+//			}
+			
+			tryCapture(0);
+			doGravity(0);
+			if (Universe.getAgents().get(0).isCaptured()) {
+				Universe.getAgents().get(0).setCaptured(false);
+				Universe.getWells().get(0).getCapturedAgents().remove(0);
+			}
+		}
 	}
 
 	public void solve(Graph toSolve, long iterationLimit) {
@@ -191,7 +226,7 @@ public class SecretAgents {
 		// create universe
 		if (SECRET_TRACING)
 			Driver.trace("creating universe");
-		u = new Universe(toSolve, 2, numWells * 25);
+		u = new Universe(toSolve, 2, numWells * 3.5 * GravityWell.radius);
 
 		// create wells
 		if (SECRET_TRACING)
@@ -274,11 +309,13 @@ public class SecretAgents {
 		// Driver.trace(getClass(), "increasing comfort of all agents that are
 		// currently in wells.");
 		for (int agentNum = 0; agentNum < Universe.getWells().get(wellNum).getCapturedAgents().size(); agentNum++) {
-			double comfortProb = (10.0 / Universe.getWells().get(wellNum).getMinComfort()) - 0.05;
+			double comfortProb = (1.0 / Universe.getWells().get(wellNum).getMinComfort()) - 0.1;
 
-			if (udist.sample() < comfortProb) {
-				//if (r.nextDouble() < comfortProb) {
-				Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).increaseComfort();
+			if (Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).getComfort() < comfortLimit) {
+				if (udist.sample() < comfortProb) {
+					//if (r.nextDouble() < comfortProb) {
+					Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).increaseComfort();
+				}
 			}
 
 			// update captured Agents location based on the well's location that

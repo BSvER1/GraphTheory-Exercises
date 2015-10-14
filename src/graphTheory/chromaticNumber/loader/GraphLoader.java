@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystemException;
 import java.nio.file.Files;
-import java.util.ArrayList;
 
 import graphTheory.chromaticNumber.assets.Graph;
 

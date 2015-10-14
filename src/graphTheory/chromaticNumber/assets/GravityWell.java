@@ -20,7 +20,7 @@ public class GravityWell {
 
 	int comfortThreshold = 1;
 
-	double radius = 10.0;
+	public static double radius = 20.0;
 
 	double accelConst = 1.0;
 	double velocityDecay = 0.9999999;
@@ -126,6 +126,9 @@ public class GravityWell {
 	}
 
 	public boolean shouldRepelAgent(Agent intruder) {
+		if (Universe.getGraph() == null) {
+			return true;
+		}
 		for (int i = 0; i < agents.size(); i++) {
 			if (Universe.getGraph().isEdge(agents.get(i).getVertexAssociation() - 1,
 					intruder.getVertexAssociation() - 1)) {
@@ -201,7 +204,15 @@ public class GravityWell {
 		return col;
 	}
 
-	public double getRadius() {
+	public static double getRadius() {
 		return radius;
+	}
+	
+	public void setLocation(Double[] newLoc) {
+		if (newLoc.length != dimLoc.length) {
+			System.out.println("new location is invalid");
+		} else {
+			dimLoc = newLoc;
+		}
 	}
 }

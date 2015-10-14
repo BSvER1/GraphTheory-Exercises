@@ -62,6 +62,9 @@ public class GeneSplicer {
 		aggregateChromosome = new Chromosome(toSolve, currentNumColours);
 		
 		while (currentAttempt < attemptLimit) {
+			if (System.currentTimeMillis() - runStart > 1000*60*60*6) {
+				return;
+			}
 			population = new SortedArrayList<Chromosome>();
 			newPop = new SortedArrayList<Chromosome>();
 			colourPicker = new UniformIntegerDistribution(0, currentNumColours);
@@ -75,16 +78,15 @@ public class GeneSplicer {
 			
 			Collections.sort(population);
 			
-			if (System.currentTimeMillis() - runStart < 1000*60*60*6) {
-				if (!internalSolve(toSolve, numChromosomes, generationLimit)) {
-					currentAttempt++;
-				} else {
-					aggregateChromosome = new Chromosome(toSolve, currentNumColours);
-					currentAttempt = 0;
-					ResultsModule.writeIncrementalResultToFile(toSolve, GeneSplicer.class, currentNumColours, 
-							System.currentTimeMillis()- timeStart, generationLimit);
-				}
+			if (!internalSolve(toSolve, numChromosomes, generationLimit)) {
+				currentAttempt++;
+			} else {
+				aggregateChromosome = new Chromosome(toSolve, currentNumColours);
+				currentAttempt = 0;
+				ResultsModule.writeIncrementalResultToFile(toSolve, GeneSplicer.class, currentNumColours, 
+						System.currentTimeMillis()- timeStart, generationLimit);
 			}
+			
 		}
 		
 		if (currentAttempt >= attemptLimit) {

@@ -63,8 +63,8 @@ public class Agent {
 				}
 				
 				//System.out.println("distance between vertex "+ vertexAssociation+" and well "+ j+" is "+ Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc));
-				Double distance = Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc);
-				if (distance < 10.0) {
+				Double distance = Universe.getDist(Universe.getWells().get(j).getLocation(), dimLoc);
+				if (distance < GravityWell.radius) {
 					if (SecretAgents.SECRET_TRACING) 
 						Driver.trace("got a distance smaller than radius of a well. trying to add it.");
 
@@ -84,7 +84,20 @@ public class Agent {
 					return true;
 				}
 				
-				dimVel[i] += (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
+				
+				double dist = Math.min((Universe.getWells().get(j).getLocation()[i] - dimLoc[i]), 
+							Universe.getBounds(i) - (Universe.getWells().get(j).getLocation()[i] - dimLoc[i]));
+				
+				double force = (accelConst*(dist)/(Math.pow(distance, distPower)));
+				if (Universe.getIsTorricDistShorter(Universe.getWells().get(j).getLocation(), dimLoc, i)) {
+					force *= -1;
+				}
+				
+				//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
+				//Driver.trace("force is: " + force);
+				dimVel[i] += force;
+				
+				
 				if (dimVel[i].isNaN()) {
 					if (SecretAgents.SECRET_TRACING) 
 						Driver.trace("got a NaN in the velocity. means that there is a well at this location, yet isnt being captured.");
@@ -117,8 +130,9 @@ public class Agent {
 				if (SecretAgents.SECRET_TRACING) Driver.trace("got a NaN for location when applying velocities");
 				dimLoc[i] = Universe.getBounds(i)/2;
 			}
-			
+				
 			dimLoc[i] += dimVel[i];
+			dimLoc[i] = (Universe.getBounds(i)+dimLoc[i]) % Universe.getBounds(i);
 			if (SecretAgents.SECRET_TRACING) {
 				Driver.trace("velocity of agent in direction "+i+" is "+dimVel[i]);
 				Driver.trace("location of agent direction "+i+" is "+dimLoc[i]);

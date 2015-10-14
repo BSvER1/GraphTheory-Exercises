@@ -88,6 +88,7 @@ public class Control {
 			genRandom();
 		} else if (userChoice.toUpperCase().charAt(0) == 'Z') { //convert to Matlab
 			runMatlabConversion();
+			System.exit(0);
 		//} else if (userChoice.toUpperCase().charAt(0) == 'F') { //just for fun
 		//	justForFun();
 		}
@@ -136,7 +137,7 @@ public class Control {
 	}
 
 	public void runMatlabConversion() {
-		File dir = new File("src/graphTheory/chromaticNumber/graphsToConvert");
+		File dir = new File("graphsToConvert");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
@@ -157,7 +158,7 @@ public class Control {
 	}
 	
 	public void justForFun() {		
-		File dir = new File("src/graphTheory/chromaticNumber/graphsToConvert");
+		File dir = new File("graphsToConvert");
 		File[] directoryListing = dir.listFiles();
 		if (directoryListing != null) {
 			for (File child : directoryListing) {
@@ -190,7 +191,7 @@ public class Control {
 	public void performBenchmark() {
 
 		long runStart;
-		int testCount = 20;
+		int testCount = 1;
 		
 		//for each graph in folder
 		File dir = new File("src/graphTheory/chromaticNumber/graphs");
@@ -233,6 +234,7 @@ public class Control {
 						long timeStart = System.currentTimeMillis();
 						SecretAgents sa = new SecretAgents(toSolve.getGraphName(), true);
 						sa.solve(toSolve, saLimit);
+						//sa.setNumInternalIterations(100000);
 						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, sa.getResult(), 
 								System.currentTimeMillis()-timeStart, sa.getNumInternalIterations());
 						System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
@@ -435,6 +437,10 @@ public class Control {
 		} else if (userChoice.matches("[0-9]+")) {
 			limit = Integer.valueOf(userChoice);
 			Driver.trace("setting runtime to be "+ limit);
+		} else if (userChoice.toUpperCase().equals("SIM")) {
+			SecretAgents sa = new SecretAgents("Gravity Sim");
+			sa.simGravity();
+			System.exit(0);
 		} else {
 			Driver.trace("got nonsensical data from the user. ");
 			return;

@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
+import graphTheory.chromaticNumber.assets.GravityWell;
 import graphTheory.chromaticNumber.assets.Universe;
 import graphTheory.chromaticNumber.loader.Driver;
 
@@ -106,13 +107,17 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 			// Draw wells
 			for (int i = 0; i < Universe.getWells().size(); i++) {
 				g.setColor(Universe.getWells().get(i).getColour());
+				Universe.getWells().get(i);
+				Universe.getWells().get(i);
+				Universe.getWells().get(i);
+				Universe.getWells().get(i);
 				g2d.drawOval(
 						(int) ((Universe.getWells().get(i).getLocation()[0]
-								- (int) Universe.getWells().get(i).getRadius()) * scale),
+								- (int) GravityWell.getRadius()) * scale),
 						(int) ((Universe.getWells().get(i).getLocation()[1]
-								- (int) Universe.getWells().get(i).getRadius()) * scale),
-						(int) ((Universe.getWells().get(i).getRadius() * 2) * scale),
-						(int) ((Universe.getWells().get(i).getRadius() * 2) * scale));
+								- (int) GravityWell.getRadius()) * scale),
+						(int) ((GravityWell.getRadius() * 2) * scale),
+						(int) ((GravityWell.getRadius() * 2) * scale));
 
 				if (Universe.getWells().get(i).getCapturedAgents().size() > 0) {
 					g2d.drawString("" + Universe.getWells().get(i).getCapturedAgents().size(),
