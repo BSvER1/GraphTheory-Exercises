@@ -92,7 +92,11 @@ public class Universe {
 		double sum = 0;
 		
 		for (int i = 0; i < Universe.getDimensions(); i++) {
-			sum += Math.pow(Math.min(Math.abs(wellLoc[i] - agentLoc[i]), Universe.getBounds(i) - Math.abs(wellLoc[i] - agentLoc[i])),2);
+			sum += Math.pow(
+					//Math.min(
+							Math.abs(wellLoc[i] - agentLoc[i]), 
+					//Universe.getBounds(i) - Math.abs(wellLoc[i] - agentLoc[i])),
+					2);
 		}
 		
 		//Driver.trace("dist "+Math.sqrt(sum));

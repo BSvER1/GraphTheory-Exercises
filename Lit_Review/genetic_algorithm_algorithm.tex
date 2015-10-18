@@ -1,4 +1,142 @@
 \section{Genetic Algorithm}
+The Genetic Algorithm presented here is a variant of the algorithm described by \cite{bib:GeneticAlg}. The algorithm was implemented as described, then tweaked to improve efficiency and to experiment with parameter tweaking and the effect of changing certain flows within the algorithm. These changes are discussed further in the Additions (\ref{genAdditions}) section. 
+
 \subsection{Implementation and Problems}
+The algorithm is implemented as follows:
+
+\begin{algorithm}[H]
+    \caption{Genetic Algorithm with Wisdom of Crowds}
+    \label{alg:GA}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{solve}{Graph $g$, $iterationLimit$, $numChromosomes$} \Comment{$g$ is predefined}			
+			\State $currentAttempt \gets 0$	
+			\State $currentBestColouring \gets \Delta \left( g \right) +1$
+			\State $aggregateChromosome \gets$ chromosome of randomly assigned colours.
+			
+			\While{$currentIteration < iterationLimit$}         
+				\State $population \gets$ set of chromosomes with randomly assigned colours. (up to $numColours$)
+				\If{solvePop()}
+					\State $aggregateChromosome \gets$ chromosome of randomly assigned colours.
+					\State $currentAttempt \gets 0$
+				\Else
+					\State $currentAttempt \gets currentAttempt + 1$
+				\EndIf
+         
+            \EndWhile
+            \State \textbf{return} $currentBestColouring$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Genetic Algorithm with Wisdom of Crowds - Tick Generation}
+	\begin{algorithmic}[1]
+    		\Procedure{solvePop}{Graph $g$, $iterationLimit$, $numChromosomes$} \Comment{$g$ is predefined}
+    			\State $currentIteration \gets 0$
+    			\While{$currentIteration < iterationLimit$ and best solution has cost $>$ 0}
+    				\State $currentIteration \gets currentIteration + 1$
+				\If{best chromosome has cost $\geq$ altMethodThreshold}			
+    					\State $parents \gets getParentsA()$
+    				\Else
+    					\State $parents \gets getParentsB()$
+    				\EndIf
+    				\State $child \gets crossOver(parents)$
+    				\If{rand $<$ mutChance}
+    					\If{best chromosome has cost $\geq$ altMethodThreshold}
+    						\State $child \gets mutateA()$
+    					\Else
+    						\State $child \gets mutateB()$
+    					\EndIf
+    				\EndIf
+    				\State add $child$ to $population$
+    				\State remove bottom performing half of population
+    				\State repopulate up to numChromosomes
+    			\EndWhile
+    			\If{$currentIteration \geq iterationLimit$}
+    				\State perform $wisdomOfCrowds()$ \Comment{generate $aggregateChromosome$ by voting}
+    				\State add $aggregateChromosome$ to population
+    			\EndIf
+    			\If{best solution has cost 0}
+    				\State $currentBestSolution \gets currentBestSolution -1$
+    				\State \textbf{return} true
+    			\Else
+    				\State \textbf{return} false
+    			\EndIf
+   		\EndProcedure
+    \end{algorithmic} 
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\caption{Genetic Algorithm with Wisdom of Crowds - Parent Selection}
+	\Procedure{getParentsA}{}
+		\State $tempParents \gets$ choose two random chromosomes from population.
+		\State $parent1 \gets$ fitter of $tempParents$
+		\State $tempParents \gets$ choose two random chromosomes from population.
+		\State $parent2 \gets$ fitter of $tempParents$
+		\State \textbf{return} $parent1$, $parent2$
+	\EndProcedure
+	\linebreak
+	\setcounter{ALG@line}{0}
+	\Procedure{getParentsB}{}
+		\State \textbf{return} top performing chromosome, top performing chromosome
+	\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\caption{Genetic Algorithm with Wisdom of Crowds - Crossover}
+	\Procedure{crossOver}{}
+		\State $child \gets$ colours up to and including a random point from parent1, followed by the colours from parent2 from that point on in the chromosome.
+		\State \textbf{return} child
+	\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\caption{Genetic Algorithm with Wisdom of Crowds - Child Mutation}
+	\Procedure{MutateA}{}
+		\ForAll{$vertex$ in chromosome}
+			\If{$vertex$ has a conflict}
+			\State $adjacentColours \gets$ all adjacent colours to $vertex$
+			\State $validColours \gets$ allColours - adjacentColours
+			\State $newColour \gets$ random colour from validColours
+			\State set chromosome colour at position $vertex$ to be $newColour$
+			\EndIf
+		\EndFor
+	\EndProcedure
+	\linebreak
+	\setcounter{ALG@line}{0}
+	\Procedure{MutateB}{}
+		\ForAll{$vertex$ in chromosome}
+			\If{$vertex$ has a conflict}
+				\State $newColour \gets$ random colour from allColours
+				\State set chromosome colour at position $vertex$ to be $newColour$
+			\EndIf
+		\EndFor
+	\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\begin{algorithmic}[1]
+\caption{Genetic Algorithm with Wisdom of Crowds - Wisdom Of Artificial Crowds}
+	\Procedure{WisdomOfCrowds}{}
+		\State $expertChromosomes \gets$ best half of final population
+		\State $aggregateChromosome \gets$ best performing chromosome
+		\ForAll{$vertex$}{$g$}
+			\If{$vertex$ is part of a bad edge}
+				\State $newColour \gets$ the most used colour for $vertex$ among $expertChromosomes$
+				\State set colour at $vertex$ of $aggregateChromosome$ to be $newColour$
+			\EndIf
+		\EndFor
+	\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
 \subsection{Workarounds}
 \subsection{Additions}
+\label{genAdditions}

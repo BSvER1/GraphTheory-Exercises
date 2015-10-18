@@ -19,7 +19,7 @@ public class GeneSplicer {
 	UniformIntegerDistribution parentPicker, crosspointPicker, colourPicker;
 	UniformRealDistribution udist;
 	
-	SortedArrayList<Chromosome> population, newPop;
+	SortedArrayList<Chromosome> population;//, newPop;
 	
 	Chromosome aggregateChromosome;
 	
@@ -66,7 +66,7 @@ public class GeneSplicer {
 				return;
 			}
 			population = new SortedArrayList<Chromosome>();
-			newPop = new SortedArrayList<Chromosome>();
+			//newPop = new SortedArrayList<Chromosome>();
 			colourPicker = new UniformIntegerDistribution(0, currentNumColours);
 			//currentAttempt++;
 			population.add(aggregateChromosome);

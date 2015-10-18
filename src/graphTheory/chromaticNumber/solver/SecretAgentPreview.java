@@ -19,7 +19,7 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 	Thread agentsPreview;
 
 	static boolean running;
-	boolean drawGradientMap = false;
+	public static boolean drawGradientMap = false;
 
 	double scale;
 	int xOffset = 40;
@@ -59,8 +59,6 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
 		}
 
 		BufferStrategy bs = this.getBufferStrategy();
@@ -85,6 +83,7 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 			}
 
 			render(bs);
+			System.out.print("");
 		}
 
 		bs.dispose();

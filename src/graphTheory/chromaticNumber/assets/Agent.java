@@ -81,29 +81,32 @@ public class Agent {
 					for (int k = 0; k < Universe.getDimensions(); k++) {
 						tempWellLoc[k] = Universe.getWells().get(j).getLocation()[k];
 					}
+					//resetLocation();
 					//return true;
 				}
 				
-				//double dist;
-				//if (Universe.getWells().get(j).getLocation()[i] - dimLoc[i] > 0) {// well is to the right \
-				//	dist = 100;
-				//} else {
-				//	dist = -100;
-				//}
-				double dist = Math.min((Universe.getWells().get(j).getLocation()[i] - dimLoc[i]), 
+				double dist;
+				if (Universe.getWells().get(j).getLocation()[i] - dimLoc[i] >= 0) {// well is to the right \
+					dist = 1;
+				} else {
+					dist = -1;
+				}
+				dist = Math.min((Universe.getWells().get(j).getLocation()[i] - dimLoc[i]), 
 							Universe.getBounds(i) - (Universe.getWells().get(j).getLocation()[i] - dimLoc[i]));
-				//double distB = Universe.getWells().get(j).getLocation()[i] - dimLoc[i];
+				dist = Universe.getWells().get(j).getLocation()[i] - dimLoc[i];
 				
 				double force = (accelConst*(dist)/(Math.pow(distance, distPower)));
 				
 				//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
 				//Driver.trace("force is: " + force);
+				
 				dimVel[i] += force;
+				
 				
 				
 				if (dimVel[i].isNaN()) {
 					if (SecretAgents.SECRET_TRACING) 
-						Driver.trace("got a NaN in the velocity. means that there is a well at this location, yet isnt being captured.");
+						Driver.trace("got a NaN in the velocity. means that there is a well at this location, yet isnt being captured. " + distance);
 					
 					for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
 						if (Universe.getWells().get(wellNum).canCapture(this)) {
@@ -133,7 +136,10 @@ public class Agent {
 				if (SecretAgents.SECRET_TRACING) Driver.trace("got a NaN for location when applying velocities");
 				dimLoc[i] = Universe.getBounds(i)/2;
 			}
-				
+			
+			if (dimVel[i] < 0.01) {
+				dimVel[i] += (0.01 * (udist.sample() - 0.5));
+			}
 			dimLoc[i] += dimVel[i];
 			dimLoc[i] = (Universe.getBounds(i)+dimLoc[i]) % Universe.getBounds(i);
 			if (SecretAgents.SECRET_TRACING) {

@@ -1,0 +1,157 @@
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  18 OCT 2015 23:11
+ restricted \write18 enabled.
+**bibliography.tex
+(./bibliography.tex
+LaTeX2e <2015/10/01> patch level 1
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+! Undefined control sequence.
+l.1 \chapter
+          *{Bibliography}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \chapter*
+           {Bibliography}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Environment thebibliography undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2 \begin{thebibliography}
+                         {}
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1--3
+[][]*Bibliography
+ []
+
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \bibitem{bib:GravSwarm}
+                         
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+<argument> \@listctr 
+          
+l.4 \bibitem{bib:GravSwarm}
+                         
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! You can't use `\relax' after \the.
+<recently read> \c@ 
+    
+l.4 \bibitem{bib:GravSwarm}
+                         
+I'm forgetting what you said and using zero instead.
+
+\bibcite{bib:GravSwarm}{0}
+
+Overfull \hbox (24.73036pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 Grav-
+ []
+
+
+Overfull \hbox (6.6444pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 i-
+ []
+
+
+Overfull \hbox (12.01102pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 ta-
+ []
+
+
+Overfull \hbox (24.78874pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 tional
+ []
+
+
+Overfull \hbox (29.77205pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 Swarm
+ []
+
+
+Overfull \hbox (12.39436pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 for
+ []
+
+
+Overfull \hbox (26.77483pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 Graph
+ []
+
+
+Overfull \hbox (18.39987pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 Col-
+ []
+
+
+Overfull \hbox (12.90546pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 or-
+ []
+
+
+Overfull \hbox (13.2888pt too wide) in paragraph at lines 5--8
+\OT1/cmr/m/it/10 ing\nullfont .
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{thebibliography}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 \end{thebibliography}
+                       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+)
+! Emergency stop.
+<*> bibliography.tex
+                 
+*** (job aborted, no legal \end found)
+
+
+
+Here is how much of LuaTeX's memory you used:
+ 13 strings out of 494897
+ 100000,89155 words of node,token memory allocated 1516 words of node memory still in use:
+   17 hlist, 5 disc, 39 glue, 2 kern, 11 penalty, 146 glyph, 40 glue_spec, 2 loc
+al_par, 1 dir nodes
+   avail lists: 2:12,3:1,4:1,6:1,7:17,10:5
+ 3798 multiletter control sequences out of 65536+600000
+ 15 fonts using 601983 bytes
+ 13i,1n,10p,88b,84s stack positions out of 5000i,500n,10000p,200000b,100000s
+!  ==> Fatal error occurred, no output PDF file produced!

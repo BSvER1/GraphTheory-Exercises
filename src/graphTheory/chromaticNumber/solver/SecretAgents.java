@@ -30,7 +30,7 @@ public class SecretAgents {
 	static long currentIterationNum;
 	static long currentLargestWellComfort;
 	
-	long numInternalIterations = 200000;
+	long numInternalIterations = 2000000;
 	long runStart;
 	long comfortLimit = 10;
 
@@ -238,7 +238,8 @@ public class SecretAgents {
 			Driver.trace("adding agents");
 		u.addAgents(toSolve.getNumVertices());
 		
-		createGradientMap();
+		if (SecretAgentPreview.drawGradientMap) 
+			createGradientMap();
 	}
 
 	private boolean tryCapture(int agentNum) {
@@ -403,26 +404,36 @@ public class SecretAgents {
 				loc[0] = (double) i;
 				loc[1] = (double) j;
 				
+				double minForce = Double.MAX_VALUE;
 				double maxForce = 0;
 				int currentSmallest = 0;
+				int currentLargest = 0;
 				for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
 					double distance = Universe.getDist(Universe.getWells().get(wellNum).getLocation(), loc);
 					
-					double dist, force = 0;
-					for (int k = 0; k < 2; k++) {
-						dist = Math.max((Universe.getWells().get(wellNum).getLocation()[k] - loc[k]), 
-							Universe.getBounds(k) - (Universe.getWells().get(wellNum).getLocation()[k] - loc[k]));
+					double dist, forceA, forceB;
+					//for (int k = 0; k < 2; k++) {
+						//dist = Math.max((Universe.getWells().get(wellNum).getLocation()[k] - loc[k]), 
+						//	Universe.getBounds(k) - (Universe.getWells().get(wellNum).getLocation()[k] - loc[k]));
 					
-						force = Math.max((100*(dist)/(Math.pow(distance, 2))), force);
+					
+						forceA =  100/Math.pow(distance, 2);
+						forceB = -100/Math.pow(distance, 2);
+					//}
+					
+					if (maxForce < forceA) {
+						maxForce = forceA;
+						currentSmallest = wellNum;
 					}
 					
-					if (maxForce < force) {
-						maxForce = force;
-						currentSmallest = wellNum;
+					if (minForce > forceB) {
+						minForce = forceB;
+						currentLargest = wellNum;
 					}
 					
 				}
 				u.setGradient(i, j, currentSmallest);
+				u.setGradient(i, j, currentLargest);
 			}
 		}
 	}

@@ -1,0 +1,1415 @@
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  19 OCT 2015 01:03
+ restricted \write18 enabled.
+**genetic_algorithm_algorithm.tex
+(./genetic_algorithm_algorithm.tex
+LaTeX2e <2015/10/01> patch level 1
+Babel <3.9m> and hyphenation patterns for 79 languages loaded.
+! Undefined control sequence.
+l.1 \section
+          {Genetic Algorithm}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \section{G
+            enetic Algorithm}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+\citation{bib:GeneticAlg}
+! Undefined control sequence.
+<write> ... Warning: Citation `\@citeb ' on page \thepage 
+                                                  \space undefined\on@line .
+l.2 ... algorithm described by \cite{bib:GeneticAlg}
+                                                  . The algorithm was implem...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Citation `bib:GeneticAlg' on page  undefined on input line 2.
+
+! Undefined control sequence.
+<write> ...ing: Reference `genAdditions' on page \thepage 
+                                                  \space undefined\on@line .
+l.2 ... further in the Additions (\ref{genAdditions}
+                                                  ) section.
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `genAdditions' on page  undefined on input line 2.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1--3
+[][]Genetic
+ []
+
+
+Overfull \hbox (5.43053pt too wide) in paragraph at lines 1--3
+[[]].
+ []
+
+
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 1--3
+([])
+ []
+
+! Undefined control sequence.
+l.4 \subsection
+             {Implementation and Problems}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.4 \subsection{I
+               mplementation and Problems}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 4--6
+[][]Implementation
+ []
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \begin{algorithm}
+                   [H]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \begin{algorithm}[
+                    H]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8     \caption
+              {Genetic Algorithm with Wisdom of Crowds}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10     \begin{algorithmic}
+                          [1] % The number tells where the line numbering sh...
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.11         \Procedure
+                     {solve}{Graph $g$, $iterationLimit$, $numChromosomes$} ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 11.
+! Undefined control sequence.
+l.11 ...$iterationLimit$, $numChromosomes$} \Comment
+                                                  {$g$ is predefined}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.12 			\State
+             $currentAttempt \gets 0$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.13 			\State
+             $currentBestColouring \gets \Delta \left( g \right) +1$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.14 			\State
+             $aggregateChromosome \gets$ chromosome of randomly assigned col...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 7--15
+[][][H]
+ []
+
+
+Overfull \hbox (5.12846pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 g$\nullfont ,
+ []
+
+
+Overfull \hbox (65.78067pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 iterationLimit$\nullfont ,
+ []
+
+
+Overfull \hbox (85.05373pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 numChromosomes$
+ []
+
+
+Overfull \hbox (5.12846pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 g$
+ []
+
+
+Overfull \hbox (83.47934pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 currentAttempt \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 7--15
+\OT1/cmr/m/n/10 0$
+ []
+
+
+Overfull \hbox (113.54742pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 currentBestColouring \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (30.68405pt too wide) in paragraph at lines 7--15
+\OT1/cmr/m/n/10  [] +
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 7--15
+\OT1/cmr/m/n/10 1$
+ []
+
+
+Overfull \hbox (116.30707pt too wide) in paragraph at lines 7--15
+\OML/cmm/m/it/10 aggregateChromosome \OMS/cmsy/m/n/10  $
+ []
+
+! Undefined control sequence.
+l.16 			\While
+            {$currentIteration < iterationLimit$}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 			\While{$
+              currentIteration < iterationLimit$}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.17 				\State
+              $population \gets$ set of chromosomes with randomly assigned c...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.18 				\If
+          {solvePop()}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.19 					\State
+               $aggregateChromosome \gets$ chromosome of randomly assigned c...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.20 					\State
+               $currentAttempt \gets 0$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.21 				\Else
+            
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.22 					\State
+               $currentAttempt \gets currentAttempt + 1$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.23 				\EndIf
+             
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (105.88512pt too wide) in paragraph at lines 16--24
+[][]$\OML/cmm/m/it/10 currentIteration <
+ []
+
+
+Overfull \hbox (65.78067pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 iterationLimit$
+ []
+
+
+Overfull \hbox (59.78432pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 population \OMS/cmsy/m/n/10  $
+ []
+
+
+Overfull \hbox (56.44603pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 numColours$\nullfont )
+ []
+
+
+Overfull \hbox (116.30707pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 aggregateChromosome \OMS/cmsy/m/n/10  $
+ []
+
+
+Overfull \hbox (83.47934pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 currentAttempt \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 16--24
+\OT1/cmr/m/n/10 0$
+ []
+
+
+Overfull \hbox (83.47934pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 currentAttempt \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (78.47942pt too wide) in paragraph at lines 16--24
+\OML/cmm/m/it/10 currentAttempt \OT1/cmr/m/n/10 +
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 16--24
+\OT1/cmr/m/n/10 1$ 
+ []
+
+! Undefined control sequence.
+l.25             \EndWhile
+                        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.26             \State
+                      \textbf{return} $currentBestColouring$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.26             \State \textbf{return}
+                                      $currentBestColouring$
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.27         \EndProcedure
+                        
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.28     \end{algorithmic}
+                        
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.29 \end{algorithm}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (33.84023pt too wide) in paragraph at lines 26--30
+[][]\OT1/cmr/bx/n/10 re-
+ []
+
+
+Overfull \hbox (21.98601pt too wide) in paragraph at lines 26--30
+\OT1/cmr/bx/n/10 turn
+ []
+
+
+Overfull \hbox (100.7697pt too wide) in paragraph at lines 26--30
+\OML/cmm/m/it/10 currentBestColouring$
+ []
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.31 \begin{algorithm}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 \caption
+           {Genetic Algorithm with Wisdom of Crowds - Tick Generation}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.32 \caption{G
+             enetic Algorithm with Wisdom of Crowds - Tick Generation}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33 	\begin{algorithmic}
+                       [1]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.34     		\Procedure
+                   {solvePop}{Graph $g$, $iterationLimit$, $numChromosomes$}...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.34 ...$iterationLimit$, $numChromosomes$} \Comment
+                                                  {$g$ is predefined}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.35     			\State
+                 $currentIteration \gets 0$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.36     			\While
+                {$currentIteration < iterationLimit$ and best solution has c...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.37     				\State
+                  $currentIteration \gets currentIteration + 1$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.38 				\If
+          {best chromosome has cost $\geq$ altMethodThreshold}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.39     					\State
+                   $parents \gets getParentsA()$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.40     				\Else
+                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.41     					\State
+                   $parents \gets getParentsB()$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.42     				\EndIf
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.43     				\State
+                  $child \gets crossOver(parents)$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.44     				\If
+              {rand $<$ mutChance}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.45     					\If
+               {best chromosome has cost $\geq$ altMethodThreshold}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.46     						\State
+                    $child \gets mutateA()$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.47     					\Else
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.48     						\State
+                    $child \gets mutateB()$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.49     					\EndIf
+                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.50     				\EndIf
+                 
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.51     				\State
+                  add $child$ to $population$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.52     				\State
+                  remove bottom performing half of population
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.53     				\State
+                  repopulate up to numChromosomes
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.54     			\EndWhile
+                   
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.55     			\If
+             {$currentIteration \geq iterationLimit$}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.56     				\State
+                  perform $wisdomOfCrowds()$ \Comment{generate $aggregateChr...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.56 ...		\State perform $wisdomOfCrowds()$ \Comment
+                                                  {generate $aggregateChromo...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.57     				\State
+                  add $aggregateChromosome$ to population
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.58     			\EndIf
+                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.59     			\If
+             {best solution has cost 0}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.60     				\State
+                  $currentBestSolution \gets currentBestSolution -1$
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.61     				\State
+                  \textbf{return} true
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.62     			\Else
+               
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.63     				\State
+                  \textbf{return} false
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.64     			\EndIf
+                
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.65    		\EndProcedure
+                     
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66     \end{algorithmic}
+                        
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.67 \end{algorithm}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 32--68
+[][]Genetic
+ []
+
+
+Overfull \hbox (5.12846pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 g$\nullfont ,
+ []
+
+
+Overfull \hbox (65.78067pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 iterationLimit$\nullfont ,
+ []
+
+
+Overfull \hbox (85.05373pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 numChromosomes$
+ []
+
+
+Overfull \hbox (5.12846pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 g$
+ []
+
+
+Overfull \hbox (88.10733pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentIteration \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 32--68
+\OT1/cmr/m/n/10 0$
+ []
+
+
+Overfull \hbox (85.88512pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentIteration <
+ []
+
+
+Overfull \hbox (65.78067pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 iterationLimit$
+ []
+
+
+Overfull \hbox (88.10733pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentIteration \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (83.1074pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentIteration \OT1/cmr/m/n/10 +
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 32--68
+\OT1/cmr/m/n/10 1$
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 32--68
+\OMS/cmsy/m/n/10 $
+ []
+
+
+Overfull \hbox (46.84146pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 parents \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (65.51518pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 getParentsA\OT1/cmr/m/n/10 ()$
+ []
+
+
+Overfull \hbox (46.84146pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 parents \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (66.10197pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 getParentsB\OT1/cmr/m/n/10 ()$
+ []
+
+
+Overfull \hbox (34.69743pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 child \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (87.73788pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 crossOver\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 parents\OT1/cmr/m/n
+/10 )$
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 <$
+ []
+
+
+Overfull \hbox (7.7778pt too wide) in paragraph at lines 32--68
+\OMS/cmsy/m/n/10 $
+ []
+
+
+Overfull \hbox (34.69743pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 child \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (46.94691pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 mutateA\OT1/cmr/m/n/10 ()$
+ []
+
+
+Overfull \hbox (34.69743pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 child \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (47.5337pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 mutateB\OT1/cmr/m/n/10 ()$
+ []
+
+
+Overfull \hbox (21.91971pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 child$
+ []
+
+
+Overfull \hbox (47.00659pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 population$
+ []
+
+
+Overfull \hbox (85.88512pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentIteration \OMS/cmsy/m/n/10 
+ []
+
+
+Overfull \hbox (65.78067pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 iterationLimit$
+ []
+
+
+Overfull \hbox (90.86842pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 wisdomOfCrowds\OT1/cmr/m/n/10 ()$
+ []
+
+
+Overfull \hbox (103.52934pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 aggregateChromosome$
+ []
+
+
+Overfull \hbox (103.52934pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 aggregateChromosome$
+ []
+
+
+Overfull \hbox (106.08653pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentBestSolution \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (101.08661pt too wide) in paragraph at lines 32--68
+\OML/cmm/m/it/10 currentBestSolution \OMS/cmsy/m/n/10  
+ []
+
+
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 32--68
+\OT1/cmr/m/n/10 1$
+ []
+
+
+Overfull \hbox (13.84023pt too wide) in paragraph at lines 32--68
+\OT1/cmr/bx/n/10 re-
+ []
+
+
+Overfull \hbox (21.98601pt too wide) in paragraph at lines 32--68
+\OT1/cmr/bx/n/10 turn
+ []
+
+
+Overfull \hbox (13.84023pt too wide) in paragraph at lines 32--68
+\OT1/cmr/bx/n/10 re-
+ []
+
+
+Overfull \hbox (21.98601pt too wide) in paragraph at lines 32--68
+\OT1/cmr/bx/n/10 turn
+ []
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 \begin{algorithm}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.70 \begin{algorithmic}
+                      [1]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.70 \begin{algorithmic}[
+                       1]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.71 \caption
+           {Genetic Algorithm with Wisdom of Crowds - Parent Selection}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 70--72
+[][][1]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.73 \end{algorithmic}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.74 \end{algorithm}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.77 \begin{algorithm}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.78 \begin{algorithmic}
+                      [1]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.78 \begin{algorithmic}[
+                       1]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.79 \caption
+           {Genetic Algorithm with Wisdom of Crowds - Crossover}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 78--80
+[][][1]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.81 \end{algorithmic}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 \end{algorithm}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.84 \begin{algorithm}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.85 \begin{algorithmic}
+                      [1]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.85 \begin{algorithmic}[
+                       1]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.86 \caption
+           {Genetic Algorithm with Wisdom of Crowds - Child Mutation}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 85--87
+[][][1]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.88 \end{algorithmic}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.89 \end{algorithm}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithm undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.91 \begin{algorithm}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Environment algorithmic undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.92 \begin{algorithmic}
+                      [1]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.92 \begin{algorithmic}[
+                       1]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.93 \caption
+           {Genetic Algorithm with Wisdom of Crowds - Wisdom Of Artificial C...
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 92--94
+[][][1]
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithmic}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.95 \end{algorithmic}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: \begin{document} ended by \end{algorithm}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.96 \end{algorithm}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.98 \subsection
+              {Workarounds}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.98 \subsection{W
+                orkarounds}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+l.99 \subsection
+              {Additions}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+)
+! Emergency stop.
+<*> genetic_algorithm_algorithm.tex
+                                
+*** (job aborted, no legal \end found)
+
+
+
+Here is how much of LuaTeX's memory you used:
+ 29 strings out of 494897
+ 100000,89155 words of node,token memory allocated 14491 words of node memory still in use:
+   119 hlist, 3 disc, 37 math, 405 glue, 127 kern, 45 penalty, 1729 glyph, 82 gl
+ue_spec, 1 temp, 2 write, 11 local_par, 1 dir nodes
+   avail lists: 2:11,3:30,4:2,7:97,10:32
+ 3803 multiletter control sequences out of 65536+600000
+ 26 fonts using 1033735 bytes
+ 20i,2n,26p,403b,94s stack positions out of 5000i,500n,10000p,200000b,100000s
+!  ==> Fatal error occurred, no output PDF file produced!
