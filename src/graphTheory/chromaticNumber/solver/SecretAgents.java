@@ -1,12 +1,17 @@
 package graphTheory.chromaticNumber.solver;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 //import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
+import graphTheory.chromaticNumber.assets.Agent;
 import graphTheory.chromaticNumber.assets.Graph;
 import graphTheory.chromaticNumber.assets.GravityWell;
 import graphTheory.chromaticNumber.assets.Universe;
@@ -21,10 +26,10 @@ public class SecretAgents {
 	UniformRealDistribution udist;
 
 	public static boolean SECRET_TRACING = false;
-	boolean SLOW_MODE = false;
+	boolean SLOW_MODE = true;
 	boolean WELLS_MOVE = false;
 
-	int SLOW_SPEED = 5; // larger is slower. default to 2
+	int SLOW_SPEED = 50; // larger is slower. default to 2
 
 	static long currentInternalIterationNum;
 	static long currentIterationNum;
@@ -41,6 +46,8 @@ public class SecretAgents {
 
 	private JFrame frame;
 	private SecretAgentPreview sap;
+	
+	public static  BufferedImage map;
 
 	Universe u;
 
@@ -233,13 +240,15 @@ public class SecretAgents {
 			Driver.trace("adding wells");
 		u.addWells(numWells);
 
+		if (SecretAgentPreview.drawGradientMap) 
+			createGradientMap();
+		
 		// create agents
 		if (SECRET_TRACING)
 			Driver.trace("adding agents");
 		u.addAgents(toSolve.getNumVertices());
 		
-		if (SecretAgentPreview.drawGradientMap) 
-			createGradientMap();
+		
 	}
 
 	private boolean tryCapture(int agentNum) {
@@ -334,25 +343,25 @@ public class SecretAgents {
 	}
 
 	private void ejectAgents(int wellNum) {
-		do {
-			successful = true;
+		//do {
+		//	successful = true;
 
 			// Driver.trace(getClass(), "starting to eject agents that have no
 			// comfort level");
 			while (Universe.getWells().get(wellNum).ejectAgents());
 
-			for (int agentNum = 0; agentNum < Universe.getWells().get(wellNum).getCapturedAgents().size(); agentNum++) {
-				if (!Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).isCaptured()) {
-					// Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).resetLocation();
-					// Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).setVelZero();
-					Universe.getWells().get(wellNum).getCapturedAgents().remove(agentNum);
-					Driver.trace("kicking out an agent that shouldnt be...");
-					successful = false;
-					break;
-				}
-			}
+//			for (int agentNum = 0; agentNum < Universe.getWells().get(wellNum).getCapturedAgents().size(); agentNum++) {
+//				if (!Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).isCaptured()) {
+//					// Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).resetLocation();
+//					// Universe.getWells().get(wellNum).getCapturedAgents().get(agentNum).setVelZero();
+//					Universe.getWells().get(wellNum).getCapturedAgents().remove(agentNum);
+//					Driver.trace("kicking out an agent that shouldnt be...");
+//					successful = false;
+//					break;
+//				}
+//			}
 
-		} while (!successful);
+		//} while (!successful);
 	}
 
 	private void checkForSolution(Graph toSolve) {
@@ -397,43 +406,50 @@ public class SecretAgents {
 	}
 	
 	private void createGradientMap() {
-		Double loc[] = new Double[2];
+		Driver.trace("beginning to generate gradient map");
+		Random r = new Random();
+		
+		map = new BufferedImage((int) Universe.getBounds(0), (int) Universe.getBounds(1), BufferedImage.TYPE_3BYTE_BGR);
 		for (int i = 0; i < Universe.getBounds(0); i++) {
-			
 			for (int j = 0; j < Universe.getBounds(1); j++) {
-				loc[0] = (double) i;
-				loc[1] = (double) j;
-				
-				double minForce = Double.MAX_VALUE;
-				double maxForce = 0;
-				int currentSmallest = 0;
-				int currentLargest = 0;
-				for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
-					double distance = Universe.getDist(Universe.getWells().get(wellNum).getLocation(), loc);
-					
-					double dist, forceA, forceB;
-					//for (int k = 0; k < 2; k++) {
-						//dist = Math.max((Universe.getWells().get(wellNum).getLocation()[k] - loc[k]), 
-						//	Universe.getBounds(k) - (Universe.getWells().get(wellNum).getLocation()[k] - loc[k]));
-					
-					
-						forceA =  100/Math.pow(distance, 2);
-						forceB = -100/Math.pow(distance, 2);
-					//}
-					
-					if (maxForce < forceA) {
-						maxForce = forceA;
-						currentSmallest = wellNum;
-					}
-					
-					if (minForce > forceB) {
-						minForce = forceB;
-						currentLargest = wellNum;
-					}
-					
-				}
-				u.setGradient(i, j, currentSmallest);
-				u.setGradient(i, j, currentLargest);
+				map.setRGB(i, j, Color.BLACK.getRGB());
+			}
+		}
+		
+		Agent agent = new Agent(1);
+		Universe.getAgents().add(agent);
+		
+		ArrayList<Double[]> locs = new ArrayList<Double[]>();
+	
+		for (int i = 0; i < Universe.getBounds(0); i++) {
+			for (int j = 0; j < Universe.getBounds(1); j++) {
+				locs.add(new Double[] {0.0 + i, 0.0 + j});
+			}
+		}
+		
+		while (!locs.isEmpty()) {
+			Double[] tmpLoc = locs.remove(r.nextInt(locs.size()));
+			Universe.getAgents().get(0).setStartLocation(tmpLoc);
+			while (!Universe.getAgents().get(0).isCaptured()) {
+				tryCapture(0);
+				doGravity(0);
+			}
+			agent.setCaptured(false);
+			for (int k = 0; k < Universe.getWells().size(); k++) {
+				ejectAgents(k);
+			}
+		}
+		
+		Universe.getAgents().remove(0);
+		
+		Driver.trace("finished creating gradient map");
+		
+		while (true) {
+			try {
+				Thread.sleep(100000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
 			}
 		}
 	}
@@ -468,5 +484,13 @@ public class SecretAgents {
 
 	public void setNumInternalIterations(long numInternalIterations) {
 		this.numInternalIterations = numInternalIterations;
+	}
+	
+	public static BufferedImage getGradientMap() {
+		return map;
+	}
+	
+	public static void setMapPixel(Double[] loc, Color col) {
+		map.setRGB(loc[0].intValue(), loc[1].intValue(), col.getRGB());
 	}
 }

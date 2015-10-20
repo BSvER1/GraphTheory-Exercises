@@ -64,7 +64,7 @@ public class Universe {
 					break;
 				}
 
-				if (getDist(tempWell.getLocation(), wells.get(i).getLocation()) < (2.5 * GravityWell.getRadius())) {
+				if (getDist(tempWell.getLocation(), wells.get(i).getLocation()) < Math.pow((2.5 * GravityWell.getRadius()),2)) {
 					tempWell.resetLocation();
 					successful = false;
 					break;
@@ -84,7 +84,7 @@ public class Universe {
 	}
 
 	public static boolean getIsTorricDistShorter(Double[] wellLoc, Double[] agentLoc, int dim) {
-		return Universe.getBounds(dim) - (wellLoc[dim] + agentLoc[dim]) < Math.abs(wellLoc[dim] - agentLoc[dim]);
+		return Universe.getBounds(dim) - Math.abs(wellLoc[dim] - agentLoc[dim]) < Math.abs(wellLoc[dim] - agentLoc[dim]);
 	}
 
 	public static double getDist(Double[] wellLoc, Double[] agentLoc) {
@@ -93,14 +93,17 @@ public class Universe {
 		
 		for (int i = 0; i < Universe.getDimensions(); i++) {
 			sum += Math.pow(
-					//Math.min(
+						Math.min(
+							//Double.MAX_VALUE,
 							Math.abs(wellLoc[i] - agentLoc[i]), 
-					//Universe.getBounds(i) - Math.abs(wellLoc[i] - agentLoc[i])),
+							Universe.getBounds(i) - Math.abs(wellLoc[i] - agentLoc[i])
+						),
 					2);
 		}
 		
 		//Driver.trace("dist "+Math.sqrt(sum));
-		return Math.sqrt(sum);
+		return sum;
+		//return Math.sqrt(sum);
 	}
 
 	public static int getDimensions() {

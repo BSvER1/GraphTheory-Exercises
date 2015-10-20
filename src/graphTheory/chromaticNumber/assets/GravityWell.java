@@ -3,15 +3,18 @@ package graphTheory.chromaticNumber.assets;
 import java.awt.Color;
 import java.util.ArrayList;
 //import java.util.Random;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.solver.SecretAgentPreview;
 import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class GravityWell {
 
-	ArrayList<Agent> agents;
+	List<Agent> agents;
 
 	// Random r;
 	UniformRealDistribution udist;
@@ -32,7 +35,7 @@ public class GravityWell {
 		// r = new Random();
 		udist = new UniformRealDistribution();
 
-		agents = new ArrayList<Agent>();
+		agents = Collections.synchronizedList(new ArrayList<Agent>());
 
 		dimLoc = new Double[Universe.getDimensions()];
 		dimVel = new Double[Universe.getDimensions()];
@@ -81,6 +84,9 @@ public class GravityWell {
 			tempLoc[currentDimension] = dimLoc[currentDimension];
 		}
 
+		if (SecretAgentPreview.drawGradientMap)
+			SecretAgents.setMapPixel(agent.getStartLoc(), col.darker());
+		
 		agent.setLocation(tempLoc);
 		agent.setCaptured(true);
 		agent.increaseComfort();
@@ -110,12 +116,20 @@ public class GravityWell {
 		for (int i = 0; i < agents.size(); i++) {
 			if (agents.get(i).getComfort() < comfortThreshold) {
 				// agents.get(i).resetLocation();
-				agents.get(i).setCaptured(false);
+				agents.remove(i).setCaptured(false);
 				// agents.get(i).setVelZero();
-				agents.remove(i);
+				//agents.remove(i);
 
 				if (SecretAgents.SECRET_TRACING)
 					Driver.trace("ejecting an agent");
+				return true;
+			}
+			
+			if (!agents.get(i).isCaptured()) {
+				agents.remove(i);
+
+				if (SecretAgents.SECRET_TRACING)
+					Driver.trace("ejecting an agent that shouldnt be captured");
 				return true;
 			}
 		}
@@ -138,7 +152,7 @@ public class GravityWell {
 		return false;
 	}
 
-	public ArrayList<Agent> getCapturedAgents() {
+	public List<Agent> getCapturedAgents() {
 		return agents;
 	}
 

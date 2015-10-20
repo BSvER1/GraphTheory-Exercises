@@ -3,6 +3,7 @@ package graphTheory.chromaticNumber.assets;
 import java.util.Arrays;
 //import java.util.Random;
 
+import org.apache.commons.math3.distribution.LevyDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.loader.Driver;
@@ -12,9 +13,10 @@ public class Agent {
 
 	//private Random r;
 	private UniformRealDistribution udist;
+	private LevyDistribution ldist;
 	
 	private double accelConst = 100.0;
-	private double distPower = 2;
+	private double distPower = 1;
 	
 	private long comfort;
 	
@@ -25,11 +27,14 @@ public class Agent {
 	
 	private boolean isCaptured;
 	
+	private Double[] startLoc;
+	
 	
 	
 	public Agent(int vertex) {
 		//r = new Random();
 		udist = new UniformRealDistribution();
+		ldist = new LevyDistribution(0,0.1);
 		comfort = 0;
 		isCaptured = false;
 		
@@ -37,9 +42,11 @@ public class Agent {
 		
 		dimLoc = new Double[Universe.getDimensions()];
 		dimVel = new Double[Universe.getDimensions()];
+		startLoc = new Double[Universe.getDimensions()];
 		
 		for (int i = 0; i < Universe.getDimensions(); i++) {
 			dimLoc[i] = 0.0 + udist.sample() * (int) (Universe.getBounds(i) - 20) +10;
+			startLoc[i] = dimLoc[i];
 			//dimLoc[i] = 0.0 + r.nextInt((int) (Universe.getBounds(i) - 20)) +10;
 			dimVel[i] = 0.0;
 		}
@@ -63,7 +70,7 @@ public class Agent {
 				}
 				
 				//System.out.println("distance between vertex "+ vertexAssociation+" and well "+ j+" is "+ Universe.getDistance(Universe.getWells().get(j).getLocation(), dimLoc));
-				Double distance = Universe.getDist(Universe.getWells().get(j).getLocation(), dimLoc);
+				Double distance = distanceToWell(j);
 				if (distance < GravityWell.radius) {
 					if (SecretAgents.SECRET_TRACING) 
 						Driver.trace("got a distance smaller than radius of a well. trying to add it.");
@@ -85,24 +92,21 @@ public class Agent {
 					//return true;
 				}
 				
-				double dist;
-				if (Universe.getWells().get(j).getLocation()[i] - dimLoc[i] >= 0) {// well is to the right \
-					dist = 1;
-				} else {
-					dist = -1;
-				}
-				dist = Math.min((Universe.getWells().get(j).getLocation()[i] - dimLoc[i]), 
-							Universe.getBounds(i) - (Universe.getWells().get(j).getLocation()[i] - dimLoc[i]));
-				dist = Universe.getWells().get(j).getLocation()[i] - dimLoc[i];
 				
-				double force = (accelConst*(dist)/(Math.pow(distance, distPower)));
+				dimVel[i] += getForce(j, i, distance);
 				
-				//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
-				//Driver.trace("force is: " + force);
-				
-				dimVel[i] += force;
-				
-				
+//				if (dimVel[i] < 0.1) {
+//					double rng = ldist.sample();
+//					while (rng > 500) {
+//						rng = ldist.sample();
+//					}
+//					if (udist.sample() > 0.5) {
+//						
+//						dimVel[i] += 0.01 * rng;
+//					} else {
+//						dimVel[i] -= 0.01 * rng;
+//					}
+//				}
 				
 				if (dimVel[i].isNaN()) {
 					if (SecretAgents.SECRET_TRACING) 
@@ -129,17 +133,133 @@ public class Agent {
 		
 		//System.out.println("Velocity : ["+dimVel[0]+", "+dimVel[1]+"]");
 	}
+
+	public double distanceToWell(int wellNum) {
+		return Universe.getDist(Universe.getWells().get(wellNum).getLocation(), dimLoc);
+	}
+	
+	public double clamp(double val, double lowerLimit, double higherLimit) {
+		if (val > lowerLimit && val < higherLimit) {
+			return val;
+		}
+		if (val <= lowerLimit) {
+			return lowerLimit;
+		}
+		if (val >= higherLimit) {
+			return higherLimit;
+		}
+		return 0;
+	}
+	
+	public double getForce(int wellNum, int dim) {
+		double dist;
+		if (Universe.getIsTorricDistShorter(Universe.getWells().get(wellNum).getLocation(), dimLoc, dim)) {
+			if (Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim] < 0) {
+				//dist = 15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], -50, 0);
+
+			} else {
+				//dist = -15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], 0, 50);
+
+			}
+			dist*=-1;
+		} else {
+			if (Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim] > 0) {// well is to the right
+				//dist = 15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], 0, 50);
+			} else {
+				//dist = -15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], -50, 0);
+			}
+			//dist = clamp(0 - Universe.getWells().get(wellNum).getLocation()[dim] + dimLoc[dim], -15, 15);
+		}
+		//dist = Math.min((Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim]), 
+		//			Universe.getBounds(dim) - (Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim]));
+		
+		//dist = Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim];
+		
+		if (dist > 0) {
+			dist += 0.5;
+		} else if (dist < 0) {
+			dist -= 0.5;
+		} else {
+			dist = udist.sample() - 0.5;
+		}
+		
+		Double force = (accelConst*(dist)/(Math.pow(distanceToWell(wellNum), distPower))) * 5;
+		if (force.isInfinite() || force.isNaN()) {
+			Driver.trace("NaN or inf");
+		}
+		
+		//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
+		//Driver.trace("force is: " + force);
+		
+		return force;
+	}
+	
+	public double getForce(int wellNum, int dim, double distance) {
+		double dist;
+		if (Universe.getIsTorricDistShorter(Universe.getWells().get(wellNum).getLocation(), dimLoc, dim)) {
+			if (Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim] < 0) {
+				//dist = 15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], -50, 0);
+
+			} else {
+				//dist = -15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], 0, 50);
+
+			}
+			dist*=-1;
+			//dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], -15, 15);
+		} else {
+			if (Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim] > 0) {// well is to the right
+				//dist = 15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], 0, 50);
+			} else {
+				//dist = -15;
+				dist = clamp(Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim], -50, 0);
+			}
+			//dist = clamp(0 - Universe.getWells().get(wellNum).getLocation()[dim] + dimLoc[dim], -15, 15);
+		}
+		//dist = Math.min((Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim]), 
+		//			Universe.getBounds(dim) - (Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim]));
+		
+		//dist = Universe.getWells().get(wellNum).getLocation()[dim] - dimLoc[dim];
+		
+		if (dist > 0) {
+			dist += 0.5;
+		} else if (dist < 0) {
+			dist -= 0.5;
+		} else {
+			dist = udist.sample() - 0.5;
+		}
+		
+		Double force = (accelConst*(dist)/(Math.pow(distance, distPower))) * 5;
+		if (force.isInfinite() || force.isNaN()) {
+			Driver.trace("NaN or inf");
+		}
+		
+		//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
+		//Driver.trace("force is: " + force);
+		
+		return force;
+	}
 	
 	public void applyVelocities() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
 			if(dimLoc[i].isNaN()) {
-				if (SecretAgents.SECRET_TRACING) Driver.trace("got a NaN for location when applying velocities");
+				//if (SecretAgents.SECRET_TRACING) 
+					Driver.trace("got a NaN for location when applying velocities");
 				dimLoc[i] = Universe.getBounds(i)/2;
 			}
 			
-			if (dimVel[i] < 0.01) {
-				dimVel[i] += (0.01 * (udist.sample() - 0.5));
+			if (dimVel[i].isNaN()) {
+				//if (SecretAgents.SECRET_TRACING) 
+					Driver.trace("got a NaN for velocity when applying velocities");
 			}
+			
+			//Driver.trace("applying velocity of "+dimVel[i]+" in dim "+i+" to get loc of "+(dimLoc[i] + dimVel[i]));
 			dimLoc[i] += dimVel[i];
 			dimLoc[i] = (Universe.getBounds(i)+dimLoc[i]) % Universe.getBounds(i);
 			if (SecretAgents.SECRET_TRACING) {
@@ -153,6 +273,7 @@ public class Agent {
 	public void resetLocation() {
 		for (int i = 0; i < Universe.getDimensions(); i++) {
 			dimLoc[i] = 0.0 + udist.sample() * (int) Universe.getBounds(i);
+			startLoc[i] = dimLoc[i];
 			//dimLoc[i] = 0.0 + r.nextInt((int) Universe.getBounds(i));
 			dimVel[i] = 0.0;
 		}
@@ -190,7 +311,17 @@ public class Agent {
 	}
 	
 	public void setLocation(Double[] loc) {
-		dimLoc = Arrays.copyOf(loc, loc.length);
+		for (int i = 0; i < loc.length; i++) {
+			dimLoc[i] = loc[i];
+		}
+		//dimLoc = Arrays.copyOf(loc, loc.length);
+	}
+	
+	public void setStartLocation(Double[] loc) {
+		setLocation(loc);
+		for (int i = 0; i < loc.length; i++) {
+			startLoc[i] = loc[i];
+		}
 	}
 	
 	public long getComfort() {
@@ -209,13 +340,18 @@ public class Agent {
 		if (!captured) {
 			resetLocation();
 			comfort = 0;
+			
+			for (int i = 0; i < Universe.getWells().size(); i++) {
+				Universe.getWells().get(i).getCapturedAgents().remove(this);
+			}
 		} else {
 			comfort = 1;
 		}
 		isCaptured = captured;
 		setVelZero();
-		
 	}
 	
-	
+	public Double[] getStartLoc() {
+		return startLoc;
+	}
 }

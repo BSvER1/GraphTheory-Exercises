@@ -28,7 +28,7 @@ The algorithm is implemented as follows:
     \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{Genetic Algorithm with Wisdom of Crowds - Tick Generation}
 	\begin{algorithmic}[1]
     		\Procedure{solvePop}{Graph $g$, $iterationLimit$, $numChromosomes$} \Comment{$g$ is predefined}
@@ -66,7 +66,7 @@ The algorithm is implemented as follows:
     \end{algorithmic} 
 \end{algorithm}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \caption{Genetic Algorithm with Wisdom of Crowds - Parent Selection}
 	\Procedure{getParentsA}{}
@@ -75,8 +75,8 @@ The algorithm is implemented as follows:
 		\State $tempParents \gets$ choose two random chromosomes from population.
 		\State $parent2 \gets$ fitter of $tempParents$
 		\State \textbf{return} $parent1$, $parent2$
-	\EndProcedure
-	\linebreak
+	\EndProcedure\\
+	%\linebreak
 	\setcounter{ALG@line}{0}
 	\Procedure{getParentsB}{}
 		\State \textbf{return} top performing chromosome, top performing chromosome
@@ -84,44 +84,43 @@ The algorithm is implemented as follows:
 \end{algorithmic}
 \end{algorithm}
 
-
 \begin{algorithm}
 \begin{algorithmic}[1]
 \caption{Genetic Algorithm with Wisdom of Crowds - Crossover}
 	\Procedure{crossOver}{}
-		\State $child \gets$ colours up to and including a random point from parent1, followed by the colours from parent2 from that point on in the chromosome.
+		\State $child \gets$ colours up to and including a random point from $parent1$, followed by the colours from $parent2$ from that point on in the chromosome.
 		\State \textbf{return} child
 	\EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \caption{Genetic Algorithm with Wisdom of Crowds - Child Mutation}
 	\Procedure{MutateA}{}
 		\ForAll{$vertex$ in chromosome}
 			\If{$vertex$ has a conflict}
 			\State $adjacentColours \gets$ all adjacent colours to $vertex$
-			\State $validColours \gets$ allColours - adjacentColours
-			\State $newColour \gets$ random colour from validColours
-			\State set chromosome colour at position $vertex$ to be $newColour$
+			\State $validColours \gets allColours - adjacentColours$
+			\State $newColour \gets$ random colour from $validColours$
+			\State set chromosome colour at $vertex$ to be $newColour$
 			\EndIf
 		\EndFor
-	\EndProcedure
-	\linebreak
+	\EndProcedure\\
+	%\linebreak
 	\setcounter{ALG@line}{0}
 	\Procedure{MutateB}{}
 		\ForAll{$vertex$ in chromosome}
 			\If{$vertex$ has a conflict}
 				\State $newColour \gets$ random colour from allColours
-				\State set chromosome colour at position $vertex$ to be $newColour$
+				\State set chromosome colour at $vertex$ to be $newColour$
 			\EndIf
 		\EndFor
 	\EndProcedure
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \begin{algorithmic}[1]
 \caption{Genetic Algorithm with Wisdom of Crowds - Wisdom Of Artificial Crowds}
 	\Procedure{WisdomOfCrowds}{}
@@ -138,5 +137,11 @@ The algorithm is implemented as follows:
 \end{algorithm}
 
 \subsection{Workarounds}
+The algorithm provides some parameters to tailor the solving method to be able to deal with local optima in several ways. Firstly there are 2 different parent selection methods that are used depending upon how close the best chromosome is to a valid colouring. Secondly there are two different mutation methods that are used depending upon how close the best chromosome is to a valid colouring.
+It was found that while these methods allowed for some level of control over the algorithm, it was by no means as configurable as the other algorithms that were implemented. To remedy this and to produce our own variant of the Genetic Algorithm for solving the GCP, alterations were made to the flow to allow more control over the algorithm.
+
 \subsection{Additions}
 \label{genAdditions}
+The first deviation to the documented algorithm was to the parent selection criterion. It was found that having the best solution be the only parent that is mutated when it is sufficiently close to a valid colouring slowed the convergence rate of the other chromosomes to zero. To remedy this, we implemented a switch such that a certain percent of the time, the parents chosen were the best chromosome and itself. But a small percentage of the time, the parents would be the best chromosome and a random chromosome from the population. This prevented the stagnation of the problem, and allowed for other changes to be made to improve the algorithm. The second part of the algorithm identified for change was the crossover method. This method originally selected the first portion of $parent1$ and mixed it with the complement of that section of $parent2$. This process was changed to a simple 50/50, such that the chance of the first section coming from $parent1$ was equally weighted to the first section coming from $parent2$. This prevented possible bad colourings from being propagated simply because the occurred early in the chromosome. 
+The final change to the algorithm was in response to results collected from the algorithm. It was found the wisdom of crowds voting mechanism was finding the solution far more successfully than the Genetic Algorithm itself. This prompted a change to the algorithm whereby a vote could not take place before certain conditions were met in the agreement of the chromosomes. This lead to a much higher runtime for the algorithm, but once a vote could commence, the algorithm was much more likely to either improve the colouring or produce a chromosome with many fewer conflicts. This method was settled upon after several other methods were trialed and discarded. As the algorithm searches for a tighter colouring, it takes many more generations for the chromosomes to converge. This method was settled upon since it allowed the algorithm to be applied to any graph with a minimum of tweaking, yet a valid vote will always take place, since the algorithm will always reach a point of agreement, even if the solution is not valid for the given graph. Setting the level of agreement that each chromosome must exhibit allows the algorithm to be sped up or slowed down. If the limit is relaxed, each trial takes less time to complete, yet the wisdom of crowds vote has a lower chance of improving the solution. Tightening the bounds has the effect of dramatically increasing the runtime of the algorithm but increases the chance that the wisdom of crowds vote will yield a better solution. Setting the bound too tight however will result in the algorithm running for an infinite amount of time (if the level of agreement specified is not possible).
+The last change that was made to this algorithm was to create a variable parameter for how much of the population was discarded and repopulated at random  on each generation. This parameter is responsible for setting how much of the solution space is tried. Each iteration, the random nature of the generation process has the possibility to generate a better solution to the problem. However, the larger the proportion of the population that is discarded upon each iteration, the lower probability that the wisdom of crowds vote that occurs at the end of each trial will improve upon the solution. For this reason, the proportion of the population that is allowed to participate in the vote is set to always be less than (or equal to) the proportion that is kept in each iteration, so that random noise is not added to the voted data when a vote takes place.

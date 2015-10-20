@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  19 OCT 2015 01:38
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  19 OCT 2015 19:44
  restricted \write18 enabled.
 **Lit_Review.tex
 (./Lit_Review.tex
@@ -284,32 +284,12 @@ Overfull \hbox (53.0926pt too wide) in paragraph at lines 7--8
 Overfull \vbox (25.24625pt too high) has occurred while \output is active []
 
 
-[5<./images/gs-cp-flow.png>]) (./genetic_algorithm_algorithm.tex
-Underfull \hbox (badness 10000) in paragraph at lines 78--81
-[][]\OT1/cmr/bx/n/10 end pro-ce-dure
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 78--81
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 110--113
-[][]\OT1/cmr/bx/n/10 end pro-ce-dure
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 110--113
-
- []
-
-) (./flower_pollination_algorithm.tex)) [6] [7] [8] [9]
+[5<./images/gs-cp-flow.png>]) (./genetic_algorithm_algorithm.tex [6] [7]
+[8]) (./flower_pollination_algorithm.tex)) [9] [10]
 \openout2 = results_discussion.aux
-
-(./results_discussion.tex
+ (./results_discussion.tex
 Chapter 3.
-) [10
+) [11
 
 
 
@@ -321,7 +301,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--8
 ional Swarm for Graph Col-or-ing\OT1/cmr/m/n/10 .
  []
 
-) [11
+) [12
 
 
 
@@ -332,12 +312,12 @@ ional Swarm for Graph Col-or-ing\OT1/cmr/m/n/10 .
 Here is how much of LuaTeX's memory you used:
  3021 strings out of 494897
  100000,128383 words of node,token memory allocated
- 280 words of node memory still in use:
-   2 hlist, 1 vlist, 1 rule, 2 glue, 40 glue_spec, 2 write nodes
-   avail lists: 2:16,3:362,4:2463,5:610,6:4351,7:84,9:328,10:303
+ 286 words of node memory still in use:
+   2 hlist, 1 vlist, 1 rule, 2 glue, 41 glue_spec, 2 write nodes
+   avail lists: 2:23,3:212,4:1359,5:329,6:3825,7:493,9:175,10:334
  6379 multiletter control sequences out of 65536+600000
  48 fonts using 1896955 bytes
- 37i,6n,31p,1278b,300s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 37i,6n,31p,1746b,300s stack positions out of 5000i,500n,10000p,200000b,100000s
 <</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><<
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><<
@@ -349,10 +329,10 @@ cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><</usr/local
 /texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><</usr/local/te
 xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/local/tex
 live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Lit_Review.pdf (13 pages, 566992 bytes).
+Output written on Lit_Review.pdf (14 pages, 570996 bytes).
 
-PDF statistics: 92 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+PDF statistics: 95 PDF objects out of 1000 (max. 8388607)
+ 65 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

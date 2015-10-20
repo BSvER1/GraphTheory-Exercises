@@ -99,24 +99,19 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 		g2d.setFont(new Font("Serif", Font.PLAIN, (int) (0.01 * scale * Universe.getBounds(0))));
 		// System.out.println("setting font size to be "+(int)
 		// (0.01*scale*Universe.getBounds(0)));
-
-		g2d.setColor(Color.BLACK);
-		g2d.fillRect(0, 0, (int) getBounds().getWidth(), (int) getBounds().getHeight());
+		
+		if (!drawGradientMap) {
+			g2d.setColor(Color.BLACK);
+			g2d.fillRect(0, 0, (int) getBounds().getWidth(), (int) getBounds().getHeight());
+		} else {
+			g2d.drawImage(SecretAgents.getGradientMap(), 0, 0, 
+					(int) (SecretAgents.getGradientMap().getWidth()*scale),
+					(int) (SecretAgents.getGradientMap().getHeight()*scale), null);
+		}
 
 		try {
 			// Draw wells
 			for (int i = 0; i < Universe.getWells().size(); i++) {
-				g.setColor(Universe.getWells().get(i).getColour());
-				g.setColor(g.getColor().darker().darker().darker().darker());
-				if (drawGradientMap) {
-					for (int posX = 0; posX < Universe.getBounds(0); posX++) {
-						for (int posY = 0; posY < Universe.getBounds(1); posY++) {
-							if (Universe.getGradientMapVal(posX, posY) == i) {
-								g2d.drawRect((int) (posX * scale), (int) (posY * scale), (int) scale, (int) scale);
-							}
-						}
-					}
-				}
 				g.setColor(Universe.getWells().get(i).getColour());
 				g2d.drawOval(
 						(int) ((Universe.getWells().get(i).getLocation()[0]
@@ -141,20 +136,34 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 			}
 
 			// Draw agents
+			int spotWidth = 4;
 			for (int i = 0; i < Universe.getAgents().size(); i++) {
 				if (!Universe.getAgents().get(i).isCaptured()) {
+					
+					
+					for (int wellNum = 0; wellNum < Universe.getWells().size(); wellNum++) {
+						//if ((Universe.getIsTorricDistShorter(Universe.getWells().get(wellNum).getLocation(), Universe.getAgents().get(i).getLocationArray(), 0) ||
+						//		Universe.getIsTorricDistShorter(Universe.getWells().get(wellNum).getLocation(), Universe.getAgents().get(i).getLocationArray(), 1))) {
+						//	g.setColor(Color.blue);
+						//} else {
+//							g.setColor(Color.green);
+//						//}
+//						g2d.drawLine((int) (Universe.getAgents().get(i).getLocation(0) * scale),
+//								(int) (Universe.getAgents().get(i).getLocation(1) * scale),
+//								(int) ((Universe.getAgents().get(i).getLocation(0) * scale) + 
+//										2 * Universe.getAgents().get(i).getForce(wellNum, 0)),
+//								(int) ((Universe.getAgents().get(i).getLocation(1) * scale) + 
+//										2 * Universe.getAgents().get(i).getForce(wellNum, 1)));
+//						//
+					}
+					
 					g.setColor(Color.RED);
-
-					int spotWidth = 4;
-
 					g2d.fillRect((int) ((Universe.getAgents().get(i).getLocation(0) - spotWidth / 2) * scale),
 							(int) ((Universe.getAgents().get(i).getLocation(1) - spotWidth / 2) * scale),
 							(int) (spotWidth * scale), (int) (spotWidth * scale));
-
 					g2d.drawString("" + Universe.getAgents().get(i).getVertexAssociation(),
 							(int) (Universe.getAgents().get(i).getLocation(0) * scale),
 							(int) (Universe.getAgents().get(i).getLocation(1) * scale));
-
 				}
 			}
 
