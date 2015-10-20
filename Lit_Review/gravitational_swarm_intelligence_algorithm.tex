@@ -7,6 +7,9 @@ The action of each is presented below:
 \includegraphics[scale=0.65]{gs-cp-flow}
 \end{center}
 Each agent moves in the toric world until all agents fall into the "Stand By" State. Then once the last agent triggers the "All Finished" State, the current colouring is accepted as valid. This algorithm presented some issues when implemented for testing. The comfort statistic that each agent tracks can grow unboundedly if the agents repeatedly fall into wells that they are repulsed from. This causes all agents to grow in comfort, making the local minuma harder to improve with every iteration and the chance of jumping out and finding a valid solution fall dramatically. 
+\\The distance functions that were implemented contained an error, resulting in a toroidal universe but gravitational attraction only in the plane. This meant that all results presented here use the non-toroidal distance. This does not present an issue, as the algorithm is still shown to converge to the solution as long as the distance functions work partially.
 
 \subsection{Workarounds}
+This algorithm was relatively easy to implement, however 
+
 \subsection{Additions}

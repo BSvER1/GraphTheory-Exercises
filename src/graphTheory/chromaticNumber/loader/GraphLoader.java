@@ -23,7 +23,7 @@ public class GraphLoader {
 	private void init(File file) throws FileSystemException {
 		String[] fileExt = file.getAbsolutePath().split("\\.");
 
-		if (file.length() > 500000) {
+		if (file.length() > 1000000) {
 			//System.out.println(file.getName()+" has length "+file.length());
 			throw new FileSystemException("file is too large!");
 		}

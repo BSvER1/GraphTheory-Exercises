@@ -15,7 +15,7 @@ public class Agent {
 	private UniformRealDistribution udist;
 	private LevyDistribution ldist;
 	
-	private double accelConst = 100.0;
+	private double accelConst = 175.0;
 	private double distPower = 1;
 	
 	private long comfort;
@@ -95,18 +95,10 @@ public class Agent {
 				
 				dimVel[i] += getForce(j, i, distance);
 				
-//				if (dimVel[i] < 0.1) {
-//					double rng = ldist.sample();
-//					while (rng > 500) {
-//						rng = ldist.sample();
-//					}
-//					if (udist.sample() > 0.5) {
-//						
-//						dimVel[i] += 0.01 * rng;
-//					} else {
-//						dimVel[i] -= 0.01 * rng;
-//					}
-//				}
+
+
+				dimVel[i] += udist.sample() - 0.5;
+
 				
 				if (dimVel[i].isNaN()) {
 					if (SecretAgents.SECRET_TRACING) 
@@ -186,10 +178,18 @@ public class Agent {
 		} else {
 			dist = udist.sample() - 0.5;
 		}
-		
-		Double force = (accelConst*(dist)/(Math.pow(distanceToWell(wellNum), distPower))) * 5;
-		if (force.isInfinite() || force.isNaN()) {
-			Driver.trace("NaN or inf");
+		Double force;
+		double distToWell = distanceToWell(wellNum);
+		if (distToWell < 1) {
+			force = Double.MAX_VALUE/2;
+		} else {
+			force = (accelConst*(dist)/(Math.pow(distToWell, distPower))) * 5;
+		}
+		if (force.isInfinite()) {
+			Driver.trace("inf");
+		}
+		if (force.isNaN()) {
+			Driver.trace("NaN");
 		}
 		
 		//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
@@ -235,9 +235,18 @@ public class Agent {
 			dist = udist.sample() - 0.5;
 		}
 		
-		Double force = (accelConst*(dist)/(Math.pow(distance, distPower))) * 5;
-		if (force.isInfinite() || force.isNaN()) {
-			Driver.trace("NaN or inf");
+		Double force;
+		if (distance < 1) {
+			force = Double.MAX_VALUE/2;
+		} else {
+			force = (accelConst*(dist)/(Math.pow(distance, distPower))) * 5;
+		}
+		if (force.isInfinite()) {
+			Driver.trace("inf");
+			force = Double.MAX_VALUE;
+		}
+		if (force.isNaN()) {
+			Driver.trace("NaN");
 		}
 		
 		//double force = (accelConst*(-dimLoc[i]+Universe.getWells().get(j).getLocation()[i])/(Math.pow(distance, distPower)));
@@ -261,6 +270,8 @@ public class Agent {
 			
 			//Driver.trace("applying velocity of "+dimVel[i]+" in dim "+i+" to get loc of "+(dimLoc[i] + dimVel[i]));
 			dimLoc[i] += dimVel[i];
+			dimLoc[i] = (dimLoc[i] + Universe.getBounds(i))%Universe.getBounds(i);
+			
 			dimLoc[i] = (Universe.getBounds(i)+dimLoc[i]) % Universe.getBounds(i);
 			if (SecretAgents.SECRET_TRACING) {
 				Driver.trace("velocity of agent in direction "+i+" is "+dimVel[i]);

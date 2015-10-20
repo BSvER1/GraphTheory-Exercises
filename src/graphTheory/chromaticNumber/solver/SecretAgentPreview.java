@@ -19,7 +19,7 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 	Thread agentsPreview;
 
 	static boolean running;
-	public static boolean drawGradientMap = false;
+	public static boolean drawGradientMap = true;
 
 	double scale;
 	int xOffset = 40;
@@ -174,13 +174,15 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 			g2d.drawString("Colours: " + SecretAgents.getNumColours(), 2, 20);
 			g2d.drawString("Internal Iteration: " + SecretAgents.getCurrentInternalIterationNum(), 2, 30);
 			g2d.drawString("Current Trial: " + SecretAgents.getCurrentIterationNum(), 2, 40);
+			if (drawGradientMap)
+				g2d.drawString("Num colours to map: "+SecretAgents.getNumMapLocsRemaining(), 2, 50);
 		} catch (IndexOutOfBoundsException e) {
 		} catch (NullPointerException e) {
 		}
 
 		g.dispose();
 		g2d.dispose();
-
+		
 		bs.show();
 	}
 

@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.EventQueue;
 //import java.util.Random;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import org.apache.commons.math3.distribution.UniformRealDistribution;
@@ -26,7 +29,7 @@ public class SecretAgents {
 	UniformRealDistribution udist;
 
 	public static boolean SECRET_TRACING = false;
-	boolean SLOW_MODE = true;
+	boolean SLOW_MODE = false;
 	boolean WELLS_MOVE = false;
 
 	int SLOW_SPEED = 50; // larger is slower. default to 2
@@ -48,6 +51,7 @@ public class SecretAgents {
 	private SecretAgentPreview sap;
 	
 	public static  BufferedImage map;
+	static ArrayList<Double[]> mapLocs;
 
 	Universe u;
 
@@ -410,8 +414,8 @@ public class SecretAgents {
 		Random r = new Random();
 		
 		map = new BufferedImage((int) Universe.getBounds(0), (int) Universe.getBounds(1), BufferedImage.TYPE_3BYTE_BGR);
-		for (int i = 0; i < Universe.getBounds(0); i++) {
-			for (int j = 0; j < Universe.getBounds(1); j++) {
+		for (int i = 0; i < Universe.getBounds(0); i+=4) {
+			for (int j = 0; j < Universe.getBounds(1); j+=4) {
 				map.setRGB(i, j, Color.BLACK.getRGB());
 			}
 		}
@@ -419,16 +423,16 @@ public class SecretAgents {
 		Agent agent = new Agent(1);
 		Universe.getAgents().add(agent);
 		
-		ArrayList<Double[]> locs = new ArrayList<Double[]>();
+		mapLocs = new ArrayList<Double[]>();
 	
-		for (int i = 0; i < Universe.getBounds(0); i++) {
-			for (int j = 0; j < Universe.getBounds(1); j++) {
-				locs.add(new Double[] {0.0 + i, 0.0 + j});
+		for (long i = 0; i < Universe.getBounds(0); i++) {
+			for (long j = 0; j < Universe.getBounds(1); j++) {
+				mapLocs.add(new Double[] {0.0 + i, 0.0 + j});
 			}
 		}
 		
-		while (!locs.isEmpty()) {
-			Double[] tmpLoc = locs.remove(r.nextInt(locs.size()));
+		while (!mapLocs.isEmpty()) {
+			Double[] tmpLoc = mapLocs.remove(r.nextInt(mapLocs.size()));
 			Universe.getAgents().get(0).setStartLocation(tmpLoc);
 			while (!Universe.getAgents().get(0).isCaptured()) {
 				tryCapture(0);
@@ -443,6 +447,11 @@ public class SecretAgents {
 		Universe.getAgents().remove(0);
 		
 		Driver.trace("finished creating gradient map");
+		File output = new File("GradMap"+System.currentTimeMillis()+".png");
+		try {
+			ImageIO.write(map, "png", output);
+		} catch (IOException e1) {
+		}
 		
 		while (true) {
 			try {
@@ -492,5 +501,9 @@ public class SecretAgents {
 	
 	public static void setMapPixel(Double[] loc, Color col) {
 		map.setRGB(loc[0].intValue(), loc[1].intValue(), col.getRGB());
+	}
+	
+	public static int getNumMapLocsRemaining() {
+		return mapLocs.size();
 	}
 }
