@@ -20,6 +20,8 @@
 % doi={10.1109/CYBConf.2015.7175923}, 
 % month={June},}
 
+\subsection{Introduction}
+
 The flower pollination algorithm\cite{yang2012flower} (FPA) was first described by Xin-She Yang\footnote{Department of Engineering, University of Cambridge}. It is a metaheuristic global optimisation algorithm inspired by the pollination process of flowering plants. Although originally formulated to solve continuous optimisation problems, Meriem Bensouyad\ref{1} and DjamelEddine Saidouni\ref{1} propose a discrete version of FPA for solving the graph coloring problem\cite{7175923}.\\
 \footnote{MISC Laboratory Constantine 2 University}\label{1}
 %do the intro?
@@ -61,7 +63,40 @@ x_i^{t+1} = x_i^{t} + \epsilon(x_j^{t} - x_k^{t}),
 where $x_j^{t}$ and $x_k^{t}$ are pollens from the different flowers of the same plant species and $\epsilon$ is drawn from a uniform distribution in $[0,1]$. (WE MAY HAVE FUCKED THIS UP? WTF IS THE SAME PLANT SPECIES IN THIS ALGORITHM?)\\
 Most flower pollination activities can occur at both local and global scale. In practice, adjacent flower patches or flowers in the not-so-far-away neighbourhood are more likely to be pollinated by local flower pollens than those far away. For this, we use a switch probability $p$ to switch between common global pollination and intensive local pollination. (I do not know what ``common'' and ``intensive'' mean, they are never explained.) In the original paper (Yang) the author describes using an initial $p - 0.5$ and then performing a parametric study which found that $p = 0.8$ worked best for most applications. Again, the authors of the second paper did not discuss actual values.\\
 
+Moving into the realm of the GCP, the second authors describe what they call a ``integer representation scheme''
+\begin{quotation}
+an individual is a complete assignment of $k$ colors to the graph vertices such that $S = \{ C(1),C(2),\ldots,C(i),\ldots,C(n) \}$ where $C(i)$ represents the color of the vertex $i$.
+\end{quotation}
+Basically, they assign colors (represented by integers $1,\ldots,k$) to a ``flower'' vector whose indices correspond to vertices on the graph. This is opposed to other schemes that we have investigated in this work that assign vertices to color ``buckets''.\\
+Since this is a combinatorial optimisation problem, we also need a cost function. The authors call this a fitness function and define it as follows:\\~\\
+Let $A(G)$ be a $(0,1)$ adjacency matrix of a graph $G = (V,E)$ where $(a_{ij})$ defined as follows:
+\begin{equation}
+a_{ij} = \begin{cases}
+1 \qquad \text{if} (v_i,v_j) \in E\\
+0 \qquad otherwise
+\end{cases}
+\end{equation}
+Let the conflicting matrix \emph{conflict} of a coloring $C$ is given by:
+\begin{equation}
+\text{conflict}_{ij} = \begin{cases}
+1 \qquad \text{if} C(i)=C(j) \text{and} a_{ij}=1\\
+0 \qquad otherwise
+\end{cases}
+\end{equation}
+
+For a solution $S$, the fitness function $f(S)$ is given by
+\begin{equation}
+f(S) = \displaystyle \sum_{i=1}^{n} \sum_{j=1}^{n} \text{conflict}_ij
+\end{equation}
+The aim is then to to minimise the number of conflicts until reaching $f^*(S) = 0$, for a fixed $k$. Thus a valid coloring is found.\\~\\
+
+Note that this is essentially the same cost function as used by Johnson et al. in their fixed-K algorithm.\\
+Finally the authors describe a ``swap strategy'' that they argue helps to keep diversity in the population and avoid stagnation by swapping the most conflicting vertex in a solution $S$ with a least conflicting vertex (i.e. swap the assigned color).\\
+The discrete flower pollination algorithm used by the authors is shown in figure ref{}.
 
 
+\subsection{Implementation}
+
+\subsection{Critique}
 
 
