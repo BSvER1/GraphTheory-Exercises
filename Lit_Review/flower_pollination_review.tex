@@ -27,7 +27,7 @@ Pollination can take two major forms: abiotic and biotic. About 90\% of flowers 
 A concept that comes up when talking about pollinators is \emph{constancy}, which refers to the tendency of some pollinators to visit certain flower species while bypassing others. It has been conjectured that constancy has evolutionary advantages for both the flower species and the pollinator species.\\
 Pollination can be achieved by self-pollination or cross-pollination. Cross-pollination, or allogamy, means pollination can occur from pollen of a flower of a different plant, while self-pollination is the fertilisation of one flower, such as peach flowers, from pollen of the same flower or different flowers of the same plant, which often occurs when there is no reliable pollinator available. %this need to be rewritten, got these papers suck
 \\
-Biotic, cross-pollination may occur at long distances, and the pollinators such as bees, bats, birds and flies can fly a long distance, thus they can be considered as the global pollination. In addition, bees and birds may behave as L\~vy flight behaviour, with jump or fly distance steps obey a L\~evy distribution. Furthermore, flower constancy can be used an incremental step using a similarity or difference of two flowers.\\~\\
+Biotic, cross-pollination may occur at long distances, and the pollinators such as bees, bats, birds and flies can fly a long distance, thus they can be considered as the global pollination. In addition, bees and birds may behave as L\~evy flight behaviour, with jump or fly distance steps obey a L\~evy distribution. Furthermore, flower constancy can be used an incremental step using a similarity or difference of two flowers.\\~\\
 JESUE FUCK THESE PAPERS ARE BADLY WRITTEN\\~\\
 
 \subsection{Flower Pollination Algorithm}
@@ -51,7 +51,7 @@ At this point we have to mention that the argument for global pollination being 
 \end{quotation}
 The parameter $L$ is supposedly the ``strength'' of the pollination, which is a step size drawn from a L\~evy distribution
 \begin{equation}
-L ~ \dfrac{\lambda \gamma(\lambda) \sin(\pi \lambda / 2)}{\pi} \dfrac{1}{s^{1+\lambda}}, \, (s \gg s_0 > 0)
+L ~ \frac{\lambda \gamma \left( \lambda \right) \sin \left( \pi \lambda / 2 \right) }{\pi} \frac{1}{s^{1+\lambda}}, \, (s \gg s_0 > 0)
 \end{equation}
 Here $\gamma(\lambda)$ is the standard gamma function, and this distribution is valid for large steps $s>0$. Yang reports using $\lambda = 1.5$ for the simulations in the original paper, the second paper's authors (for GCP) do not report what value they used\footnote{we will talk about why this is unhelpful later}.\\
 The local pollination, which also includes an allowance for constancy apparently, can be represented as

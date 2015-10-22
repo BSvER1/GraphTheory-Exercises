@@ -8,7 +8,7 @@ import graphTheory.chromaticNumber.loader.Driver;
 
 public class Graph {
 	
-	boolean directed = true;
+	boolean directed = false;
 	boolean sparce;
 	
 	double density;

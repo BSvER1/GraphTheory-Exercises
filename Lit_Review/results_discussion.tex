@@ -1,3 +1,73 @@
 \chapter{Results \& Discussion}
 
 \section{Algorithms}
+
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l l l l l l}
+\hline
+Graph & $\chi$ & $\Delta + 1$ & Solver & Limits on Runtime & k & time to k & \% success\\ \hline
+
+queen5\_5.col & 5 & 17 & RBB & 100000 & 5 & time to k & percent\\
+queen5\_5.col & 5 & 17 & GS & 1000000 & 5 & time to k & percent\\
+queen5\_5.col & 5 & 17 & FPA & 10000 & 7 & time to k & percent\\
+queen5\_5.col & 5 & 17 & GA & 20000 & 7 & time to k & percent\\
+
+myciel5.col & 6 & 24 & RBB & 100000 & 3 & time to k & percent\\
+myciel5.col & 6 & 24 & GS & 1000000 & 2 & time to k & percent\\
+myciel5.col & 6 & 24 & FPA & 10000 & 10 & time to k & percent\\
+myciel5.col & 6 & 24 & GA & 20000 & 8 & time to k & percent\\
+
+queen7\_7.col & 7 & 25 & RBB & 100000 & 7 & time to k & percent\\
+queen7\_7.col & 7 & 25 & GS & 1000000 & 9 & time to k & percent\\
+queen7\_7.col & 7 & 25 & FPA & 10000 & 19 & time to k & percent\\
+queen7\_7.col & 7 & 25 & GA & 20000 & - & - & percent\\
+
+mulsol.i.3.col & 31 & 158 & RBB & 100000 & 31 & 2844 & percent\\
+mulsol.i.3.col & 31 & 158 & GS & 1000000 & 31 & time to k & percent\\
+mulsol.i.3.col & 31 & 158 & FPA & 10000 & - & - & percent\\
+mulsol.i.3.col & 31 & 158 & GA & 20000 & - & - & percent\\
+
+\hline
+\end{tabular}
+\caption{Results showing the time taken for the algorithm to find a valid colouring (k colours), optimal or not}
+\label{res:timeToK}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{l l l l l l l l}
+\hline
+Graph & $\chi$ & $\Delta + 1$ & Solver & Limits on Runtime & min k reached & time to k & total runtime \\\hline
+myciel4.col & 6 & 12 & RBB & 100000 & 3 & time to k & 470.3\\
+myciel4.col & 6 & 12 & GS & 1000000 & 2 & time to k & $1.63 \times 10^7$\\
+myciel4.col & 6 & 12 & FPA & 10000 & 10 & time to k & 4899871.0\\
+myciel4.col & 6 & 12 & GA & 20000 & 8 & time to k & 2008825\\
+
+queen5\_5.col & 5 & 17 & RBB & 100000 & 5 & time to k & 395.7\\
+queen5\_5.col & 5 & 17 & GS & 1000000 & 5 & time to k & 1382389\\
+queen5\_5.col & 5 & 17 & FPA & 10000 & 7 & time to k & 2136729\\
+queen5\_5.col & 5 & 17 & GA & 20000 & 7 & time to k & 7211935\\
+
+myciel5.col & 6 & 24 & RBB & 100000 & 3 & time to k & 470.3\\
+myciel5.col & 6 & 24 & GS & 1000000 & 2 & time to k & $1.63 \times 10^7$\\
+myciel5.col & 6 & 24 & FPA & 10000 & 10 & time to k & 4899871.0\\
+myciel5.col & 6 & 24 & GA & 20000 & 8 & time to k & 2008825\\
+
+queen7\_7.col & 7 & 25 & RBB & 100000 & 7 & time to k & 780.0\\
+queen7\_7.col & 7 & 25 & GS & 1000000 & 9 & time to k & $1.23 \times 10^7$\\
+queen7\_7.col & 7 & 25 & FPA & 10000 & 19 & time to k & 13875131\\
+queen7\_7.col & 7 & 25 & GA & 20000 & - & - & -\\
+
+mulsol.i.3.col & 31 & 158 & RBB & 100000 & 31 & 2844 & 4952\\
+mulsol.i.3.col & 31 & 158 & GS & 1000000 & 31 & time to k & 21604849\\
+mulsol.i.3.col & 31 & 158 & FPA & 10000 & - & - & -\\
+mulsol.i.3.col & 31 & 158 & GA & 20000 & - & - & -\\
+
+\hline
+\end{tabular}
+\caption{Results of algorithms attempts at finding a better solution (and failing)}
+\label{res:timeToFail}
+\end{table}

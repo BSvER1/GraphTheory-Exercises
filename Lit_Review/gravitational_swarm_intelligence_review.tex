@@ -1,1 +1,65 @@
 \section{Gravitational Swarm Intelligence}
+\paragraph*{} The natural inspiration of this algorithm does not come from living beings, such as ants or bees, but from the basic physical law of gravitational attraction between objects. We construct a world that agents navigate through, attracted by the gravitational pull of specific objects, the color goals, such that they may suffer specific repulsion forces, activated by the friend-or-foe nature of the relation between agents induced by the adjacency relation in the underlying graph.
+\paragraph*{} \textbf{Initial definition}: Let $G = (V,E)$ be a graph defined on a set of nodes $V = \lbrace v_1,\ldots,v_N \rbrace$ and edges $E \subseteq V \times V$. We define a group of GS-GC agents $B = \lbrace b_1, b_2, \ldots , b_N \rbrace$ each corresponding to a graph node. Each agent navigates inside a square planar toric world according to a speed vector $\overrightarrow{v_i}$. At any moment in time we know the position attribute of each agent $p_i(t) = (x_i,y_i)$ where $x_i$ and $y_i$ are the Cartesian coordinates in the space. When $t = 0$ we have the initial position of the agents $p_i(0) = (x_0, y_0)$. Suppose that we want to color the graph with $K$ colors, denoting $C = \lbrace 1, 2, \ldots , K \rbrace$ the set of colors, where K must not be lower than the chromatic number of the graph for the GS-GC to converge. We assign to these colors, $K$ fixed points in space, the color goals $CG = \lbrace g_1 , \ldots , g_K \rbrace$, endowed with a gravitational attraction resulting in a  velocity component $\overrightarrow{v_{gc}}$ affecting the agents. The attraction force decreases with the distance, but affects all the agents in the space.
+\paragraph*{} The problem collapses into the minimisation of a cost function:
+\[ min | \lbrace b_i \textbf{ s.t. } b_i \in \lbrace g_1, \ldots g_N \rbrace \rbrace | \]
+We denote the set of agents whose position is in the region of the space near enough to a color neighbourhood of the color as:
+
+\begin{equation}
+\mathcal{N} \left( g_k \right) = \lbrace b_i \textbf{ s.t. } \Vert p_i - g_k \Vert < nearenough \rbrace
+\end{equation}
+
+We denote the fact that the node has been assigned to the corresponding color assigning value to a the agent color attribute
+
+\begin{equation}
+b_i \in \mathcal{N}\left( g_k \right) \Rightarrow c_i = k
+\end{equation}
+
+The initial value of the agent color attribute ci is zero or null. Inside the spatial neighbourhood of a color goal there is no further gravitational attraction. However, there may be a repulsion force between agents that are connected with an edge in the graph G. This repulsion is only effective for agents inside the same color goal neighbourhood. To model this effect, we define function repulsion which has value 1 if a pair of GS-GC agents have an edge between them, and 0 otherwise. The repulsive forces experimented by agent $b_i$ from the agents in the color goal $g_k$ are computed as follows:
+
+\begin{equation}
+R \left( b_i, g_k \right) = \sum\limits_{\mathcal{N}\left( g_k \right)} repulsion \left( b_i, b_j \right)
+\end{equation}
+
+The cost function defined on the global system spatial configuration is:
+
+\begin{equation}
+f \left( B, CG \right) = | \lbrace b_i \textbf{ s.t. } c_i \in C \& R \left(b_i, g_{c_i} \right) = 0 \rbrace |
+\end{equation}
+
+This cost function is the number of graph nodes which have a color assigned and no conflict inside the color goal. The agents outside the neighbourhood of any color goal can't be evaluated, so it can be a part of the solution of the problem. The dimension of the world and the definition of the $nearenough$ threshold allows controlling the speed of convergence of the algorithm. If the world is big and the $nearenough$ variable is small then the algorithm converges slowly but monotonically to the solution, if the world is small and the $nearenough$ variable is big the algorithm is faster but convergence is jumpy because the algorithm falls in local minima and needs transitory energy increases to escape them. The reason of this behaviour is that the world is not normalized and the magnitude of the velocity vector can be bigger than the color goal spatial influence and can cross a goal without falling in it.
+\paragraph*{} Each color goal has an attraction well spanning the entire space, therefore the gravitational analogy. But in our approach the magnitude of the attraction drops proportionally with the Euclidean distance d between the goal and the GS-GC agent, but it never disappears. If $\Vert d \Vert < nearenough$ then we make $d = 0$, and the agent's velocity becomes 0 stopping it.
+\paragraph*{} \textbf{Definition}: A Gravitational Swarm (GS) is a collection of particles $P = \lbrace p_1, \ldots , p_L \rbrace$ moving in an space $S$ subjected to attraction and repulsion forces. Attraction correspond to long range gravitational interactions. Repulsions correspond to short range electrical interactions. Particle attributes are: spatial localization $s_i \in S$, mass $m_i \in \mathbb{R}$, charge $\mu_i \in \mathbb{R}$, set of repelled particles $r_i \subseteq P$. The motion of the particle in the space is governed by equation:
+\begin{equation}
+s_i \left( t \right) = -m_i \left( t \right) A_i \left( t \right) + \mu_i \left( t \right) R_i \left( t \right) + \eta \left( t \right)
+\end{equation}
+where $A_i(t)$ and $R_i(t)$ are the result of the attractive and repulsive forces, and $\eta(t)$ is a random (small) noise term. The attractive motion term is of the form:
+\begin{equation}
+A_i(t) = \sum \limits_{p_j \in P - r_i} m_j(t)(s_i - s_j) \delta_{ij}^A
+\end{equation}
+where
+\begin{equation}
+\delta_{ij}^A = \begin{cases} 
+\Vert s_i - s_j \Vert ^{-2} & \Vert s_i - s_j \Vert ^2 > \theta^A \\
+0 & \Vert s_i - s_j \Vert ^2 \leq \theta^A 
+\end{cases}
+\end{equation}
+The repulsive term is of the form
+\begin{equation}
+R_i(t) = \sum \limits_{p_j \in r_i} \mu_j(t)(s_i - s-j) \delta_{ij}^R
+\end{equation}
+where
+\begin{equation}
+\delta_{ij}^R = \begin{cases} 
+\Vert s_i - s_j \Vert ^{-2} & \Vert s_i - s_j \Vert ^2 \leq \theta^R \\
+0 & \Vert s_i - s_j \Vert ^2 > \theta^R 
+\end{cases}
+\end{equation}
+The two delta functions have different roles in the definition of the GS. The attractive $\delta^A$ corresponds to the inverse to the distance strength of attraction. To avoid singular values when two particles are close to zero distance we set a threshold $\theta^A$ which determines the region around the particles where the motion due to attraction forces disappear. The repulsive $\delta^R$ defines $ij$ the maximum extension of the repulsive forces, which are short range forces. The threshold $\theta^R$ determines the region around the particles where the repulsive forces are active.
+A vertex particle of a GS-GC reaches zero velocity if and only if it is at distance below $\theta^A$ of a color particle and no repulsive particle is in $\theta^R$ range.
+A global state of the GS-GC is stationary if and only if all vertex particles are placed in the neighbourhood of some color particle without any repulsive particles located at the same color particle neighbourhood.
+If the graph's chromatic number $M^\star$ is smaller than or equal to the number of color particles $M^\star \leq M$, there will be a non-empty set of stationary states of the GS-GC.
+Any stationary state of the GS-GC corresponds to a graph colouring.
+If the graph's chromatic number is greater than the number of color particles, there are no stationary states in the GS-GC.
+
+These conditions mean that it is always possible to (given enough time) find the chromatic number for a graph. The algorithm to do this is outlined in the following sections.

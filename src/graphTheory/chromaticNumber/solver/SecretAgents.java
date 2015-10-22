@@ -38,7 +38,7 @@ public class SecretAgents {
 	static long currentIterationNum;
 	static long currentLargestWellComfort;
 	
-	long numInternalIterations = 2000000;
+	long numInternalIterations = 1000000;
 	long runStart;
 	long comfortLimit = 10;
 

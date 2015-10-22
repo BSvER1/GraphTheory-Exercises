@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  12 OCT 2015 19:24
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  22 OCT 2015 18:23
  restricted \write18 enabled.
 **results_discussion.tex
 (./results_discussion.tex
@@ -51,6 +51,125 @@ l.3 \section{A
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 3--4
+[][]Algorithms 
+ []
+
+
+! LaTeX Error: Environment table undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \begin{table}
+               [H]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \begin{table}[
+                H]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 9.
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.35 \caption
+           {Results showing the time taken for the algorithm to find a valid...
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \begin{document} ended by \end{table}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37 \end{table}
+              
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 7--38
+[][][H]
+ []
+
+
+Overfull \hbox (31.81255pt too wide) in paragraph at lines 7--38
+[]
+ []
+
+
+! LaTeX Error: Environment table undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.39 \begin{table}
+                [H]
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.39 \begin{table}[
+                 H]
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 \caption
+           {Results of algorithms attempts at finding a better solution (and...
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: \begin{document} ended by \end{table}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 \end{table}
+              
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 )
 ! Emergency stop.
 <*> results_discussion.tex
@@ -60,12 +179,12 @@ If that doesn't work, type  X <return>  to quit.
 
 
 Here is how much of LuaTeX's memory you used:
- 7 strings out of 494897
- 100000,89155 words of node,token memory allocated 453 words of node memory still in use:
-   4 hlist, 8 glue, 2 penalty, 28 glyph, 33 glue_spec, 1 temp, 2 local_par, 1 di
-r nodes
-   avail lists: 2:11,3:1,7:3,10:1
- 3793 multiletter control sequences out of 65536+600000
- 14 fonts using 562767 bytes
- 5i,0n,4p,55b,16s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 23 strings out of 494897
+ 100000,89155 words of node,token memory allocated 22693 words of node memory still in use:
+   320 hlist, 18 vlist, 56 rule, 16 math, 1545 glue, 16 kern, 6 penalty, 1553 gl
+yph, 875 glue_spec, 1 temp, 2 write, 4 local_par, 1 dir nodes
+   avail lists: 2:12,3:7,7:1,9:8,10:19
+ 3798 multiletter control sequences out of 65536+600000
+ 25 fonts using 994519 bytes
+ 19i,7n,12p,136b,104s stack positions out of 5000i,500n,10000p,200000b,100000s
 !  ==> Fatal error occurred, no output PDF file produced!

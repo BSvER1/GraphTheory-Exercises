@@ -226,15 +226,17 @@ public class Control {
 							break;
 						}
 					}
+					Runtime.getRuntime().gc();
+					Runtime.getRuntime().gc();
 					
 					runStart = System.currentTimeMillis();
 					//Secret Agents - Brendon
 					for (int i = 0; i < testCount; i++) {
-						long saLimit = 10;
+						long saLimit = 6;
 						long timeStart = System.currentTimeMillis();
 						SecretAgents sa = new SecretAgents(toSolve.getGraphName(), true);
+						sa.setNumInternalIterations(1000000);
 						sa.solve(toSolve, saLimit);
-						//sa.setNumInternalIterations(100000);
 						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, sa.getResult(), 
 								System.currentTimeMillis()-timeStart, sa.getNumInternalIterations());
 						System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
@@ -242,11 +244,13 @@ public class Control {
 							break;
 						}
 					}
+					Runtime.getRuntime().gc();
+					Runtime.getRuntime().gc();
 					
 					runStart = System.currentTimeMillis();
 					//Flower Pollination - Scott
-					for (int i = 0; i < testCount; i++) {
-						long fpLimit = 15;
+					for (int i = 0; i < testCount/2; i++) {
+						long fpLimit = 5;
 						int flowerCount = 40;
 						long timeStart = System.currentTimeMillis();
 						FlowerPollination fpa = new FlowerPollination();
@@ -258,6 +262,8 @@ public class Control {
 							break;
 						}
 					}
+					Runtime.getRuntime().gc();
+					Runtime.getRuntime().gc();
 					
 					runStart = System.currentTimeMillis();
 					//Genetic Algorithm - Collaborative
@@ -275,6 +281,8 @@ public class Control {
 						}
 					}/**/
 				}
+				Runtime.getRuntime().gc();
+				Runtime.getRuntime().gc();
 				
 			}
 		} else {

@@ -18,6 +18,12 @@ public class GraphLoader {
 	public GraphLoader(File file) throws FileSystemException {
 
 		init(file);
+		
+		if (g == null) {
+			Driver.trace("graph not produced");
+		} else {
+			Driver.trace("graph produced. max degree is "+g.getMaximalDegree());
+		}
 	}
 
 	private void init(File file) throws FileSystemException {

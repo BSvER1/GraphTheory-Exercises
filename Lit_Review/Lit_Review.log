@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  19 OCT 2015 19:44
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  22 OCT 2015 18:23
  restricted \write18 enabled.
 **Lit_Review.tex
 (./Lit_Review.tex
@@ -124,23 +124,91 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 Package: algpseudocode 
 
 Document Style - pseudocode environments for use with the `algorithmicx' style
-) (./Lit_Review.aux (./literature_review_section.aux)
+) (/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip46
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks20
+\ex@=\dimen114
+))
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen115
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count101
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count102
+\leftroot@=\count103
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count104
+\DOTSCASE@=\count105
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen116
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count106
+\c@MaxMatrixCols=\count107
+\dotsspace@=\muskip10
+\c@parentequation=\count108
+\dspbrk@lvl=\count109
+\tag@help=\toks21
+\row@=\count110
+\column@=\count111
+\maxfields@=\count112
+\andhelp@=\toks22
+\eqnshift@=\dimen117
+\alignsep@=\dimen118
+\tagshift@=\dimen119
+\tagwidth@=\dimen120
+\totwidth@=\dimen121
+\lineht@=\dimen122
+\@envbody=\toks23
+\multlinegap=\skip47
+\multlinetaggap=\skip48
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(./Lit_Review.aux (./literature_review_section.aux)
 (./implementations_and_original_contributions.aux) (./results_discussion.aux)
 (./bibliography.aux))
 \openout1 = Lit_Review.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -178,17 +246,17 @@ LaTeX Font Info:    ... okay on input line 17.
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count101
-\scratchdimen=\dimen114
-\scratchbox=\box28
-\nofMPsegments=\count102
-\nofMParguments=\count103
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count104
-\MPscratchDim=\dimen115
-\MPnumerator=\count105
-\makeMPintoPDFobject=\count106
-\everyMPtoPDFconversion=\toks21
+\scratchcounter=\count113
+\scratchdimen=\dimen123
+\scratchbox=\box30
+\nofMPsegments=\count114
+\nofMParguments=\count115
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count116
+\MPscratchDim=\dimen124
+\MPnumerator=\count117
+\makeMPintoPDFobject=\count118
+\everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
 
@@ -205,7 +273,7 @@ Package pdftexcmds Info: \pdfdraftmode found.
 Package: luatex-loader 2010/03/09 v0.4 Lua module loader (HO)
 
 (/usr/local/texlive/2015/texmf-dist/scripts/oberdiek/oberdiek.luatex.lua))
-\pdftexcmds@toks=\toks22
+\pdftexcmds@toks=\toks27
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -233,67 +301,106 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 ))
-\@float@every@figure=\toks23
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 25.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 25.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 25.
+\@float@every@figure=\toks28
+LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 
-[1
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[1]
+(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1]
 \openout2 = literature_review_section.aux
- (./literature_review_section.tex
+
+(./literature_review_section.tex
 Chapter 1.
 (./johnson_simulated_annealing_review.tex)
-(./gravitational_swarm_intelligence_review.tex) (./genetic_algorithm_review.tex
-) (./flower_pollination_review.tex)) [1
+(./gravitational_swarm_intelligence_review.tex [1
 
 
-]
+] [2])
+(./genetic_algorithm_review.tex) (./flower_pollination_review.tex
+
+LaTeX Warning: Citation `yang2012flower' on page 3 undefined on input line 23.
+
+
+LaTeX Warning: Citation `7175923' on page 3 undefined on input line 23.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--32
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--32
+
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 47--49
+
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 60--63
+
+ []
+
+)) [5]
 \openout2 = implementations_and_original_contributions.aux
-
-(./implementations_and_original_contributions.tex
+ (./implementations_and_original_contributions.tex
 Chapter 2.
-(./random_brute_buckets_algorithm.tex
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 10.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 10.
- [2
+(./random_brute_buckets_algorithm.tex [6
 
 
 
 ])
-(./gravitational_swarm_intelligence_algorithm.tex [3]
-<images/gs-cp-flow.png, id=28, 748.7975pt x 911.405pt>
+(./gravitational_swarm_intelligence_algorithm.tex [7]
+<images/gs-cp-flow.png, id=47, 748.7975pt x 911.405pt>
 File: images/gs-cp-flow.png Graphic file (type png)
 
 <use images/gs-cp-flow.png>
-Package pdftex.def Info: images/gs-cp-flow.png used on input line 7.
-(pdftex.def)             Requested size: 486.7126pt x 592.40623pt.
+Package pdftex.def Info: images/gs-cp-flow.png used on input line 10.
+(pdftex.def)             Requested size: 433.62pt x 527.78085pt.
+ [8]
+<images/gradMapWithOverlay.png, id=51, 821.0675pt x 818.05624pt>
+File: images/gradMapWithOverlay.png Graphic file (type png)
 
-Overfull \hbox (53.0926pt too wide) in paragraph at lines 7--8
- [] 
- []
+<use images/gradMapWithOverlay.png>
+Package pdftex.def Info: images/gradMapWithOverlay.png used on input line 19.
+(pdftex.def)             Requested size: 433.62pt x 432.01991pt.
+ [9<./images/gs-cp-flow.png>] [10] [11<./images/gradMapWithOverlay.png>]
+<images/GradMap1445410689515.png, id=64, 1686.3pt x 1686.3pt>
+File: images/GradMap1445410689515.png Graphic file (type png)
 
-[4]
-Overfull \vbox (25.24625pt too high) has occurred while \output is active []
-
-
-[5<./images/gs-cp-flow.png>]) (./genetic_algorithm_algorithm.tex [6] [7]
-[8]) (./flower_pollination_algorithm.tex)) [9] [10]
+<use images/GradMap1445410689515.png>
+Package pdftex.def Info: images/GradMap1445410689515.png used on input line 33.
+(pdftex.def)             Requested size: 433.62pt x 433.616pt.
+ [12]) (./genetic_algorithm_algorithm.tex
+[13<./images/GradMap1445410689515.png>] [14] [15] [16])
+(./flower_pollination_algorithm.tex)) [17] [18]
 \openout2 = results_discussion.aux
  (./results_discussion.tex
 Chapter 3.
-) [11
+
+Overfull \hbox (23.96423pt too wide) in paragraph at lines 41--66
+ [][][] 
+ []
+
+) [19
 
 
 
-]
+] [20]
 \openout2 = bibliography.aux
  (./bibliography.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--8
@@ -301,38 +408,48 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--8
 ional Swarm for Graph Col-or-ing\OT1/cmr/m/n/10 .
  []
 
-) [12
+) [21
 
 
 
 ] (./Lit_Review.aux (./literature_review_section.aux)
 (./implementations_and_original_contributions.aux) (./results_discussion.aux)
-(./bibliography.aux)))
+(./bibliography.aux))
+
+LaTeX Warning: There were undefined references.
+
+)
 
 Here is how much of LuaTeX's memory you used:
- 3021 strings out of 494897
+ 3986 strings out of 494897
  100000,128383 words of node,token memory allocated
- 286 words of node memory still in use:
-   2 hlist, 1 vlist, 1 rule, 2 glue, 41 glue_spec, 2 write nodes
-   avail lists: 2:23,3:212,4:1359,5:329,6:3825,7:493,9:175,10:334
- 6379 multiletter control sequences out of 65536+600000
- 48 fonts using 1896955 bytes
- 37i,6n,31p,1746b,300s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 465 words of node memory still in use:
+   5 hlist, 2 vlist, 2 rule, 2 glue, 13 kern, 43 glue_spec, 2 write nodes
+   avail lists: 2:23,3:202,4:2447,5:294,6:3826,7:493,9:349,10:335
+ 7250 multiletter control sequences out of 65536+600000
+ 63 fonts using 2486055 bytes
+ 38i,14n,31p,1746b,302s stack positions out of 5000i,500n,10000p,200000b,100000s
 <</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><<
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><<
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><</
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><</us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><</usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><</usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><</usr/local/te
-xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on Lit_Review.pdf (14 pages, 570996 bytes).
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><</u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><</usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><</usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><</usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><</usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><</usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><</usr/local/texlive/20
+15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Lit_Review.pdf (23 pages, 1019527 bytes).
 
-PDF statistics: 95 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+PDF statistics: 151 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
