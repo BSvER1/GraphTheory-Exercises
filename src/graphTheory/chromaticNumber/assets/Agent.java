@@ -1,9 +1,6 @@
 package graphTheory.chromaticNumber.assets;
 
-import java.util.Arrays;
-//import java.util.Random;
-
-import org.apache.commons.math3.distribution.LevyDistribution;
+//import org.apache.commons.math3.distribution.LevyDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import graphTheory.chromaticNumber.loader.Driver;
@@ -13,7 +10,7 @@ public class Agent {
 
 	//private Random r;
 	private UniformRealDistribution udist;
-	private LevyDistribution ldist;
+	//private LevyDistribution ldist;
 	
 	private double accelConst = 175.0;
 	private double distPower = 1;
@@ -34,7 +31,7 @@ public class Agent {
 	public Agent(int vertex) {
 		//r = new Random();
 		udist = new UniformRealDistribution();
-		ldist = new LevyDistribution(0,0.1);
+		//ldist = new LevyDistribution(0,0.1);
 		comfort = 0;
 		isCaptured = false;
 		
@@ -95,11 +92,8 @@ public class Agent {
 				
 				dimVel[i] += getForce(j, i, distance);
 				
-
-
 				dimVel[i] += udist.sample() - 0.5;
 
-				
 				if (dimVel[i].isNaN()) {
 					if (SecretAgents.SECRET_TRACING) 
 						Driver.trace("got a NaN in the velocity. means that there is a well at this location, yet isnt being captured. " + distance);

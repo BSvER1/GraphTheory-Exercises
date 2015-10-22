@@ -74,7 +74,9 @@ public class SecretAgents {
 						frame.setVisible(true);
 						frame.setAlwaysOnTop(true);
 						//frame.setAlwaysOnTop(false);
-						frame.requestFocus();
+						
+						sap.start();
+						
 					} catch (Exception e) {
 					}
 				}

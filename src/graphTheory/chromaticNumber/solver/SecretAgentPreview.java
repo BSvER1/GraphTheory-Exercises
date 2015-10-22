@@ -19,7 +19,7 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 	Thread agentsPreview;
 
 	static boolean running;
-	public static boolean drawGradientMap = true;
+	public static boolean drawGradientMap = false;
 
 	double scale;
 	int xOffset = 40;
@@ -39,7 +39,9 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 		setPreferredSize(getMaximumSize());
 
 		Driver.trace("Starting preview window thread.");
-
+	}
+	
+	public void start() {
 		// start thread
 		agentsPreview = new Thread(this);
 		agentsPreview.setName("Agents Preview Updater");
@@ -56,12 +58,15 @@ public class SecretAgentPreview extends Canvas implements Runnable {
 		double timePerTick = 1000000000 / amountOfTicks;
 		double delta = 0;
 
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-		}
+//		try {
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//		}
 
+		while (getParent() == null);
+		
 		BufferStrategy bs = this.getBufferStrategy();
+		
 		if (bs == null) {
 			this.createBufferStrategy(3);
 			bs = this.getBufferStrategy();

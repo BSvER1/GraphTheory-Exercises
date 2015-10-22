@@ -89,6 +89,8 @@ public class FlowerPollination {
 				if (FLOWER_TRACE){
 					Driver.trace("k = "+numColours+" cost = "+currentBestCost);
 				}
+			} else {
+				return;
 			}
 //			}
 		}

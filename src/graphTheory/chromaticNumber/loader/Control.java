@@ -191,7 +191,7 @@ public class Control {
 	public void performBenchmark() {
 
 		long runStart;
-		int testCount = 1;
+		int testCount = 10;
 		
 		//for each graph in folder
 		File dir = new File("src/graphTheory/chromaticNumber/graphs");
