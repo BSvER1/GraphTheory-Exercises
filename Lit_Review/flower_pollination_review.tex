@@ -1,24 +1,5 @@
 \section{Flower Pollination}
 
-%Refs
-
-% @incollection{yang2012flower,
-%   title={Flower pollination algorithm for global optimization},
-%   author={Yang, Xin-She},
-%   booktitle={Unconventional computation and natural computation},
-%   pages={240--249},
-%   year={2012},
-%   publisher={Springer}
-% }
-% @INPROCEEDINGS{7175923, 
-% author={Bensouyad, M. and Saidouni, D.}, 
-% booktitle={Cybernetics (CYBCONF), 2015 IEEE 2nd International Conference on}, 
-% title={A discrete flower pollination algorithm for graph coloring problem}, 
-% year={2015}, 
-% pages={151-155}, 
-% keywords={graph colouring;optimisation;continuous optimization;discrete flower pollination algorithm;discrete optimization;flower pollination process;graph coloring problem;nature inspired algorithm;Color;Complexity theory;Law;Optimization;Sociology;Statistics;Discrete Optimization;Flower Pollination Algorithm;Graph coloring}, 
-% doi={10.1109/CYBConf.2015.7175923}, 
-% month={June},}
 
 \subsection{Introduction}
 
@@ -91,12 +72,17 @@ f(S) = \displaystyle \sum_{i=1}^{n} \sum_{j=1}^{n} \text{conflict}_ij
 The aim is then to to minimise the number of conflicts until reaching $f^*(S) = 0$, for a fixed $k$. Thus a valid coloring is found.\\~\\
 
 Note that this is essentially the same cost function as used by Johnson et al. in their fixed-K algorithm.\\
-Finally the authors describe a ``swap strategy'' that they argue helps to keep diversity in the population and avoid stagnation by swapping the most conflicting vertex in a solution $S$ with a least conflicting vertex (i.e. swap the assigned color).\\
+Finally the authors describe a ``swap strategy'' that they argue helps to keep diversity in the population and avoid stagnation by swapping the color of the most conflicting vertex in a solution $S$ with the color of a least conflicting vertex.\\
 The discrete flower pollination algorithm used by the authors is shown in figure ref{}.
 
 
 \subsection{Implementation}
 
+Ok so I have to say that I think that this paper\cite{7175923} SUCKS. I was drawn to it initially because it was a new (2015) optimisation algorithm and we wanted something to compare to the gravitational swarm intelligence\cite{gravswarm}, plus it was flowers which is kinda cute.\\
+Anyway, the first warning sign should have been that it's from Algeria, but that would have been racist. Second warning sign: THEY WORD FOR WORD COPIED from Yang's paper. Like, full blown plagiarism. Damn, how does that pass peer review??? Of course, I hadn't actually read Yang's paper at the start so I didn't know that.. Third warning sign: The algorithm doesn't quite match up with the pollination properties it supposedly takes inspiration from. Ok, not just these guys fault, Yang does the same thing.\\
+So I tried to implement it. And I failed. Some parts of the pseudocode I just didn't know what they were talking about, and when I managed to work around that to hobble something together that ran, it just didn't do anything. So I hacked and hacked and made something that started to work! But it was still rubbish.
+
 \subsection{Critique}
+I hate flowers and I hate this paper and I hate these authors. What a god damned waste of time.
 
 

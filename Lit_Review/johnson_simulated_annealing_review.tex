@@ -1,1 +1,33 @@
 \section{Johnson - Simulated Annealing}
+
+Johnson et al.'s three aprt series on Simulated Annealing published in 1991 is perhaps the seminal work on the subject. The second part of the series covers the well studied yet never satisfactorily solved \emph{Graph Coloring Problem}. You didn't see that one coming did you?\\
+
+The paper begins by introducing introducing the context, including what the GCP is, and presenting a general simulated annealing algorithm.
+
+So what is simulated annealing? Simulated annealing is an adjustment to local optimisation that has the ability to escape local optima (to a point). By using a temperature parameter that reduces as the algorithm progresses to govern when an uphill move can be made, simulated annealing is able to move around the solution space easily at early iterations but becomes locked in at later iterations.
+
+In order to approach the GCP from an optimisation stand point three components of the optimisation scheme have to be established: a neighbourhood graph that describes the solution space, a way to move through the solution space, and an initial solution.
+
+Three types of neighbourhoods and movement strategies are proposed, leading to three different SA algorithms for solving the GCP. All algorithms use some sort of randomised initial solution suitable for their particular implementation.
+
+\subsection{Penalty Function approach}
+see presentation
+
+\subsection{Kempe Chain approach}
+see presentation
+
+\subsection{Fixed-K approach}
+see presentation
+
+\subsection{testing}
+
+In order to form a comparison to the current methodologies of the time, three Successive Augmentation algorithms are also run: DSATUR, RLF and XRLF (an extension of the former).
+All algorithms are run on random graphs of various sizes and edge probabilities, some ``cooked'' graphs that have chromatic numbers approximately half the equivalent random graph, and some geometric graphs that have certain properties as well as their complements.
+
+\subsection{conclusion}
+
+There is no clear winner. Kempe chains and fixed-k trade off depending on the graph density, the successive augmentation algorithms win at odd times.
+
+\subsection{critique}
+I wish I'd been able to implement Kemp chain annealing, it's such a cool idea and was able to find colorings on huge graphs that none of the others could even come close to.\\
+All of these are sloooooooooow - more modern optimisation techniques, although still kinda slow, absolutely destroy these algorithms. SA in general is actually pretty bad, even the modern and highly confusing quantum tunnelling SA algorithm gets pantsed by the gravitational swarm. And yet oddly, none of them can hope to compete with Wendy's random buckets... such a strange state of affairs.
