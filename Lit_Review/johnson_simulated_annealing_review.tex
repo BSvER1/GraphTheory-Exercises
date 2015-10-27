@@ -1,6 +1,6 @@
 \section{Johnson - Simulated Annealing}
 
-Johnson et al.'s three aprt series on Simulated Annealing published in 1991 is perhaps the seminal work on the subject. The second part of the series covers the well studied yet never satisfactorily solved \emph{Graph Coloring Problem}. You didn't see that one coming did you?\\
+Johnson et al.'s three part series on Simulated Annealing published in 1991 is perhaps the seminal work on the subject. The second part of the series covers the well studied yet never satisfactorily solved \emph{Graph Coloring Problem}. You didn't see that one coming did you?\\
 
 The paper begins by introducing introducing the context, including what the GCP is, and presenting a general simulated annealing algorithm.
 
@@ -11,23 +11,77 @@ In order to approach the GCP from an optimisation stand point three components o
 Three types of neighbourhoods and movement strategies are proposed, leading to three different SA algorithms for solving the GCP. All algorithms use some sort of randomised initial solution suitable for their particular implementation.
 
 \subsection{Penalty Function approach}
-see presentation
+
+\begin{itemize}
+	\item A solution will be \emph{any} partition of $V$ into nonempty disjoint sets $C_1,C_2,\ldots,C_k$, whether the $C_i$ are legal color classes or not.
+	\item Two solutions are neighbours if one can be transformed to the other by moving a vertex from one color class to another.
+	\item To generate a random neighbour by randomly picking a nonempty color class $C_{OLD}$, a vertex $v \in C_{OLD}$, and then an integer $i,\,1 \leq i \leq k+1$. The neighbour is obtained by moving $v$ to $C_i$. If $i = k+1$ then $v$ is moved to a new, previously empty class.
+	\item Note that this biases the choice of $v$ towards vertices in smaller color classes.
+	\end{itemize}
+
+
+\begin{itemize}
+	\item Adopts the general philosophy of RLF, which constructs its colorings with the aid of a subroutine for generating large independent sets.
+	\item Cost function has two components, the first favours large color classes, the second favours independent sets.
+	\item Let $\Pi = (C_1,\ldots,C_k)$ be a solution and $E_i, \, 1 \leq i \leq k$ be the set of edges from $E$ both of whose endpoints are in $C_i$, i.e., the set of \emph{bad} edges in $C_i$.
+	\item 
+		\begin{theorem}[cost function]
+		\centering
+		$cost(\Pi) = - \displaystyle \sum_{i=1}^{k} |C_i|^2 + \sum_{i=1}^{k} 2|C_i| \dot |E_i|$.
+		\end{theorem}
+	\end{itemize}
 
 \subsection{Kempe Chain approach}
-see presentation
+
+\begin{itemize}
+\item Solutions are now restricted to be partitions $C_1,C_2,\ldots,C_k$ that are legal colorings.
+\item Cost function simplifies to
+\begin{theorem}
+$cost(\Pi) = - \displaystyle \sum_{i=1}^{k} |C_i|^2.$
+\end{theorem}
+\item Moves through the solution space are based on \emph{Kempe Chains}
+\end{itemize}
+
+\begin{itemize}
+	\item Suppose that $C$ and $D$ are disjoint independent sets in a graph $G$.
+	\item A Kempe chain for $C$ and $D$ is any connected component in the subgraph of $G$ induced by $C \cup D$.
+	\item Let $X \Delta Y$ denote the symmetric difference $(X-Y)\cup(Y-X)$.
+	\item Let $H$ be a Kempe chain of $C$ and $D$, then $C \Delta H$ and $D \Delta H$ are themselves disjoint independent sets whose union is $C \cup D$.
+\end{itemize}
+
+\begin{itemize}
+	\item Randomly choose a nonempty color class $C$ and a vertex $v \in C$.
+	\item Randomly choose a nonempty color class $D$ other than $C$
+	\item Let $H$ be the \emph{Kempe chain} for $C$ and $D$ that contains $v$.
+	\item Repeat until one obtains $C , D , v$ and $H$ s.t. $H \neq C \cup D$
+	\item The next partition is obtained by replacing $C$ by $C \Delta H$ and $D$ by $D \Delta H$ 
+	\end{itemize}
 
 \subsection{Fixed-K approach}
-see presentation
+	\begin{itemize}
+	\item Takes a different approach to the previous methods. As the name suggests, this algorithm runs for some fixed $k$.
+	\item Solutions are any partitioning of $V$ into $k$ color classes.
+	\item Attempts to minimise the number of \emph{bad} edges.
+	\item A partition $\Pi_2$ is a neighbour of a partition $\Pi_1$ if the two partitions differ only as to the position of a single vertex $v$ and $v$ is an endpoint of a bad edge in $\Pi_1$.
+	\item A legal coloring has no neighbours since if a legal coloring is found the algorithm stops.
+	\end{itemize}
 
 \subsection{testing}
 
 In order to form a comparison to the current methodologies of the time, three Successive Augmentation algorithms are also run: DSATUR, RLF and XRLF (an extension of the former).
 All algorithms are run on random graphs of various sizes and edge probabilities, some ``cooked'' graphs that have chromatic numbers approximately half the equivalent random graph, and some geometric graphs that have certain properties as well as their complements.
 
-\subsection{conclusion}
+\subsection{Author's Conclusions}
 
-There is no clear winner. Kempe chains and fixed-k trade off depending on the graph density, the successive augmentation algorithms win at odd times.
+\begin{itemize}
+	\item Experimental results did not allow the authors to identify a best graph coloring heuristic. Rather, they feel that their results reinforce the notion that there is no best heuristic.
+	\item In general Kempe chain annealing starts to take over fixed-K annealing as density increases. This makes sense given their neighbourhood structure.
+	\item Penalty function annealing, Kempe chaing annealing and RLF are biased towards favouring unbalanced colorings, i.e. better a large and a small sized class than two equally sized classes. Fixed-K on the other hand is neutral, potentially giving it an advantage on graphs whose good colorings are balanced.
+	\end{itemize}
 
-\subsection{critique}
+\subsection{Critique}
 I wish I'd been able to implement Kemp chain annealing, it's such a cool idea and was able to find colorings on huge graphs that none of the others could even come close to.\\
-All of these are sloooooooooow - more modern optimisation techniques, although still kinda slow, absolutely destroy these algorithms. SA in general is actually pretty bad, even the modern and highly confusing quantum tunnelling SA algorithm gets pantsed by the gravitational swarm. And yet oddly, none of them can hope to compete with Wendy's random buckets... such a strange state of affairs.
+By any modern standard these algorithms are slow - more modern optimisation techniques absolutely destroy them. SA in general is actually pretty bad, even the modern and highly confusing quantum tunnelling SA algorithm is shown in to be beaten easily by the gravitational swarm. And yet oddly, none of them can hope to compete with Wendy's random buckets... such a strange state of affairs.
+
+
+
