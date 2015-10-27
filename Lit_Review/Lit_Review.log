@@ -1,6 +1,8 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  22 OCT 2015 18:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.9)  27 OCT 2015 16:15
+entering extended mode
  restricted \write18 enabled.
-**Lit_Review.tex
+ %&-line parsing enabled.
+**Lit_Review.tex -recorder
 (./Lit_Review.tex
 LaTeX2e <2015/10/01> patch level 1
 Babel <3.9m> and hyphenation patterns for 79 languages loaded.
@@ -89,8 +91,8 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \bigstrutjot=\dimen113
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/algorithms/algorithm.sty
-Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environ
-ment
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
@@ -193,9 +195,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
 (./Lit_Review.aux (./literature_review_section.aux)
-(./implementations_and_original_contributions.aux) (./results_discussion.aux)
-(./bibliography.aux))
-\openout1 = Lit_Review.aux
+(./implementations_and_original_contributions.aux) (./results_discussion.aux))
+\openout1 = `Lit_Review.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
@@ -258,22 +259,17 @@ LaTeX Font Info:    ... okay on input line 19.
 \makeMPintoPDFobject=\count118
 \everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
-
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX detected.
+Package ifluatex Info: LuaTeX not detected.
 )
+Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/luatex-loader.sty
-Package: luatex-loader 2010/03/09 v0.4 Lua module loader (HO)
-
-(/usr/local/texlive/2015/texmf-dist/scripts/oberdiek/oberdiek.luatex.lua))
-\pdftexcmds@toks=\toks27
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -292,16 +288,21 @@ Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
 )))
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.tif,.jpeg,.PNG,.PDF,.JPG,.JPEG,.eps]
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
 ))
-\@float@every@figure=\toks28
+\@float@every@figure=\toks27
 LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -314,142 +315,154 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1]
-\openout2 = literature_review_section.aux
+\openout2 = `literature_review_section.aux'.
+
 
 (./literature_review_section.tex
 Chapter 1.
-(./johnson_simulated_annealing_review.tex)
-(./gravitational_swarm_intelligence_review.tex [1
+(./johnson_simulated_annealing_review.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 16.
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
+ [1
 
 
 ] [2])
+(./gravitational_swarm_intelligence_review.tex [3] [4])
 (./genetic_algorithm_review.tex) (./flower_pollination_review.tex
-
-LaTeX Warning: Citation `yang2012flower' on page 3 undefined on input line 23.
-
-
-LaTeX Warning: Citation `7175923' on page 3 undefined on input line 23.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 23--32
+Underfull \hbox (badness 10000) in paragraph at lines 6--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--32
+Underfull \hbox (badness 10000) in paragraph at lines 6--15
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--32
+Underfull \hbox (badness 10000) in paragraph at lines 6--15
 
  []
 
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 47--49
+[5] [6]
+Underfull \hbox (badness 10000) in paragraph at lines 30--32
 
  []
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 60--63
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--46
 
  []
 
-)) [5]
-\openout2 = implementations_and_original_contributions.aux
+
+Underfull \hbox (badness 10000) in paragraph at lines 51--54
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 71--73
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 71--73
+
+ []
+
+)) [8]
+\openout2 = `implementations_and_original_contributions.aux'.
+
  (./implementations_and_original_contributions.tex
 Chapter 2.
-(./random_brute_buckets_algorithm.tex [6
+(./random_brute_buckets_algorithm.tex [9
 
 
 
 ])
-(./gravitational_swarm_intelligence_algorithm.tex [7]
-<images/gs-cp-flow.png, id=47, 748.7975pt x 911.405pt>
+(./gravitational_swarm_intelligence_algorithm.tex [10]
+<images/gs-cp-flow.png, id=57, 748.7975pt x 911.405pt>
 File: images/gs-cp-flow.png Graphic file (type png)
 
 <use images/gs-cp-flow.png>
 Package pdftex.def Info: images/gs-cp-flow.png used on input line 10.
 (pdftex.def)             Requested size: 433.62pt x 527.78085pt.
- [8]
-<images/gradMapWithOverlay.png, id=51, 821.0675pt x 818.05624pt>
+ [11]
+<images/gradMapWithOverlay.png, id=63, 821.0675pt x 818.05624pt>
 File: images/gradMapWithOverlay.png Graphic file (type png)
 
 <use images/gradMapWithOverlay.png>
 Package pdftex.def Info: images/gradMapWithOverlay.png used on input line 19.
 (pdftex.def)             Requested size: 433.62pt x 432.01991pt.
- [9<./images/gs-cp-flow.png>] [10] [11<./images/gradMapWithOverlay.png>]
-<images/GradMap1445410689515.png, id=64, 1686.3pt x 1686.3pt>
+ [12 <./images/gs-cp-flow.png>] [13]
+[14 <./images/gradMapWithOverlay.png>]
+<images/GradMap1445410689515.png, id=75, 1686.3pt x 1686.3pt>
 File: images/GradMap1445410689515.png Graphic file (type png)
 
 <use images/GradMap1445410689515.png>
 Package pdftex.def Info: images/GradMap1445410689515.png used on input line 33.
+
 (pdftex.def)             Requested size: 433.62pt x 433.616pt.
- [12]) (./genetic_algorithm_algorithm.tex
-[13<./images/GradMap1445410689515.png>] [14] [15] [16])
-(./flower_pollination_algorithm.tex)) [17] [18]
-\openout2 = results_discussion.aux
+ [15]) (./genetic_algorithm_algorithm.tex
+[16 <./images/GradMap1445410689515.png (PNG copy)>] [17] [18] [19])
+(./flower_pollination_algorithm.tex)) [20] [21]
+\openout2 = `results_discussion.aux'.
+
  (./results_discussion.tex
 Chapter 3.
 
-Overfull \hbox (23.96423pt too wide) in paragraph at lines 41--66
- [][][] 
+Overfull \hbox (23.96413pt too wide) in paragraph at lines 41--71
+ [][] 
  []
 
-) [19
+) [22
 
 
 
-] [20]
-\openout2 = bibliography.aux
- (./bibliography.tex
-Underfull \hbox (badness 10000) in paragraph at lines 5--8
-[][]\OT1/cmr/m/n/10 Is-rael Car-los Re-bollo Ruiz. \OT1/cmr/m/it/10 Grav-i-ta-t
-ional Swarm for Graph Col-or-ing\OT1/cmr/m/n/10 .
- []
-
-) [21
+] [23] (./Lit_Review.bbl) [24
 
 
-
-] (./Lit_Review.aux (./literature_review_section.aux)
-(./implementations_and_original_contributions.aux) (./results_discussion.aux)
-(./bibliography.aux))
-
-LaTeX Warning: There were undefined references.
-
-)
-
-Here is how much of LuaTeX's memory you used:
- 3986 strings out of 494897
- 100000,128383 words of node,token memory allocated
- 465 words of node memory still in use:
-   5 hlist, 2 vlist, 2 rule, 2 glue, 13 kern, 43 glue_spec, 2 write nodes
-   avail lists: 2:23,3:202,4:2447,5:294,6:3826,7:493,9:349,10:335
- 7250 multiletter control sequences out of 65536+600000
- 63 fonts using 2486055 bytes
- 38i,14n,31p,1746b,302s stack positions out of 5000i,500n,10000p,200000b,100000s
-<</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><<
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><<
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><</u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><</usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><</usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><</usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><</usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><</usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><</usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><</usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Lit_Review.pdf (23 pages, 1019527 bytes).
-
-PDF statistics: 151 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
- 0 named destinations out of 1000 (max. 131072)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+] (./Lit_Review.aux
+(./literature_review_section.aux)
+(./implementations_and_original_contributions.aux) (./results_discussion.aux)) 
+) 
+Here is how much of TeX's memory you used:
+ 3666 strings out of 493054
+ 51476 string characters out of 6134760
+ 129287 words of memory out of 5000000
+ 7066 multiletter control sequences out of 15000+600000
+ 14625 words of font info for 55 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,14n,31p,1757b,300s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
+15/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Lit_Review.pdf (26 pages, 1071397 bytes).
+PDF statistics:
+ 171 PDF objects out of 1000 (max. 8388607)
+ 117 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

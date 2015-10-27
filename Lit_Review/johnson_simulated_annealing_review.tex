@@ -24,11 +24,11 @@ Three types of neighbourhoods and movement strategies are proposed, leading to t
 	\item Adopts the general philosophy of RLF, which constructs its colorings with the aid of a subroutine for generating large independent sets.
 	\item Cost function has two components, the first favours large color classes, the second favours independent sets.
 	\item Let $\Pi = (C_1,\ldots,C_k)$ be a solution and $E_i, \, 1 \leq i \leq k$ be the set of edges from $E$ both of whose endpoints are in $C_i$, i.e., the set of \emph{bad} edges in $C_i$.
-	\item 
-		\begin{theorem}[cost function]
+	\item Cost Function
+		\begin{equation*}
 		\centering
-		$cost(\Pi) = - \displaystyle \sum_{i=1}^{k} |C_i|^2 + \sum_{i=1}^{k} 2|C_i| \dot |E_i|$.
-		\end{theorem}
+		cost(\Pi) = - \displaystyle \sum_{i=1}^{k} |C_i|^2 + \sum_{i=1}^{k} 2|C_i| \dot |E_i|
+		\end{equation*}
 	\end{itemize}
 
 \subsection{Kempe Chain approach}
@@ -36,9 +36,9 @@ Three types of neighbourhoods and movement strategies are proposed, leading to t
 \begin{itemize}
 \item Solutions are now restricted to be partitions $C_1,C_2,\ldots,C_k$ that are legal colorings.
 \item Cost function simplifies to
-\begin{theorem}
-$cost(\Pi) = - \displaystyle \sum_{i=1}^{k} |C_i|^2.$
-\end{theorem}
+\begin{equation*}
+cost(\Pi) = - \displaystyle \sum_{i=1}^{k} |C_i|^2.
+\end{equation*}
 \item Moves through the solution space are based on \emph{Kempe Chains}
 \end{itemize}
 

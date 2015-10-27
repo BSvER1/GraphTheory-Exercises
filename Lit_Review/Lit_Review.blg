@@ -1,0 +1,55 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Lit_Review.aux
+A level-1 auxiliary file: literature_review_section.aux
+A level-1 auxiliary file: implementations_and_original_contributions.aux
+A level-1 auxiliary file: results_discussion.aux
+The style file: plain.bst
+Database file #1: bibliography.bib
+I was expecting a `,' or a `}'---line 8 of file bibliography.bib
+ :   
+ :   Url={http://www.ehu.eus/ccwintco/uploads/3/3a/Tesis-Israel-final.pdf}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You've used 4 entries,
+            2118 wiz_defined-function locations,
+            525 strings with 4759 characters,
+and the built_in function-call counts, 1519 in all, are:
+= -- 161
+> -- 40
+< -- 3
++ -- 17
+- -- 12
+* -- 80
+:= -- 229
+add.period$ -- 14
+call.type$ -- 4
+change.case$ -- 17
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 77
+empty$ -- 135
+format.name$ -- 12
+if$ -- 350
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 3
+newline$ -- 23
+num.names$ -- 8
+pop$ -- 26
+preamble$ -- 1
+purify$ -- 14
+quote$ -- 0
+skip$ -- 61
+stack$ -- 0
+substring$ -- 105
+swap$ -- 31
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 16
+warning$ -- 0
+while$ -- 16
+width$ -- 5
+write$ -- 48
+(There was 1 error message)

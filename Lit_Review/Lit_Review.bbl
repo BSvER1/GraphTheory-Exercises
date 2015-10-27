@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{7175923}
+M.~Bensouyad and D.~Saidouni.
+\newblock A discrete flower pollination algorithm for graph coloring problem.
+\newblock In {\em Cybernetics (CYBCONF), 2015 IEEE 2nd International Conference
+  on}, pages 151--155, June 2015.
+
+\bibitem{bib:GeneticAlg}
+Musa~M Hindi and Roman~V Yampolskiy.
+\newblock Genetic algorithm applied to the graph coloring problem.
+\newblock In {\em Proc. 23rd Midwest Artificial Intelligence and Cognitive
+  Science Conf}, pages 61--66. Citeseer, 2012.
+
+\bibitem{bib:GravSwarm}
+Israel Carlos~Rebollo Ruiz.
+\newblock {\em Gravitational Swarm for Graph Coloring}.
+\newblock PhD thesis, The University of the Basque Country, 2012.
+
+\bibitem{yang2012flower}
+Xin-She Yang.
+\newblock Flower pollination algorithm for global optimization.
+\newblock In {\em Unconventional computation and natural computation}, pages
+  240--249. Springer, 2012.
+
+\end{thebibliography}
