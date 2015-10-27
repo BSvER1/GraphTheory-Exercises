@@ -110,7 +110,7 @@ public class GeneSplicer {
 			}
 			
 			if (System.currentTimeMillis() - lastPrintTime > 2000) {
-					Driver.trace("["+currentIteration+"] beginning to solve with "+currentNumColours+" colours");
+					Driver.trace("["+currentPrintIteration+"] beginning to solve with "+currentNumColours+" colours");
 					lastPrintTime = System.currentTimeMillis();
 					shouldPrint = true;
 			}
@@ -203,6 +203,7 @@ public class GeneSplicer {
 				Driver.trace(fitness);
 				shouldPrint = false;
 			}
+			Thread.yield();
 		}
 		
 		if (currentIteration >= iterationLimit) {

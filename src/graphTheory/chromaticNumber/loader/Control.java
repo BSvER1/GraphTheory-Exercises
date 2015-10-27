@@ -222,12 +222,11 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, BruteBuckets.class, bb.getResult(), 
 								System.currentTimeMillis()-timeStart, rbbLimit);
 						System.out.println("Random Brute Buckets approach finished with " +bb.getResult() + " buckets");
+						Runtime.getRuntime().gc();
 						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
 							break;
 						}
 					}
-					Runtime.getRuntime().gc();
-					Runtime.getRuntime().gc();
 					
 					runStart = System.currentTimeMillis();
 					//Secret Agents - Brendon
@@ -240,12 +239,11 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, SecretAgents.class, sa.getResult(), 
 								System.currentTimeMillis()-timeStart, sa.getNumInternalIterations());
 						System.out.println("secret agent approach finished with " +sa.getResult() + " colours");
+						Runtime.getRuntime().gc();
 						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
 							break;
 						}
 					}
-					Runtime.getRuntime().gc();
-					Runtime.getRuntime().gc();
 					
 					runStart = System.currentTimeMillis();
 					//Flower Pollination - Scott
@@ -258,12 +256,11 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, FlowerPollination.class, fpa.getResult(), 
 								System.currentTimeMillis()-timeStart, fpLimit);
 						System.out.println("flower power approach finished with " +fpa.getResult() + " colours");
+						Runtime.getRuntime().gc();
 						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
 							break;
 						}
 					}
-					Runtime.getRuntime().gc();
-					Runtime.getRuntime().gc();
 					
 					runStart = System.currentTimeMillis();
 					//Genetic Algorithm - Collaborative
@@ -276,15 +273,15 @@ public class Control {
 						ResultsModule.writeRuntimeResultToFile(toSolve, GeneSplicer.class, gcp.getResult(), 
 								System.currentTimeMillis()-timeStart, 20000);
 						System.out.println("secret agent approach finished with " +gcp.getResult() + " colours");
+						Runtime.getRuntime().gc();
 						if (System.currentTimeMillis() - runStart > 1000*60*60*maxRunHrs) {
 							break;
 						}
 					}/**/
 				}
-				Runtime.getRuntime().gc();
-				Runtime.getRuntime().gc();
-				
 			}
+			Driver.trace("run finished");
+			System.exit(0);
 		} else {
 			Driver.trace("could not find a list of files to iterate over.");
 		}
