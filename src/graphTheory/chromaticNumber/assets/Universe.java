@@ -5,6 +5,7 @@ import java.util.Arrays;
 //import java.util.Random;
 
 import graphTheory.chromaticNumber.loader.Driver;
+import graphTheory.chromaticNumber.solver.SecretAgentPreview;
 import graphTheory.chromaticNumber.solver.SecretAgents;
 
 public class Universe {
@@ -33,7 +34,9 @@ public class Universe {
 		dimensions = numDims;
 
 		Universe.dimSize = new double[numDims];
-		gradientMap = new int[(int) (dimSize+1)][(int) (dimSize+1)];
+		if (SecretAgentPreview.drawGradientMap)	{
+			gradientMap = new int[(int) (dimSize+1)][(int) (dimSize+1)];
+		}
 
 		for (int i = 0; i < numDims; i++) {
 			Universe.dimSize[i] = dimSize;

@@ -39,7 +39,8 @@ public class Driver {
 	 */
 	public static void trace(String msg) {
 		if (TRACING) {
-			System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
+			System.out.println("[" + Thread.currentThread().getStackTrace()[2].getClassName().substring(
+					Thread.currentThread().getStackTrace()[2].getClassName().lastIndexOf('.')+1)+"."
 					+ "" + Thread.currentThread().getStackTrace()[2].getMethodName() + "()]: " + msg);
 		}
 	}

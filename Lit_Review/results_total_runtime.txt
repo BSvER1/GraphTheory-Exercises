@@ -5,16 +5,19 @@ a1.mulsol.i.3.col,GeneSplicer,83,21600001,1,20000
 a1.mulsol.i.3.col,SecretAgents,31,7972999,1,1000000
 a1.mulsol.i.3.col,SecretAgents,32,5111627.0,4,1000000
 a1.mulsol.i.3.col,SecretAgents,33,4122717.75,5,1000000
+
 a2.myciel5.col,BruteBuckets,6,1279.2040816326535,50,100000
 a2.myciel5.col,FlowerPollination,10,1284023,1,5
 a2.myciel5.col,FlowerPollination,8,2929489.0,2,5
 a2.myciel5.col,FlowerPollination,9,1465099.6363636365,12,5
 a2.myciel5.col,GeneSplicer,7,2.1600011E7,2,20000
 a2.myciel5.col,SecretAgents,6,512667.275862069,30,1000000
+
 a3.myciel4.col,BruteBuckets,5,489.05263157894734,20,100000
 a3.myciel4.col,FlowerPollination,5,225755.0,10,5
 a3.myciel4.col,GeneSplicer,5,173511.36842105264,20,20000
 a3.myciel4.col,SecretAgents,5,161970.05263157896,20,1000000
+
 a4.queen5_5.col,BruteBuckets,5,300.0,20,100000
 a4.queen5_5.col,FlowerPollination,10,423612.0,2,5
 a4.queen5_5.col,FlowerPollination,9,496606.5714285714,8,5
@@ -24,6 +27,7 @@ a4.queen5_5.col,GeneSplicer,7,6171977.666666667,4,20000
 a4.queen5_5.col,GeneSplicer,8,487264,1,20000
 a4.queen5_5.col,GeneSplicer,9,238696,1,20000
 a4.queen5_5.col,SecretAgents,5,388565.36842105264,20,1000000
+
 a5.queen7_7.col,BruteBuckets,7,1072,1,100000
 a5.queen7_7.col,BruteBuckets,8,1173.2857142857142,15,100000
 a5.queen7_7.col,BruteBuckets,9,1307.0,4,100000

@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  27 OCT 2015 18:50
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 12:36
  restricted \write18 enabled.
 **Lit_Review.tex
 (./Lit_Review.tex
@@ -414,16 +414,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 4--7
 \openout2 = results_discussion.aux
  (./results_discussion.tex
 Chapter 3.
-
-Overfull \hbox (23.96413pt too wide) in paragraph at lines 41--71
- [][][] 
- []
-
-) [23
+[23
 
 
 
-] [24] (./Lit_Review.bbl) [25
+]
+Overfull \vbox (33.78716pt too high) has occurred while \output is active []
+
+
+[24]) [25] (./Lit_Review.bbl) [26
 
 
 ] (./Lit_Review.aux
@@ -435,7 +434,7 @@ Here is how much of LuaTeX's memory you used:
  100000,128383 words of node,token memory allocated
  504 words of node memory still in use:
    5 hlist, 2 vlist, 2 rule, 2 glue, 16 kern, 43 glue_spec, 1 write nodes
-   avail lists: 2:23,3:207,4:2723,5:335,6:4737,7:493,9:386,10:447
+   avail lists: 2:23,3:207,4:1931,5:335,6:4737,7:493,9:271,10:447
  7265 multiletter control sequences out of 65536+600000
  66 fonts using 2603831 bytes
  38i,14n,31p,1746b,302s stack positions out of 5000i,500n,10000p,200000b,100000s
@@ -458,10 +457,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><</usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Lit_Review.pdf (27 pages, 1073209 bytes).
+Output written on Lit_Review.pdf (28 pages, 1074151 bytes).
 
-PDF statistics: 171 PDF objects out of 1000 (max. 8388607)
- 116 compressed objects within 2 object streams
+PDF statistics: 174 PDF objects out of 1000 (max. 8388607)
+ 118 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
