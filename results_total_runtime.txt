@@ -15,6 +15,7 @@
 8cube.bliss,BruteBuckets,4,919.0,2,20000
 9cube.bliss,BruteBuckets,4,2423.0,2,20000
 aff25,BruteBuckets,2,451.0,2,20000
+afunlittletest.col,BruteBuckets,39,4717,1,20000
 ag2-11,BruteBuckets,2,84.0,2,20000
 ag2-13,BruteBuckets,2,115.0,2,20000
 ag2-16,BruteBuckets,2,177.0,2,20000

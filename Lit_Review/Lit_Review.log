@@ -1,8 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.10.9)  30 OCT 2015 18:00
-entering extended mode
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 22:03
  restricted \write18 enabled.
- %&-line parsing enabled.
-**Lit_Review.tex -recorder
+**Lit_Review.tex
 (./Lit_Review.tex
 LaTeX2e <2015/10/01> patch level 1
 Babel <3.9m> and hyphenation patterns for 79 languages loaded.
@@ -91,8 +89,8 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \bigstrutjot=\dimen113
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/algorithms/algorithm.sty
-Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
-nment
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environ
+ment
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
@@ -196,7 +194,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ))
 (./Lit_Review.aux (./literature_review_section.aux)
 (./implementations_and_original_contributions.aux) (./results_discussion.aux))
-\openout1 = `Lit_Review.aux'.
+\openout1 = Lit_Review.aux
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
@@ -259,17 +257,22 @@ LaTeX Font Info:    ... okay on input line 19.
 \makeMPintoPDFobject=\count118
 \everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
+
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
+Package ifluatex Info: LuaTeX detected.
 )
-Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
+
+(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/luatex-loader.sty
+Package: luatex-loader 2010/03/09 v0.4 Lua module loader (HO)
+
+(/usr/local/texlive/2015/texmf-dist/scripts/oberdiek/oberdiek.luatex.lua))
+\pdftexcmds@toks=\toks27
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -288,21 +291,16 @@ Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 
 (/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
 )))
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
+(grfext)             [.png,.pdf,.jpg,.mps,.tif,.jpeg,.PNG,.PDF,.JPG,.JPEG,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+
 ))
-\@float@every@figure=\toks27
+\@float@every@figure=\toks28
 LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -315,8 +313,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [1]
-\openout2 = `literature_review_section.aux'.
-
+\openout2 = literature_review_section.aux
 
 (./literature_review_section.tex
 Chapter 1.
@@ -336,63 +333,58 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
 ] [2])
 (./gravitational_swarm_intelligence_review.tex [3] [4])
-(./genetic_algorithm_review.tex) (./flower_pollination_review.tex
+(./genetic_algorithm_review.tex [5]) (./flower_pollination_review.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--9
 
  []
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 5--9
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--13
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--13
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 55--58
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
 
  []
 
@@ -402,6 +394,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--58
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 55--58
+
+ []
+
+[8]
 Underfull \hbox (badness 10000) in paragraph at lines 59--61
 
  []
@@ -421,24 +418,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 68--71
 
  []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 88--90
-
- []
-
 
 Underfull \hbox (badness 10000) in paragraph at lines 88--90
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 88--90
+
+ []
+
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 91--93
 
  []
 
-[9])) [10]
-\openout2 = `implementations_and_original_contributions.aux'.
-
+)) [10]
+\openout2 = implementations_and_original_contributions.aux
  (./implementations_and_original_contributions.tex
 Chapter 2.
 (./random_brute_buckets_algorithm.tex [11
@@ -447,83 +443,76 @@ Chapter 2.
 
 ])
 (./gravitational_swarm_intelligence_algorithm.tex [12]
-<images/gs-cp-flow.png, id=64, 748.7975pt x 911.405pt>
+<images/gs-cp-flow.png, id=63, 748.7975pt x 911.405pt>
 File: images/gs-cp-flow.png Graphic file (type png)
 
 <use images/gs-cp-flow.png>
 Package pdftex.def Info: images/gs-cp-flow.png used on input line 10.
 (pdftex.def)             Requested size: 433.62pt x 527.78085pt.
  [13]
-<images/gradMapWithOverlay.png, id=69, 821.0675pt x 818.05624pt>
+<images/gradMapWithOverlay.png, id=67, 821.0675pt x 818.05624pt>
 File: images/gradMapWithOverlay.png Graphic file (type png)
 
 <use images/gradMapWithOverlay.png>
 Package pdftex.def Info: images/gradMapWithOverlay.png used on input line 19.
 (pdftex.def)             Requested size: 433.62pt x 432.01991pt.
- [14 <./images/gs-cp-flow.png>] [15]
-[16 <./images/gradMapWithOverlay.png>]
-<images/GradMap1445410689515.png, id=81, 1686.3pt x 1686.3pt>
+ [14<./images/gs-cp-flow.png>] [15] [16<./images/gradMapWithOverlay.png>]
+<images/GradMap1445410689515.png, id=79, 1686.3pt x 1686.3pt>
 File: images/GradMap1445410689515.png Graphic file (type png)
 
 <use images/GradMap1445410689515.png>
-Package pdftex.def Info: images/GradMap1445410689515.png used on input line 33.
-
+Package pdftex.def Info: images/GradMap1445410689515.png used on input line 34.
 (pdftex.def)             Requested size: 433.62pt x 433.616pt.
  [17]) (./genetic_algorithm_algorithm.tex
-[18 <./images/GradMap1445410689515.png (PNG copy)>] [19] [20] [21])
+[18<./images/GradMap1445410689515.png>] [19] [20] [21])
 (./flower_pollination_algorithm.tex [22] [23] [24] [25])) [26]
-\openout2 = `results_discussion.aux'.
-
+\openout2 = results_discussion.aux
 
 (./results_discussion.tex
 Chapter 3.
-
-Overfull \hbox (23.96413pt too wide) in paragraph at lines 41--71
- [][] 
- []
-
-) [27
+[27
 
 
 
-] [28] (./Lit_Review.bbl) [29
+] [28]) [29] (./Lit_Review.bbl) [30
 
 
 ] (./Lit_Review.aux
 (./literature_review_section.aux)
-(./implementations_and_original_contributions.aux) (./results_discussion.aux)) 
-) 
-Here is how much of TeX's memory you used:
- 3677 strings out of 493054
- 51609 string characters out of 6134760
- 129317 words of memory out of 5000000
- 7077 multiletter control sequences out of 15000+600000
- 14625 words of font info for 55 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 38i,14n,31p,1757b,300s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
-/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
-exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2015/texmf-
+(./implementations_and_original_contributions.aux) (./results_discussion.aux)))
+
+Here is how much of LuaTeX's memory you used:
+ 4008 strings out of 494897
+ 100000,128383 words of node,token memory allocated
+ 529 words of node memory still in use:
+   5 hlist, 2 vlist, 2 rule, 2 glue, 16 kern, 43 glue_spec, 1 write nodes
+   avail lists: 2:23,3:224,4:3066,5:339,6:4733,7:493,9:437,10:383
+ 7278 multiletter control sequences out of 65536+600000
+ 66 fonts using 2603831 bytes
+ 38i,14n,31p,1746b,302s stack positions out of 5000i,500n,10000p,200000b,100000s
+<</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><<
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><<
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</
+usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><</u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><</usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><</usr/l
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><</usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><</usr/local/texl
+ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><</usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><</usr/local/texlive/20
+15/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><</usr/local/texlive/2015/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/local/texlive/2015/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><</usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Lit_Review.pdf (31 pages, 1087357 bytes).
-PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
- 0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+Output written on Lit_Review.pdf (32 pages, 1095616 bytes).
+
+PDF statistics: 187 PDF objects out of 1000 (max. 8388607)
+ 127 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

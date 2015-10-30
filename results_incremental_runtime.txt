@@ -47,6 +47,14 @@
 9cube.bliss,BruteBuckets,4,633.0,2,20000
 9cube.bliss,BruteBuckets,5,0.0,2,20000
 aff25,BruteBuckets,2,2.0,2,20000
+afunlittletest.col,BruteBuckets,38,6207,1,100000000
+afunlittletest.col,BruteBuckets,39,58,1,100000000
+afunlittletest.col,BruteBuckets,39,68,1,20000
+afunlittletest.col,BruteBuckets,40,29,1,100000000
+afunlittletest.col,BruteBuckets,40,8,1,20000
+afunlittletest.col,BruteBuckets,41,8,1,100000000
+afunlittletest.col,BruteBuckets,42,4,1,100000000
+afunlittletest.col,BruteBuckets,43,1,1,100000000
 ag2-11,BruteBuckets,2,0.0,2,20000
 ag2-13,BruteBuckets,2,0.0,2,20000
 ag2-16,BruteBuckets,2,1.0,2,20000

@@ -29,7 +29,7 @@ public class SecretAgents {
 	UniformRealDistribution udist;
 
 	public static boolean SECRET_TRACING = false;
-	boolean SLOW_MODE = true;
+	boolean SLOW_MODE = false;
 	boolean WELLS_MOVE = false;
 
 	int SLOW_SPEED = 50; // larger is slower. default to 2
