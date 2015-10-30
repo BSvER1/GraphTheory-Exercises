@@ -1,18 +1,147 @@
 \section{Flower Pollination}
 \subsection{Implementation and Problems}
 
-Ok so I have to say that I think that this paper\cite{7175923} SUCKS. I was drawn to it initially because it was a new (2015) optimisation algorithm and we wanted something to compare to the gravitational swarm intelligence\cite{bib:GravSwarm}, plus it was flowers which is kinda cute.\\
-Anyway, the first warning sign should have been that it's from Algeria, but that would have been racist. Second warning sign: THEY WORD FOR WORD COPIED from Yang's paper. Like, full blown plagiarism. Damn, how does that pass peer review??? Of course, I hadn't actually read Yang's paper at the start so I didn't know that.. Third warning sign: The algorithm doesn't quite match up with the pollination properties it supposedly takes inspiration from. Ok, not just these guys fault, Yang does the same thing.\\
-So I tried to implement it. And I failed. Some parts of the pseudocode I just didn't know what they were talking about, and when I managed to work around that to hobble something together that ran, it just didn't do anything. So I hacked and hacked and made something that started to work! But it was still rubbish.\\
+Ok so I have to say that I think that this paper\cite{7175923} SUCKS. I was drawn to it initially because it was a new (2015) optimisation algorithm and we wanted something to compare to the gravitational swarm intelligence\cite{bib:GravSwarm}, plus it was flowers which is cute.
+Anyway, the first warning sign should have been that it's from Algeria, but that would have been racist. Second warning sign: THEY WORD FOR WORD COPIED from Yang's paper. Like, full blown plagiarism. Damn, how does that pass peer review??? Of course, I hadn't actually read Yang's paper at the start so I didn't know that.. Third warning sign: The algorithm doesn't quite match up with the pollination properties it supposedly takes inspiration from. Ok, not just these guys fault, Yang does the same thing.
+So I tried to implement it. And I failed. Some parts of the pseudocode I just didn't know what they were talking about, and when I managed to work around that to hobble something together that ran, it just didn't do anything. So I hacked and hacked and made something that started to work! But it was still rubbish.
 
 The original algorithm is as follows
 
 
+\begin{algorithm}[H]
+    \caption{FPA for GCP}
+    \label{FPA1}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{solve}{Graph $g$, $iterationLimit$, $numFlowers$} \Comment{$g$ is predefined}			
+			\State Initialize a population of $N$ flowers/pollen gametes with random solutions
+			\State Find the best solution $g_*$ in the initial population
+			\State Define a switch probability $p \in [0,1]$
+			\State $t=0$
+			\While{$t < iterationLimit$}   
+				\For{$i=1:N$}
+					\If{$rand < p$} \Comment{$rand$ is a function that returns a single uniformly distributed random number between 0 and 1}
+						\State Draw a (d-dimensional) step vector $L$ which obeys a L\`evy distribution.
+						\State Global pollination via $x_i^{t+1} = x_i^{t} + L(x_i^{t} - g_*)$
+					\Else
+						\State Draw $U$ from a uniform distribution $[0,1]$
+						\State Do local pollination via $x_i^{t+1} = x_i^{t} + \epsilon(x_j^{t} - x_k^{t})$
+					\EndIf
+					\State //Discretisation and correction step
+					\State Apply round function to obtain integer values
+					\State Correction Step() \Comment{To ensure that no invalid colors are used.}
+					\If{all $k$ colors are assigned}
+						\State Swap the most conflicting node with a random vertex of the lowest used color
+						\State Evaluate new solutions $x^{t+1}$ using global pollination
+						\If{$f(x^{t+1})<f(x^{t})$}\Comment{If new solutions are better}
+							\State $x^t = x^{t+1}$
+						\EndIf
+					\Else continue
+					\EndIf
+				\EndFor
+				\State Update the current best solution $g_*$
+					\If{$f^* == 0$}
+					\Comment{Legal coloring found}
+						\State $k = k-1$
+						\State \textbf{Break}
+					\EndIf
+			\State $t = t+1$
+			\EndWhile
+			\State Output the best solution found
+		\EndProcedure
+    \end{algorithmic}
+\end{algorithm}
 
 
-Since it was rubbish, I made some changes which I will describe in the next section.
+The Correction Step() is also described, but it's so simple I'm not sure why they bothered. If a color class is assigned that is greater than $k$ instead set it to $k$, if a color class is assigned that is less than zero instead set it to zero.
+Note that the \textbf{Break} when a legal coloring for a given $k$  is found should probably be a \textbf{Return} since it is implied (poorly) that this solve procedure exists within a larger framework for descending $k$.
+
 
 \subsection{The Hacking}
+
+Since the paper does such a poor job of describing the process, I was unable to implement the algorithm in such a way that it was capable of finding even a $k = \Delta$ coloring in an arbitrary \emph{reasonable} time (couple of hours). Frustrated, I made some rather drastic changes without much justification. I will now describe the final algorithm that \emph{sometimes} beats the genetic algorithm (see results).
+
+First let's look at the algorithm
+
+\begin{algorithm}[H]
+    \caption{modified FPA for GCP}
+    \label{FPA2}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{solve}{Graph $g$, $iterationLimit$, $numFlowers$} \Comment{$g$ is predefined}			
+			\State Initialize the flowerbed
+			\State Update the current best solution $g_*$
+			\State Define a switch probability $p \in [0,1]$
+			\State $t=0$
+			\While{$t < iterationLimit$}   
+				\For{$flowerNum = 0; flowerNum < numColours; flowerNum++$}
+					\State fixColors(flowerNum)
+					\If{$rand < p$} \Comment{$rand$ is a function that returns a single uniformly distributed random number between 0 and 1}
+						\State Draw a (d-dimensional) step vector $L$ which obeys a L\`evy distribution.
+						\State Global pollination via $x_i^{t+1} = x_i^{t} + L(x_i^{t} - g_*)$
+					\Else
+						\State Draw $U$ from a uniform distribution $[0,1]$
+						\State Do local pollination via $x_i^{t+1} = x_i^{t} + \epsilon(x_j^{t} - x_k^{t})$
+					\EndIf
+					\State fixColors(flowerNum)
+					\State Apply round function to obtain integer values
+					\State Correction Step \Comment{To ensure that no invalid colors are used.}
+					\For{$col = 0 : \alpha$} \Comment{$\alpha$ could be anything, currently set to $k$}
+						\State swap(flowerNum)
+					\EndFor
+				\EndFor
+				\State Update the current best solution $g_*$
+				\If{$f^* == 0$}
+					\State $k = k-1$
+					\State \textbf{Return}
+				\EndIf
+
+				doNaturalSelection()
+				\State $t = t+1$
+			\EndWhile
+			\State Output the best solution found
+		\EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+Ok so as mentioned before, we call the set of flowers the \emph{flowerbed}. The main differences are as follows:
+
+fixColors
+In the original algorithm, each flower is checked to see if every $k$ color is assigned. Only if that returns true is the swap strategy and global pollination perturbation performed. I found this to be odd, but rather than remove it I went the other direction and wrote a function that ensured that all colors are present. Simply put, fixColor searches the flower for each color in turn and if a color is not present it assigns that color to a random vertex.
+
+\begin{algorithm}[H]
+    \caption{fixCol}
+    \label{FPA2.1}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{fixCol}{$flowerNum$}
+			\State how to put?
+		\EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+fixColors is run before and after pollination to ensure that every flower adheres to the current $k$.
+
+Rather than performing swap once, under the suspicion that swap is the main mover in the algorithm, I perform swap an arbitrary $\alpha$ number of times. For the purpose of experimentation, of which we report the results on later,  $\alpha = k$ without justification. Swap is directly reducing the cost and so moves the solution vector very quickly through the solution space towards a, presumably, local optima.
+
+doNaturalSelection()
+Despite regularly referring to, and comparing against, the genetic algorithm, the authors chose not to implement natural selection or wisdom of crowds. I didn't have the motivation to work out how wisdom of crowds would work for the flowerbed, however implementing natural selection was incredibly straightforward.
+The cost of each flower in the flowerbed is assessed and the median value calculate. Every flower with a cost higher than the median value is replaced with a randomly generated flower.
+Doing this is a response to the tending towards homogeneity that we've remarked upon before. Every iteration the available genetic material gets a massive shake-up, providing potentially new color partitions that might lead to a legal coloring.
+
+\begin{algorithm}[H]
+    \caption{doNaturalSelection}
+    \label{FPA2.2}
+    \begin{algorithmic}[1] % The number tells where the line numbering should start
+        \Procedure{doNaturalSelection}{}
+			\State how to put?
+		\EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+That's pretty much it for flower pollination.
+
+
+
+
 
 
 

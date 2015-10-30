@@ -12,6 +12,11 @@ Musa~M Hindi and Roman~V Yampolskiy.
 \newblock In {\em Proc. 23rd Midwest Artificial Intelligence and Cognitive
   Science Conf}, pages 61--66. Citeseer, 2012.
 
+\bibitem{pavlyukevich2007levy}
+Ilya Pavlyukevich.
+\newblock L{\'e}vy flights, non-local search and simulated annealing.
+\newblock {\em Journal of Computational Physics}, 226(2):1830--1844, 2007.
+
 \bibitem{bib:GravSwarm}
 Israel Carlos~Rebollo Ruiz.
 \newblock {\em Gravitational Swarm for Graph Coloring}.

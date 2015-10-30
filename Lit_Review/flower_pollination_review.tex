@@ -1,50 +1,67 @@
 \section{Flower Pollination}
 
-
 \subsection{Introduction}
 
-The flower pollination algorithm\cite{yang2012flower} (FPA) was first described by Xin-She Yang\footnote{Department of Engineering, University of Cambridge}. It is a metaheuristic global optimisation algorithm inspired by the pollination process of flowering plants. Although originally formulated to solve continuous optimisation problems, Meriem Bensouyad\ref{1} and DjamelEddine Saidouni\ref{1} propose a discrete version of FPA for solving the graph coloring problem\cite{7175923}.\\
-\footnote{MISC Laboratory Constantine 2 University}\label{1}
+The flower pollination algorithm\cite{yang2012flower} (FPA) was first described by Xin-She Yang\footnote{Department of Engineering, University of Cambridge}. It is a metaheuristic global optimisation algorithm inspired by the pollination process of flowering plants. Although originally formulated to solve continuous optimisation problems, Meriem Bensouyad\footnotemark[2] and DjamelEddine Saidouni\footnotemark[2] propose a discrete version of FPA for solving the graph coloring problem\cite{7175923}.\\~\\
+\footnotetext[2]{MISC Laboratory Constantine 2 University}
 %do the intro?
-Pollination can take two major forms: abiotic and biotic. About 90\% of flowers belong to the class of biotic pollinating flowers, that is, their pollen is transferred by pollinators such as insects, birds, bats and other animals. The remaining 10\% of flowers use abiotic pollination, which does not require any pollinators. Wind and diffusion in water help pollination of such flowering plants, of which grass is a good example. Pollinators, or sometimes called pollen vectors, can be very diverse. It is estimated that there are at least 200,000 varieties of pollinators.\\
-A concept that comes up when talking about pollinators is \emph{constancy}, which refers to the tendency of some pollinators to visit certain flower species while bypassing others. It has been conjectured that constancy has evolutionary advantages for both the flower species and the pollinator species.\\
+Both papers describe pollination as follows (with an attempt at English corrections):\\
+\begin{quotation}
+Pollination can take two major forms: abiotic and biotic. About 90\% of flowers belong to the class of biotic pollinating flowers, that is, their pollen is transferred by pollinators such as insects, birds, bats and other animals. The remaining 10\% of flowers use abiotic pollination, which does not require any pollinators. Wind and diffusion in water help pollination of such flowering plants, of which grass is a good example. Pollinators, or sometimes called pollen vectors, can be very diverse. It is estimated that there are at least 200,000 varieties of pollinators.\\~\\
+
+A concept that comes up when talking about pollinators is \emph{constancy}, which refers to the tendency of some pollinators to visit certain flower species while bypassing others. It has been conjectured that constancy has evolutionary advantages for both the flower species and the pollinator species.\\~\\
+
 Pollination can be achieved by self-pollination or cross-pollination. Cross-pollination, or allogamy, means pollination can occur from pollen of a flower of a different plant, while self-pollination is the fertilisation of one flower, such as peach flowers, from pollen of the same flower or different flowers of the same plant, which often occurs when there is no reliable pollinator available. %this need to be rewritten, god these papers suck
-\\
+\end{quotation}
+So we seem to have 5 different concepts here, keep note of that. The authors then go on to say:
+
+\begin{quotation}
 Biotic, cross-pollination may occur at long distances, and the pollinators such as bees, bats, birds and flies can fly a long distance, thus they can be considered as the global pollination. In addition, bees and birds may behave as L\~evy flight behaviour, with jump or fly distance steps obey a L\~evy distribution. Furthermore, flower constancy can be used an incremental step using a similarity or difference of two flowers.\\~\\
-JESUE FUCK THESE PAPERS ARE BADLY WRITTEN\\~\\
+\end{quotation}
+At this point the authors appear to have equated biotic pollination with cross-pollination, which we believe to be illogical, and poorly introduces their concept of ``global pollination'' without preamble.
+The introduction of a L\~evy flights is worth investigating. Yang references \cite{pavlyukevich2007levy} here in such a way as the reader is lead to believe that there is justification for modelling bird and bee behaviour as a L\~evy flight, however, the paper referenced includes no mention of bird or bee behaviour. 
+The last sentence appears to be missing an ``as'', though we couldn't say for sure. If that is the case, the author provides no reasoning for why flower constancy can be modelled as a similarity of two flowers, nor what an incremental step even is in the context of this problem.
+
 
 \subsection{Flower Pollination Algorithm}
 
 The authors of the second paper do not deviate at this stage from the original, and both introduce the actual algorithm by arguing that the above characteristics can be idealised as follow:
 \begin{enumerate}[1.]
-\item Biotic and cross-pollination is considered as global pollination process with pollen-carrying pollinators performing L\~evy flights.
+\item Biotic and cross-pollination is considered as global pollination process with pollen-carrying pollinators performing L\'evy flights.
 \item Abiotic and self-pollination are considered to be local pollination.
 \item Flower constancy can be considered as the reproduction probability is proportional to the similarity of two flowers involved.
 \item Local pollination and global pollination is controlled by a switch probability $p \in [0,1]$. Due to the physical proximity and other factors, such as wind, local pollination can have a significant fraction $p$ in the overall pollination activities.
 \end{enumerate}
-For simplicity's sake, the authors assume that each plant only has one flower and each flower only produces one pollen gamete\footnote{sperm cells}. In reality the number of flowers and pollen gametes per can vary widely between species and individual plants. This means that a solution, which we denote $x_i$, is equivalent to a flower and/or a pollen gamete\footnote{There is no distinction between a flower and the pollen it produces, all that matters is how the pollen is used.}. The original author believes that extending the algorithm to multiple pollen gametes and multiple flowers (for multiobjective optimisation problems - I did not know that was a thing) should be easy.\\
+For simplicity's sake, the authors assume that each plant only has one flower and each flower only produces one pollen gamete\footnote{sperm cells}. In reality the number of flowers per plant and pollen gametes per flower can vary widely between species and individual plants. This means that a solution, which we denote $x_i$, is equivalent to a flower and/or a pollen gamete\footnote{There is no distinction between a flower and the pollen it produces, all that matters is how the pollen is used.}. The original author believes that extending the algorithm to multiple pollen gametes and multiple flowers (for multiobjective optimisation problems) should be easy.\\
 The FPA is described by breaking it down into 2 key steps: global pollination and local pollination.\\
 For global pollination it is argued that the possibility of large travel distances for pollens and flower constancy give rise to the following step rule:
 \begin{equation}
 x_i^{t+1} = x_i^{t} + L(x_i^{t} - g_*)
 \end{equation}
-where $x_i^{t}$ is the pollen $i$ or solution vector $x_i$ at iteration $t$ and $g_*$ is the current best solution found amongst all solutions at the current iteration. \\
-\begin{quotation}
-At this point we have to mention that the argument for global pollination being based on the current best solution, ``the fittest flower'', is non-existent - it just appears in the middle of talking about travel distances and constancy without any justification.
-\end{quotation}
+where $x_i^{t}$ is the pollen $i$ or solution vector $x_i$ at iteration $t$ and $g_*$ is the current best solution found amongst all solutions at the current iteration. 
+\\~\\
+At this point we have to mention that the argument for global pollination being based on the current best solution, ``the fittest flower'', is non-existent - it just appears in the middle of talking about travel distances and constancy without any justification. Similarly, we have no idea what part of this function is due to flower constancy.
+\\~\\
+
 The parameter $L$ is supposedly the ``strength'' of the pollination, which is a step size drawn from a L\~evy distribution
 \begin{equation}
 L ~ \frac{\lambda \gamma \left( \lambda \right) \sin \left( \pi \lambda / 2 \right) }{\pi} \frac{1}{s^{1+\lambda}}, \, (s \gg s_0 > 0)
 \end{equation}
+
 Here $\gamma(\lambda)$ is the standard gamma function, and this distribution is valid for large steps $s>0$. Yang reports using $\lambda = 1.5$ for the simulations in the original paper, the second paper's authors (for GCP) do not report what value they used\footnote{we will talk about why this is unhelpful later}.\\
 The local pollination, which also includes an allowance for constancy apparently, can be represented as
 \begin{equation}
 x_i^{t+1} = x_i^{t} + \epsilon(x_j^{t} - x_k^{t}),
 \end{equation}
-where $x_j^{t}$ and $x_k^{t}$ are pollens from the different flowers of the same plant species and $\epsilon$ is drawn from a uniform distribution in $[0,1]$. (WE MAY HAVE FUCKED THIS UP? WTF IS THE SAME PLANT SPECIES IN THIS ALGORITHM?)\\
-Most flower pollination activities can occur at both local and global scale. In practice, adjacent flower patches or flowers in the not-so-far-away neighbourhood are more likely to be pollinated by local flower pollens than those far away. For this, we use a switch probability $p$ to switch between common global pollination and intensive local pollination. (I do not know what ``common'' and ``intensive'' mean, they are never explained.) In the original paper (Yang) the author describes using an initial $p - 0.5$ and then performing a parametric study which found that $p = 0.8$ worked best for most applications. Again, the authors of the second paper did not discuss actual values.\\
+where $x_j^{t}$ and $x_k^{t}$ are pollens from the different flowers of the same plant species and $\epsilon$ is drawn from a uniform distribution in $[0,1]$.
+\\~\\
 
-Moving into the realm of the GCP, the second authors describe what they call a ``integer representation scheme''
+Pay careful attention to that last bit: ``different flowers of the same plant species''. There is not a single mention anywhere else of ``same plant species'' and there is no consideration for such a thing in the provided pseudocode or associated descriptions and comments. There is such a lack of reference to this that we didn't even notice and just assumed that $x_j^{t}$ and $x_k^{t}$ are pollens from different flowers. Note that even that is nonsensical since supposedly pollens and flowers are the same thing. Already it would be fair to say that these algorithms and the papers that describe them are confused and confusing.
+Despite this, we continue.\\~\\
+
+Most flower pollination activities can occur at both local and global scale. In practice, adjacent flower patches or flowers in the not-so-far-away neighbourhood are more likely to be pollinated by local flower pollens than those far away. For this, the authors use a switch probability $p$ to switch between common global pollination and intensive local pollination. (we do not know why the authors felt the need to add the ``common'' and ``intensive'' descriptors; they are never explained as having any particular meaning.) In the original paper (Yang) the author describes using an initial $p = 0.5$ and then performing a parametric study which found that $p = 0.8$ worked best for most applications. Again, the authors of the second paper did not discuss actual values.\\
+
+Moving into the realm of the GCP, the second authors describe what they call an ``integer representation scheme''
 \begin{quotation}
 an individual is a complete assignment of $k$ colors to the graph vertices such that $S = \{ C(1),C(2),\ldots,C(i),\ldots,C(n) \}$ where $C(i)$ represents the color of the vertex $i$.
 \end{quotation}
@@ -57,7 +74,7 @@ a_{ij} = \begin{cases}
 0 \qquad otherwise
 \end{cases}
 \end{equation}
-Let the conflicting matrix \emph{conflict} of a coloring $C$ is given by:
+Let the conflicting matrix \emph{conflict} of a coloring $C$ be given by:
 \begin{equation}
 \text{conflict}_{ij} = \begin{cases}
 1 \qquad \text{if} C(i)=C(j) \text{and} a_{ij}=1\\
@@ -72,8 +89,18 @@ f(S) = \displaystyle \sum_{i=1}^{n} \sum_{j=1}^{n} \text{conflict}_ij
 The aim is then to to minimise the number of conflicts until reaching $f^*(S) = 0$, for a fixed $k$. Thus a valid coloring is found.\\~\\
 
 Note that this is essentially the same cost function as used by Johnson et al. in their fixed-K algorithm.\\
-Finally the authors describe a ``swap strategy'' that they argue helps to keep diversity in the population and avoid stagnation by swapping the color of the most conflicting vertex in a solution $S$ with the color of a least conflicting vertex.\\
-The discrete flower pollination algorithm used by the authors is shown in figure ref{}.
+Finally the authors describe a ``swap strategy'' that they argue helps to keep diversity in the population and avoid stagnation by swapping the color of the most conflicting vertex in a solution $S$ with the color of a least conflicting vertex. We will discuss the swap strategy in more detail in the implementation section.\\
 
-\subsection{Critique}
-I hate flowers and I hate this paper and I hate these authors. What a god damned waste of time.
+\subsection{Wrap-up}
+So what can we take away from this? Flower pollination has five concepts that provide a basis for a heuristic optimisation algorithm. Said algorithm has two movement mechanisms based on these five concepts: global pollination and local pollination. There is insufficient detail as to how the five concepts give rise to the two mechanisms.
+To put simply, local pollination is a move through the solution space that is constrained to the nearby neighbourhood which is defined, rather oddly, by a (uniform) random perturbation of the other (at this iteration tick) solution vectors in the population (we call it a flowerbed). On the other hand, global pollination is a move through a solution space that is defined by perturbing the difference between the current solution vector and the current best solution vector by a L\'evy step. Supposedly the potential for the L\'evy step to be very large means that global pollination is a move that is able to escape local optima. This sounds all well and good, but the solution space is so ill-defined that in reality we have no idea where either of these moves are taking us. 
+
+In practise we noticed that local pollination (as we possibly incorrectly implemented it) tended to make the set of solution vectors become more and more homogeneous as we iterated. This is predictable behaviour given the action of the local pollination, but we're not sure \emph{why} we would want to make the solution vectors homogeneous. Since the local pollination step doesn't depend on the \emph{best} solution, this continuous move to homogeneity doesn't seem to serve the purpose of optimisation at all, rather, it inhibits that ability to explore the solution space - the exact opposite of what we want in a non-convex optimisation problem!
+
+The link between the observed pollination properties and these steps as we've described them is so tenuous that one questions why the authors cite flower pollination as the inspiration for the algorithm.
+
+Beyond the supposed pollination steps, the discrete FPA for GCP as described by the second authors has several other steps that are performed that are even less well justified. In particular, they describe a ``swap strategy'' that simply swaps the most conflicting vertex's assigned color with one of the least conflicting vertices' assigned color. The only justification for using this is that it ``is frequently used when dealing with discrete problems''. We have no doubt that this is the case, even though no reference is given, but it seems to have just been tacked on as way to improve the performance of the algorithm. In fact we suspect that the swap strategy might be the only reason the algorithm gets anywhere at all..
+
+I hate flowers, I hate this paper and I hate these authors. What a god damned waste of time.
+
+

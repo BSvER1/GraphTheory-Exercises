@@ -1,0 +1,782 @@
+% \section{title}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   pseudocode.sty
+%
+%   This style package provides an environment and independent commands
+%   which are handy for writing pseudocode descriptions of algorithms.
+%   It is still in development, so you should only have this document if
+%   you have been sent it by the author.  It is copyright to M. A.
+%   Charleston, 1986-2010, and may not be altered in any way except in
+%   commenting out parts of the file, should they interfere with standard
+%   TeX, LaTeX, and AMS-TeX packages and styles.  If you have any
+%   suggestions for this package, please contact the author at
+%   mailto:mike.charleston@gmail.com.
+%   
+%   You are free to use this package provided you acknowledge me as
+%   its creator.
+%
+%                             - M. A. Charleston, Sydney, 2010
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section{introduction}
+
+% Current version = 2
+% DO NOT ALTER THIS VERSION NUMBER!!!  If you do then I won't be able 
+% to help you with any problems you may have with this file.
+
+% Note:  Some of these commands invoke an added carriage return at the 
+% end of the line, and some do not.  I am in the process of 
+% standardising this to be both convenient AND versatile, but this is an 
+% on-going problem.  Suggestions are welcome, but note that I am aware 
+% of the problem!
+% 
+% A note on the commands: some of the commands begin with ``\m'', some 
+% begin with ``\mt'', and some ``\t''.  I don't think that there are 
+% any that start ``\tm''.  These letters indicate which kind of 
+% argument the command is expecting: `m' for mathematical mode, `t' for 
+% textual.  So the ``\mtlet'' command gets two arguments, the first 
+% being in math mode, and the second in text.
+% 
+% Again, please let me know what you think of this, the parts you like 
+% just as much as the parts you think need improving, and I am sure we 
+% can together produce a really useful addition to LaTeX.
+% 
+% All the best,
+% 
+% Mike C. (Oxford, 19th July, 1999-2004)
+% 
+% Package and Class File Structure:
+% These are all optional, but must occur in this order!
+%   Identification
+%     \NeedsTeXFormat
+%     \ProvidesClass
+%     \ProvidesFile
+%   Initial Code
+%   Declaration of Options
+%     \DeclareOption
+%     \PassOptionsToFile
+%     \DeclareOption*
+%     \CurrentOption
+%   Execution of Options
+%     \ExecuteOptions
+%     \ProcessOptions
+%   Package Loading
+%     \RequirePackage
+%   Main Code
+% 
+% Note also the special commands fr package and class files:
+%   \AtEndOfPackage    \AtEndOfClass
+%   \AtBeginDocument   \AtEndOfDocument
+%   \IfFileExists
+%   \InputIfFileExists
+% and special class file commands:
+%   \LoadClass
+%   \PassOptionsToClass
+%   \OptionNotUsed
+%     for use in \DeclareOption* if necessary
+
+% \ProvidesClass
+% =====================================================================
+% MAIN CODE
+% =====================================================================
+
+% \section{numbers and lengths}
+\makeatletter
+\@ifundefined{wad}{\newcommand\wad[1][1]{\hspace{\stretch{#1}}}}{}
+\makeatother
+
+\newlength{\tablength}
+\setlength{\tablength}{1.25em}
+\newlength{\templength}
+\newlength{\commentwidth}
+\newlength{\mlinewidth}
+\newif\ifuseDits
+\useDitsfalse
+\newcommand\dit{\rule[0.4ex]{1pt}{1pt}}
+\renewcommand\dit{$\cdot$}
+\newlength\dittablength
+\setlength\dittablength{\tablength}
+\addtolength\dittablength{-1pt}
+\newcommand\settablength[1]{%
+\setlength{tablength}{#1}%
+\setlength\dittablength{#1}%
+\addtolength{dittablength}{-1pt}%
+}
+\newcounter{ditcounter}
+\newcommand\pseudocodeLineNumberStyle{\scriptsize}
+
+% The logic of \mm is: you usually call it without an argument.  If 
+% you give it an optional argument and it's ``comment'' (which should 
+% only be done internally to this file) then don't put any line 
+% number.  If it isn't a comment, then check the \ifuseLineNumbers 
+% value to see if line number should be given.
+\newcommand{\mm}[1][]{\noindent%
+% if a comment, don't put a line number in the following box:
+\makebox[1.5\tablength][l]{%
+\ifthenelse{\equal{#1}{comment}}{}{%
+\ifuseLineNumbers{{\pseudocodeLineNumberStyle\arabic{pseudocodeLineNumber}}}\fi}%
+}%
+% If this is a comment, don't put the dits
+\ifthenelse{\equal{#1}{comment}}{\rule{0pt}{0pt}\hspace{\value{codedepth}\tablength}}{%
+\ifuseDits{%
+\setcounter{ditcounter}{\value{codedepth}}%
+\whiledo{\value{ditcounter} > 0}{\dit\hspace{\dittablength}\addtocounter{ditcounter}{-1}}%
+}%
+\else{\rule{0pt}{0pt}\hspace{\value{codedepth}\tablength}}\fi}}
+
+\newcommand{\mmc}{\noindent%
+\makebox[1.5\tablength][l]{\ifnumberComments{
+\ifuseLineNumbers{\pseudocodeLineNumberStyle\arabic{pseudocodeLineNumber}}\fi% put the line number here
+\ifuseDits{\setcounter{ditcounter}{\value{codedepth}}
+\whiledo{\value{ditcounter} > 0}{\dit\hspace{\dittablength}\addtocounter{ditcounter}{-1}}}\fi}
+\else{%
+% \setcounter{ditcounter}{\value{codedepth}}%
+% \whiledo{\value{ditcounter} > 0}{\rule{0pt}{0pt}\hspace{\tablength}\addtocounter{ditcounter}{-1}}
+\rule{0pt}{0pt}\hspace{\value{codedepth}\dittablength}}\fi}\crtn}
+
+\newcommand{\adjustlinewidth}{\setlength{\mlinewidth}{\linewidth}\addtolength{\mlinewidth}{-\value{codedepth}\tablength}}
+\newcommand{\decrlinewidth}[1]{\settowidth{\templength}{#1}\addtolength{\mlinewidth}{-\templength}}
+\newcounter{tempcounter}
+\newcommand{\resetcd}{\setcounter{codedepth}{0}}
+\newcommand{\mpage}[1]{{\ensuremath{\begin{array}{l}#1\end{array}}}}
+% \newcommand{\note}[1]{
+% 	\setlength{\commentwidth}{\linewidth}%
+% 	\addtolength{\commentwidth}{-\value{codedepth}\tablength}%
+% 	\!\begin{minipage}[t]{\commentwidth}{#1}\end{minipage}
+% }
+% \newcommand{\mtext}[1]{\mm\note{#1}}
+
+
+\newif\ifuseParentheses\useParenthesestrue
+\def\lparen{(}
+\def\rparen{)}
+
+% \newcommand{\tpage}[1]{\begin{tabular}[t]{l}#1\end{tabular}}
+\newcommand{\mbracketpage}[1]{{\ensuremath{\left(\begin{array}[t]{l}#1\end{array}\right)}}}
+\newcommand{\tbracketpage}[1]{(\tpage{#1})}
+\newcommand{\crtn}{\ifuseLineNumbers{\addtocounter{pseudocodeLineNumber}{1}}\fi\\}
+% \newcommand{\crtn}{\newline}
+
+\newif\ifsamepage
+\samepagefalse
+\newif\ifuseLineNumbers
+\useLineNumbersfalse
+\newcounter{codedepth}
+\newcounter{pseudocodeLineNumber}
+\setcounter{pseudocodeLineNumber}{0}
+% ---------------------------------------------------------------------------
+
+\let\as\leftarrow
+% Redefine this in your own preambles if you want some other 
+% (non-standard) assignment operator, like ``:='' as is used in Pascal. 
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{keyword styles}
+% Set up the style in which you want special words like ``if'', 
+% ``then'' etc. to be displayed.
+\newcommand{\kwdstyle}{\sffamily\mdseries}	% sans serif family, medium
+\newcommand{\keyword}[1]{\mbox{\kwdstyle{#1}}\decrlinewidth{#1}}
+\newcommand{\keywordstyleDefault}{\renewcommand{\kwdstyle}{\sffamily\mdseries}}
+\newcommand{\keywordstyleSFB}{\renewcommand{\kwdstyle}{\sffamily\bfseries}}	% sans serif family, bold
+\newcommand{\keywordstyleSCSFM}{\renewcommand{\kwdstyle}{\scshape\sffamily\mdseries}}	% small caps, medium
+\newcommand{\keywordstyleBU}{\renewcommand{\kwdstyle}{\bfseries\underline}}	% boldface, underlined
+\newcommand{\keywordstyleB}{\renewcommand{\kwdstyle}{\textbf}}	% boldface
+\newcommand{\keywordstylePlain}{\renewcommand{\kwdstyle}{}}	% plain text
+
+
+% Actually, let's have a style for constant values too: by default 
+% this will be as below
+\newcommand\conststyle{\ttfamily\bfseries}
+\newcommand\const[1]{\mbox{{\conststyle{#1}}}\decrlinewidth{#1}}
+
+% ---------------------------------------------------------------------------
+
+% \subsection{style}
+% 
+% Set up the delimeters for nested routines here.  You can alter them
+% to just be blank, and only use the indentation to indicate nestings,
+% or you can have ``begin'' and ``end'' keywords like in Pascal, or
+% have parentheses like in `C'.
+\newif\ifuseDelims
+\useDelimsfalse
+\newcommand{\defaultBriefCommentLeftDelim}{//}
+\newcommand{\defaultBriefCommentRightDelim}{}
+\newcommand{\briefCommentLeftDelim}{\defaultBriefCommentLeftDelim}
+\newcommand{\briefCommentRightDelim}{\defaultBriefCommentRightDelim}
+\newcommand{\leftdelim}{}
+\newcommand{\rightdelim}{}
+\newcommand\continuedelim{\rightdelim}
+\newcommand{\leftCommentDelim}{\left|}
+\newcommand{\rightCommentDelim}{\right|}
+\newcommand{\restoredefaultdelims}{
+	\renewcommand{\leftdelim}{\keyword{begin}}
+	\renewcommand{\rightdelim}{\keyword{end;}}
+	\renewcommand{\leftCommentDelim}{\left|}
+	\renewcommand{\rightCommentDelim}{\right.}
+}
+\newcommand{\clearBlockDelims}{
+\useDelimsfalse
+	\renewcommand{\leftdelim}{}
+	\renewcommand{\rightdelim}{}
+}
+\newcommand{\clearCommentDelims}{
+	\renewcommand{\leftCommentDelim}{}
+	\renewcommand{\rightCommentDelim}{}
+}
+\newcommand{\setCommentDelimsC}{
+	\renewcommand{\leftCommentDelim}{/\Pisymbol{psy}{42}}
+	\renewcommand{\rightCommentDelim}{\Pisymbol{psy}{42}/}
+	\renewcommand{\briefCommentLeftDelim}{\defaultBriefCommentLeftDelim}
+	\renewcommand{\briefCommentRightDelim}{\defaultBriefCommentRightDelim}
+}
+\newcommand{\setCommentDelimsPascal}{
+	\renewcommand{\leftCommentDelim}{\{}
+	\renewcommand{\rightCommentDelim}{\}}
+	\renewcommand{\briefCommentLeftDelim}{\{}
+	\renewcommand{\briefCommentRightDelim}{\}}
+}
+\newcommand{\cleardelims}{
+\useDelimsfalse
+	\renewcommand{\leftdelim}{}
+	\renewcommand{\rightdelim}{}
+	\clearCommentDelims
+}
+\newcommand{\setBlockDelimsC}{
+\useDelimstrue
+	\renewcommand{\leftdelim}{{\ensuremath{\{\ }}}
+	\renewcommand{\rightdelim}{{\ensuremath{\}\ }}}
+}
+\newcommand{\setBlockDelimsPascal}{
+\useDelimstrue
+	\renewcommand{\leftdelim}{\keyword{begin}}
+	\renewcommand{\rightdelim}{\keyword{end;}}
+}
+% \subsubsection{Pascal}
+\newcommand{\setalgstylePascal}{
+	\setBlockDelimsPascal
+	\setCommentDelimsPascal
+	\renewcommand{\as}{:=}
+	\renewcommand\continuedelim{}
+	\keywordstyleB
+}
+% \subsubsection{C}
+\newcommand{\setalgstyleC}{
+	\setBlockDelimsC
+	\setCommentDelimsC
+	\renewcommand{\as}{\leftarrow}
+	\keywordstyleB
+}
+\newcommand{\setalgstyleDefault}{\cleardelims}
+\setalgstyleC
+\newcommand\pseudocodetitle{\textbf{Algorithm}}
+\newif\ifbeamer
+\beamerfalse
+
+% \section{declare options}
+% % =====================================================================
+% %  DECLARATION OF OPTIONS
+% % =====================================================================
+\DeclareOption{c}{\setalgstyleC}
+\DeclareOption{C}{\setalgstyleC}
+\DeclareOption{pascal}{\setalgstylePascal}
+\DeclareOption{notitles}{\renewcommand\pseudocodetitle{}}
+\DeclareOption{terse}{\setalgstyleC\clearBlockDelims}
+\DeclareOption{then}{\renewcommand\then{\keyword{then}\/}}
+\DeclareOption{nothen}{\renewcommand\then{}}
+\DeclareOption{nodelims}{\clearBlockDelims}
+\DeclareOption{linenumbers}{\useLineNumberstrue} %\addtocounter{codedepth}{1}}
+\DeclareOption{dits}{\useDitstrue}
+\DeclareOption{nodits}{\useDitsfalse}
+\DeclareOption{parens}{\useParenthesestrue}
+\DeclareOption{noparens}{\useParenthesesfalse}
+\DeclareOption{samepage}{\samepagetrue}
+\DeclareOption{beamer}{\beamertrue}
+
+% \DeclareOption{nocommentnums}{\numberCommentsfalse}
+% \DeclareOption{numbercomments}{\use
+\ProcessOptions
+% 
+% =====================================================================
+% REQUIRED PACKAGES
+% =====================================================================
+% \section{required packages}
+\RequirePackage{calc}
+\RequirePackage{amssymb}
+\RequirePackage{pifont}
+
+\RequirePackage{ifthen}
+\RequirePackage{amstext}
+
+
+% ---------------------------------------------------------------------------
+% COMMANDS:
+% \section{COMMANDS}
+% \subsection{comments & labels}
+% 
+% Make comments with these commands.  You can insert carriage returns
+% in the arguments to these with the usual `\\' command.}
+% 
+% \_comment
+\newif\ifnumberComments
+\numberCommentsfalse
+\newcommand{\mcomment}[1]{%
+\addtolength{\commentwidth}{-\value{codedepth}\tablength}%
+\addtolength{\commentwidth}{-\tablength}%
+\setlength{\commentwidth}{\linewidth}%
+\mmc\begin{minipage}[t]{\commentwidth}{\textit{\leftCommentDelim \ensuremath{#1}~\rightCommentDelim}}
+\end{minipage}\ifnumberComments\crtn\else\\ \fi
+}
+% \newcommand{\tcomment}[1]{%
+% \setlength{\commentwidth}{\linewidth}%
+% \addtolength{\commentwidth}{-\value{codedepth}\tablength}%
+% \ifuseLineNumbers
+% \addtolength{\commentwidth}{-1.5\tablength}%
+% \fi%
+% \mmc\begin{minipage}[t]{\commentwidth}{\emph{\leftCommentDelim\ #1\wad \rightCommentDelim}}
+% \end{minipage}\ifnumberComments\crtn\else\\ \fi
+% }
+\newcommand{\leftcomment}[1]{\mm\tcomment{#1}}
+\newcommand{\lcom}[1]{
+	\mm[comment]\briefCommentLeftDelim~#1~\briefCommentRightDelim\ifnumberComments\crtn\else\\ \fi
+}
+\newcommand{\com}[1]{
+	\hspace*{\fill}\briefCommentLeftDelim~#1~\briefCommentRightDelim\ifnumberComments\crtn\else\\ \fi
+}
+\newcommand{\rcom}[1][]{\ifthenelse{\equal{#1}{}}{}{\wad[1000]\briefCommentLeftDelim~\textnormal{#1}~\briefCommentRightDelim}}
+
+\newcommand\interject[1]{
+\mm[comment]{#1}
+}
+\newcommand{\tcomment}[1]{%
+\setlength{\commentwidth}{\linewidth}%
+\addtolength{\commentwidth}{-\value{codedepth}\tablength}%
+\ifuseLineNumbers
+\addtolength{\commentwidth}{-1.5\tablength}%
+\fi%
+% \addtolength{\commentwidth}{-\tablength}
+% \mm\begin{minipage}[t]{\commentwidth}{\leftCommentDelim~#1~\rightCommentDelim}\end{minipage}
+\mmc{\begin{minipage}[t]{\commentwidth}\leftCommentDelim~#1~\rightCommentDelim\end{minipage}}
+\ifnumberComments\crtn\else\\ \fi
+}
+\newcommand\comment[1]{\tcomment{#1}}
+% \_label
+\newcommand{\mlabel}[1]{
+	\hspace*{\fill}
+	\raisebox{\baselineskip}{\ensuremath{\bullet} #1}
+}
+\newcommand{\rcomment}[1]{\hspace*{\fill}\tcomment{#1}}
+\newcommand{\mtext}[1]{\setlength{\commentwidth}{\linewidth}%
+	\addtolength{\commentwidth}{-\value{codedepth}\tablength}%
+	\begin{minipage}[t]{\commentwidth}
+		{#1}
+	\end{minipage}%
+	\crtn
+}
+
+% \subsection{parentheses}
+
+\ifuseParentheses{
+\def\lparen{(}
+\def\rparen{)}
+}\else{
+\def\lparen{}
+\def\rparen{}
+}\fi
+
+% \subsection{local bookkeeping}
+\newcommand{\setdepth}[1]{\setcounter{codedepth}{#1}}
+\newcommand{\close}{\ifuseDelims{\down[0]}\else{\down}\fi}
+
+\newcommand{\down}[1][1]{\setcounter{tempcounter}{#1}%
+\ifthenelse{\equal{\leftdelim}{}}%
+{\addtocounter{codedepth}{-#1}}
+{
+\ifthenelse{\equal{\value{tempcounter}}{0}}{\addtocounter{codedepth}{-1}}{%
+\addtocounter{codedepth}{-1}\mm\rightdelim\addtocounter{tempcounter}{-1}\crtn%
+\whiledo{\value{tempcounter} > 0}{%
+\addtocounter{codedepth}{-1}\crtn\mm\rightdelim\addtocounter{tempcounter}{-1}}
+}}
+\adjustlinewidth}
+\newcommand{\Down}[1][1]{\addtocounter{codedepth}{-#1}\mm\rightdelim\crtn\adjustlinewidth}
+\newcommand{\up}[1][]{\leftdelim\rcom[#1]\stepcounter{codedepth}\crtn\adjustlinewidth}
+\newcommand{\mbegin}{\stepcounter{codedepth}\leftdelim\crtn\adjustlinewidth}
+\newcommand{\mend}[1][1]{
+	\addtocounter{codedepth}{-#1}
+	\ifthenelse{\equal{\leftdelim}{}}{}{%\crtn
+	\mm\rightdelim\crtn
+	\adjustlinewidth}}
+\newcommand{\then}{\keyword{then}\ }
+\newcommand{\false}{\/\keyword{false}}
+\newcommand{\true}{\/\keyword{true}}
+% ---------------------------------------------------------------------------
+
+% \subsection{given}
+\newcommand\mgiven[1]{\mm\keyword{given}\ \ensuremath{#1}\crtn}
+\newcommand\tgiven[1]{\mm\keyword{given}\ #1\crtn}
+\newcommand\mtgiven[2]{\mm\keyword{given}\ \ensuremath{#1}, #2\crtn}
+% ---------------------------------------------------------------------------
+
+% \subsection{arg}
+\newcommand\mtarg[3][]{\mm\ensuremath{#2}~:~#3\rcom[#1]\crtn}
+\newcommand\marg[3][]{\mm\ensuremath{#2}~:~\ensuremath{#3}\rcom[#1]\crtn}
+\newcommand\targ[3][]{\mm#2~:~#3\rcom[#1]\crtn}
+% ---------------------------------------------------------------------------
+
+% \subsection{require}
+\newcommand\mrequire[1]{\mm\keyword{require}\ \ensuremath{#1}\crtn}
+\newcommand\trequire[1]{\mm\keyword{require}\ #1\crtn}
+\newcommand\mtrequire[2]{\mm\keyword{require}\ \ensuremath{#1}, #2\crtn}
+% ---------------------------------------------------------------------------
+
+% \subsection{variables}
+% Use these commands for defining variables. I also use the \_let{}{} 
+% commands, which work fine.
+
+% \newcommand{\varword}[1]{{\sffamily\mdseries{#1}}}
+\newcommand{\varword}[1]{{\kwdstyle{#1}}}
+
+\newcommand{\var}[3][]{\mm\ensuremath{#2} : #3\rcom[#1]\crtn}
+\newcommand{\mvar}[3][]{\var[#1]{#2}{#3}}
+\newcommand{\vars}[2]{\varword{variables} \ensuremath{#1} : #2\crtn}
+\newcommand{\mvars}[2]{\vars{#1}{#2}}
+\newcommand{\variable}[2]{\var{#1}{#2}}
+\newcommand{\mvariable}[2]{\variable{#1}{#2}}
+\newcommand{\variables}[2]{\var{#1}{#2}}
+\newcommand{\mvariables}[2]{\variables{#1}{#2}}
+% \newcommand{\varlist}[2]{\mm\varword{#1}s: \stepcounter{codedepth}\crtn\mm\ensuremath{#2}\addtocounter{codedepth}{-1}}
+
+\newcommand{\vbool}[2][]{\var[#1]{Boolean}{#2}}
+\newcommand{\mvbool}[1]{\vbool{#1}}
+\newcommand{\vint}[1]{\var{integer}{#1}}
+\newcommand{\mvint}[1]{\vint{#1}}
+\newcommand{\vre}[1]{\var{real}{#1}}
+\newcommand{\mvre}[1]{\vre{#1}}
+\newcommand{\vreal}[1]{\var{real}{#1}}
+\newcommand{\mvreal}[1]{\vreal{#1}}
+\newcommand{\vcom}[1]{\var{complex}{#1}}
+\newcommand{\mvcom}[1]{\vcom{#1}}
+\newcommand{\vcomplex}[1]{\var{complex}{#1}}
+\newcommand{\mvcomplex}[1]{\vcomplex{#1}}
+\newcommand{\vvec}[1]{\var{vector}{#1}}
+\newcommand{\mvvec}[1]{\vvector{#1}}
+\newcommand{\vvector}[1]{\var{vector}{#1}}
+\newcommand{\mvvector}[1]{\vvector{#1}}
+
+\newcommand{\tvar}[2]{\varword{#1} : #2}
+\newcommand{\mtvar}[2]{\tvar{#1}{#2}}
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{functions}
+% Use these to represent functions mapping from arg#2 into #arg3.
+\newcommand{\function}[3]{\varword{#1}: \ensuremath{#2 \mapsto #3}}
+\newcommand{\Function}[3]{\mm\function{#1}{#2}{#3}}
+\newcommand{\realFunction}[2]{\function{#1}{#2}{\reals}}
+\newcommand{\RealFunction}[2]{\mm\realFunction{#1}{#2}}
+\newcommand{\intFunction}[2]{\function{#1}{#2}{\integers}}
+\newcommand{\IntFunction}[2]{\mm\intFunction{#1}{#2}}
+\newcommand{\complexFunction}[2]{\function{#1}{#2}{\complex}}
+\newcommand{\ComplexFunction}[2]{\mm\complexFunction{#1}{#2}}
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{assignments}
+% 
+% Use these commands to make assignments.  There are extensions to the
+% simple ``x is set to the value y'' kind of stuff: you can also do
+% things like ``x is set to x times y'' or ``A is set to A union B''. 
+% \_as
+\newcommand{\mas}[3][]{\mm\ensuremath{#2 \as #3}\rcom[#1]\crtn}
+\newcommand{\mtas}[3][]{\mm\ensuremath{#2 \as} #3\rcom[#1]\crtn}
+\newcommand{\tas}[3][]{\mm #2\ \ensuremath{\as}\ #3\rcom[#1]\crtn}
+% \_asdiv
+\newcommand{\masdiv}[3][]{\mm\ensuremath{#2 \as #2/#3}\rcom[#1]\crtn}
+\newcommand{\mtasdiv}[3][]{\mm\ensuremath{#2 \as #2/}#3\rcom[#1]\crtn}
+\newcommand{\tasdiv}[3][]{\mm#2\ \ensuremath{\as}\ #2/#3\rcom[#1]\crtn}
+% \_asdot
+\newcommand{\masdot}[3][]{\mm\ensuremath{#2 \as #2\cdot#3}\rcom[#1]\crtn}
+\newcommand{\tasdot}[3][]{\mm#2\ \ensuremath{\as}\ #2.#3\rcom[#1]\crtn}
+% \_asforall
+\newcommand{\masforall}[4][]{\mm\ensuremath{#2 \as #3\ \forall\ #4}\rcom[#1]\crtn}
+\newcommand{\mtasforall}[4][]{\mm\ensuremath{#2 \as} #3 \keyword{for all}\ #4\rcom[#1]\crtn}
+\newcommand{\tasforall}[4][]{\mm #2 \ensuremath{\as} #3 \keyword{for all}\ #4\rcom[#1]\crtn}
+% \_asmax
+\newcommand{\masmax}[3][]{\mm\ensuremath{#2 \as \max\{#2, #3\}}\rcom[#1]\crtn}
+% \_asminus
+\newcommand{\masminus}[3][]{\mm\ensuremath{#2 \as #2 - #3}\rcom[#1]\crtn}
+\newcommand{\mtasminus}[3][]{\mm\ensuremath{#2 \as #2 -} #3\rcom[#1]\crtn}
+\newcommand{\tasminus}[3][]{\mm #2 \ensuremath{\as} #2 \ensuremath{-} #3\rcom[#1]\crtn}
+% \_asplus
+\newcommand{\masplus}[3][]{\mm\ensuremath{#2 \as #2 + #3}\rcom[#1]\crtn}
+\newcommand{\mtasplus}[3][]{\mm\ensuremath{#2 \as #2 +} #3\rcom[#1]\crtn}
+\newcommand{\tasplus}[3][]{\mm #2 \ensuremath{\as} #2 \ensuremath{+} #3\rcom[#1]\crtn}
+% \_astimes
+\newcommand{\mastimes}[3][]{\mm\ensuremath{#2 \as #2 \times #3}\rcom[#1]\crtn}
+\newcommand{\mtastimes}[3][]{\mm\ensuremath{#2 \as #2 \times} #3\rcom[#1]\crtn}
+\newcommand{\tastimes}[3][]{\mm #2 \ensuremath{\as} #2 \ensuremath{\times} #3\rcom[#1]\crtn}
+% \_asintersection
+\newcommand{\masintersection}[3][]{\mm\ensuremath{#2 \as #2 \cap #3}\rcom[#1]\crtn}
+% \_asunion
+\newcommand{\masunion}[3][]{\mm\ensuremath{#2 \as #2 \cup #3}\rcom[#1]\crtn}
+% \_asSetMinus
+\newcommand{\masSetMinus}[3][]{\mm\ensuremath{#2 \as #2 \setminus #3}\rcom[#1]\crtn}
+\newcommand{\massetminus}[3][]{\masSetMinus[#1]{#2}{#3}}
+% \_incr
+\newcommand{\mincr}[2][]{\mm\ensuremath{#2 \as #2 + 1}\rcom[#1]\crtn}
+\newcommand{\tincr}[2][]{\mm #2 \ensuremath{\as} #2\ensuremath{ + 1}\rcom[#1]\crtn}
+% \_decr
+\newcommand{\mdecr}[2][]{\mm\ensuremath{#2 \as #2 - 1}\rcom[#1]\crtn}
+\newcommand{\tdecr}[2][]{\mm #2 \ensuremath{\as} #2\ensuremath{ - 1}\rcom[#1]\crtn}
+% \_let
+\newcommand{\mlet}[3][]{\mm\keyword{let} \ensuremath{#2 = #3}\rcom[#1]\crtn}
+\newcommand{\mtlet}[3][]{\mm\keyword{let} \ensuremath{#2} \keyword{be} #3\rcom[#1]\crtn}
+\newcommand{\tmlet}[3][]{\mm\keyword{let} #2 \keyword{be} \ensuremath{#3}\rcom[#1]\crtn}
+\newcommand{\tlet}[3][]{\mm\keyword{let} #2 \keyword{be} #3\rcom[#1]\crtn}
+% \_ref
+\newcommand{\meq}[3][]{\mm\keyword{let} \ensuremath{#2 \equiv #3}\rcom[#1]\crtn}
+% \_set
+\newcommand{\mset}[3][]{\mm\keyword{set} \ensuremath{#2} \keyword{to} \ensuremath{#3}\rcom[#1]\crtn}
+\newcommand{\mtset}[3][]{\mm\keyword{set} \ensuremath{#2} \keyword{be} #3\rcom[#1]\crtn}
+\newcommand{\tmset}[3][]{\mm\keyword{set} #2 \ensuremath{=} \ensuremath{#3}\rcom[#1]\crtn}
+\newcommand{\tset}[3][]{\mm\keyword{set} #2 \ensuremath{=} #3\rcom[#1]\crtn}
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{if/then/else}
+% 
+% Use these for the standard if/then statements.  There's quite a
+% range of options so do look for the one that best suits your needs.
+% 
+% \def\then{}
+% \_if
+\newcommand{\mif}[2][]{\mm\keyword{if}\ \lparen\ensuremath{#2}\rparen\ \then \up[#1]}
+\newcommand{\tif}[2][]{\mm\keyword{if}\ \lparen#2\rparen\ \then\up[#1]}
+\newcommand{\mtif}[3][]{\mm\keyword{if}\ \lparen\ensuremath{#2}\ #3\rparen\ \then\up[#1]}
+% \_ifelse
+% \newcommand{\mifelse}[4][]{\mm\keyword{if} \ensuremath{\lparen#2\rparen}\up[#1]\crtn\mm \ensuremath{#3}\down\mm\keyword{else} \up\crtn\mm \ensuremath{#4}\down}
+\newcommand{\mifelse}[4][]{\mm\keyword{if} \ensuremath{\lparen#2\rparen}\ \then \up[#1] #3 \addtocounter{codedepth}{-1}\mm\rightdelim\keyword{else}\ \up #4\down}
+% \newcommand{\tifelse}[4][]{\mm\keyword{if} \lparen#2\rparen\up[#1]\crtn\mm #3\down\mm\keyword{else} \up\crtn\mm #4\down}
+\newcommand{\tifelse}[4][]{\mm\keyword{if} \lparen#2\rparen\ \up[#1] #3\addtocounter{codedepth}{-1}\mm\rightdelim\keyword{else} \up #4\down}
+% \_if[then][do]
+\newcommand{\mifdo}[3][]{\mm\keyword{if}\ \ensuremath{\lparen#2\rparen}\ \then \up\ensuremath{#3}\rcom[#1]\close}
+\newcommand{\mtifdo}[3][]{\mm\keyword{if}\ \ensuremath{\lparen#2\rparen}\ \then \up #3\rcom[#1]\close}
+\newcommand{\tifdo}[2]{\mm\keyword{if}\ \lparen#1\rparen\ \then \up #2\down}
+\newcommand{\mifthen}[2][]{\mm\keyword{if}\ \ensuremath{\lparen#2\rparen}\ \then \up[#1]}
+\newcommand{\tifthen}[2][]{\mm\keyword{if}\ \lparen#2\rparen\ \keyword{then}\ \up[#1]}
+\newcommand{\mifthendo}[3][]{\mm\keyword{if}\ \ensuremath{\lparen#2\rparen}\ \then\ \up[#1] \ensuremath{#3}\down}
+\newcommand{\mtifthendo}[3][]{\mm\keyword{if}\ \ensuremath{\lparen#2\rparen}\ \then\up[#1] #3\down}
+\newcommand{\tifthendo}[3][]{\mm\keyword{if}\ \lparen#2\rparen\ \then\ \up[#1] #3\down}
+% \_if[then][else]
+% This should use a \then keyword; mostly \then will be defined as an 
+% empty string but user could define it with [then] in options,
+% perhaps, or \usethen and \nothen.  Then there would be no ``ifthendo''
+% and ``ifdo'' alternatives.
+\newcommand{\mifelsedo}[4][]{\mm\keyword{if} \ensuremath{\lparen#2\rparen}\ \then\up[#1]#3\close\mm\rightdelim\keyword{else}\ \up#4\down}
+\newcommand{\mtifelsedo}[4][]{\mm\keyword{if} \ensuremath{\lparen#2\rparen}\ \then\up[#1]{#3}\close\mm\rightdelim\keyword{else}\ \up{#4}\down}
+\newcommand{\tifelsedo}[4][]{\mm\keyword{if} \lparen#2\rparen\ \then\up\rcom[#1]\crtn\mm #3\down\crtn\mm\keyword{else} \up\crtn\mm #4\down}
+% \newcommand{\mifthenelse}[3]{\mm\keyword{if} \ensuremath{\lparen#1\rparen} \then \up\crtn\mm\ensuremath{#2}\down\crtn\mm\keyword{else} \up\crtn\mm \ensuremath{#3}\down}
+% \newcommand{\tifthenelse}[3]{\mm\keyword{if} \lparen#1\rparen \then \up\crtn\mm #2\down\crtn\mm\keyword{else} \up\crtn\mm #3\down}
+% \_else[do]
+% \renewcommand\continuedelim{}
+\newcommand{\melse}{\close\mm\continuedelim{}\keyword{else} \up}
+\newcommand{\melsedo}[1]{\close\mm\continuedelim\ \keyword{else}\ \up\crtn\mm\ensuremath{#1}\down}
+\newcommand{\telsedo}[1]{\close\mm\continuedelim\ \keyword{else}\ \up\crtn\mm #1\down}
+\newcommand{\melseif}[1]{\close\mm\continuedelim\keyword{else if}\ \ensuremath{\lparen#1\rparen}\ \up}
+\newcommand{\telseif}[1]{\close\mm\continuedelim\keyword{else if}\ #1\ \up}
+\newcommand{\telseifthen}[1]{\close\mm\continuedelim\keyword{else if}\ \lparen#1\rparen\ \then \up}
+\newcommand{\melseifthendo}[2]{\close\mm\continuedelim\keyword{else if}\ \ensuremath{\lparen#1\rparen}\ \then\ \up\crtn\mm \ensuremath{#2}\down}
+\newcommand{\mtelseifthendo}[2]{\close\mm\continuedelim\keyword{else if}\ \ensuremath{\lparen#1\rparen}\ \then\ \up\crtn\mm #2\down}
+\newcommand{\telseifthendo}[2]{\close\mm\continuedelim\ \keyword{else if}\ \lparen#1\rparen\ \then\ \up\crtn\mm #2\down}
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{loops}
+% 
+% Use these for the standard loop statements.  There's quite a range
+% of options so do look for the one that best suits your needs.
+% 
+% \_do
+\newcommand{\mdo}{\mm\keyword{do} \up}
+% \_dowhile
+\newcommand{\mdowhile}[3][]{\mm\keyword{do} \up[#1] #2\close\mm\continuedelim\ \keyword{while} \ensuremath{\lparen#3\rparen}}
+\newcommand{\tdowhile}[3][]{\mm\keyword{do} \up[#1] #2\close\mm\continuedelim\ \keyword{while} \lparen#3\rparen}
+% \_for
+% \newcommand{\mfor}[3]{\mforup{#1}{#2}{#3}}
+\newcommand{\mfor}[2][]{\mm\keyword{for} \ensuremath{\lparen#2\rparen}\ \keyword{do} \up[#1]}
+\newcommand{\tfor}[2][]{\mm\keyword{for} \lparen#2\rparen\ \keyword{do} \up[#1]}
+% \_forall(do)
+\newcommand{\mforall}[2][]{\mm\keyword{for all} \ensuremath{\lparen#2\rparen}\ \keyword{do} \up[#1]}
+\newcommand{\tforall}[2][]{\mm\keyword{for all} \lparen#2\rparen\ \keyword{do} \up[#1]}
+\newcommand{\mforalldo}[3][]{\mm\keyword{for all} \ensuremath{\lparen#2\rparen}\ \keyword{do} \up[#1]\mm #3\down}
+\newcommand{\tforalldo}[3][]{\mm\keyword{for all} \lparen#2\rparen\ \keyword{do} \up[#1]\mm #3\down}
+% \_foreach(do)
+\newcommand{\mforeach}[2][]{\mm\keyword{for each} \ensuremath{\lparen#2\rparen}\ \keyword{do} \up[#1]}
+\newcommand{\tforeach}[2][]{\mm\keyword{for each} \lparen#2\rparen\ \keyword{do} \up[#1]}
+\newcommand{\mforeachdo}[3][]{\mm\keyword{for each} \ensuremath{\lparen#2\rparen}\ \keyword{do}  \up[#1]\mm #3\down}
+\newcommand{\tforeachdo}[3][]{\mm\keyword{for each} \lparen#2\rparen\ \keyword{do}\up[#1]\mm #3\down}
+% \_forup(do)
+\newcommand{\mforup}[4][]{\mm\keyword{for} \lparen\ensuremath{#2 = #3} \keyword{up to} \ensuremath{#4}\rparen\ \keyword{do} \up[#1]}
+\newcommand{\mforupdo}[5][]{\mm\keyword{for} \lparen\ensuremath{#2 = #3} \keyword{up to} \ensuremath{#4}\rparen\ \keyword{do} \up[#1]{#5}\down}
+\newcommand{\mtforupdo}[5][]{\mm\keyword{for} \lparen\ensuremath{#3 = #3} \keyword{up to} \ensuremath{#4}\rparen\ \keyword{do} \up[#1] #5\down}
+% \_fordown(do)
+\newcommand{\mfordown}[4][]{\mm\keyword{for} \lparen\ensuremath{#2 = #3} \keyword{down to} \ensuremath{#4}\rparen\ \keyword{do} \up[#1]}
+\newcommand{\mfordowndo}[5][]{\mm\keyword{for} \lparen\ensuremath{#2 = #3} \keyword{down to} \ensuremath{#4}\rparen\ \keyword{do} \up[#1]\ensuremath{#5}\down}
+% \repeat
+\newcommand{\mrepeat}[1][]{\mm\keyword{repeat} \up[#1]}
+% \_while(do)
+\newcommand{\mwhile}[2][]{\mm\keyword{while}\ \ensuremath{\lparen#2\rparen}\ \keyword{do} \up[#1]}
+\newcommand{\mwhilenot}[2][]{\mm\keyword{while}\ \ensuremath{\lparen#2\rparen}\ \keyword{is} \keyword{false} \keyword{do} \up[#1]}
+%          \newcommand{\mif}[2][]{\mm\keyword{if}\ \ensuremath{\lparen#2\rparen}\ \then \up[#1]}
+
+\newcommand{\twhile}[2][]{\mm\keyword{while}\ \lparen#2\rparen\ \keyword{do} \up[#1]}
+\newcommand{\mwhiledo}[3][]{\mm\keyword{while}\ \ensuremath{\lparen#2\rparen}\ \keyword{do} \up[#1]#3\down}
+% \newcommand{\mtifelsedo}[3]{\mm\keyword{if} \ensuremath{\lparen#1\rparen} \then\up{#2}\down[0]\mm\rightdelim\keyword{else}\ \up{#3}\down}
+\newcommand{\tmwhiledo}[3][]{\mm\keyword{while}\ \lparen#2\rparen\ \keyword{do} \up[#1]\mm \ensuremath{#3}\down}
+\newcommand{\twhiledo}[3][]{\mm\keyword{while}\ \lparen#2\rparen\ \keyword{do} \up[#1]\mm #3\down}
+% \_until
+\newcommand{\muntil}[1]{\down\keyword{until}\ \ensuremath{\lparen#1\rparen}}
+\newcommand{\tuntil}[1]{\mm\keyword{until}\ \lparen#1\rparen}
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{switch/case}
+% 
+% Use these for the standard switch (in C) or case (Pascal)
+% statements.  Note that here you must use `switch' to indicate the
+% outer procedure and put `case' for each of the possible values to
+% account for within the switch procedure.
+% 
+% \_switch
+\newcommand{\mswitch}[2][]{\mm\keyword{switch} \ensuremath{#2} \keyword{of} \up[#1]}
+\newcommand{\tswitch}[2][]{\mm\keyword{switch} #2 \keyword{of} \up[#1]}
+% \_case
+\newcommand{\mcase}[2][]{\mm\keyword{case} \ensuremath{#2}: \up[#1]}
+\newcommand{\mcasedo}[3][]{\mm\keyword{case} \ensuremath{#2}: \up[#1]\ensuremath{#3}\down}
+\newcommand{\mcasedobreak}[3][]{\mm\keyword{case} \ensuremath{#2}: \up[#1]\ensuremath{#3}\crtn\mbreak}
+
+
+% ---------------------------------------------------------------------------
+
+% \subsection{miscellaneous words}
+% 
+% Just some extra words...
+% 
+% \and
+\newcommand{\mand}{\ \keyword{and}\ }
+% \break
+\newcommand{\mbreak}[1][1]{\mm\keyword{break}\crtn} % was ending in \mend[#1]
+	% was {\mm\keyword{break} \down}
+% \call
+\newcommand{\functionname}[1]{{\textsc{#1}}}
+\newcommand{\pseudocodename}[1]{{\textsc{#1}}}
+\newcommand{\call}[2]{\functionname{#1(}\ensuremath{#2}\functionname{)}}
+\newcommand{\mcall}[3][]{\mm\call{#2}{#3}\rcom[#1]\crtn}
+% \callref
+\newcommand{\callref}[2]{\functionname{#1}\ifthenelse{\equal{#2}{}}%
+{}
+{\functionname{(}$ #2 $\functionname{)}}
+\hspace*{\tablength} \dotfill (\mref\ref{#1})
+\crtn
+}
+% \or
+\newcommand{\mor}{\ \keyword{or}\ }
+% \ref
+\newcommand{\mref}{}
+
+% \_output
+\newcommand\moutput[1]{\mm\keyword{output} #1\crtn}
+
+% \pre
+\newcommand{\precond}{\noindent\keyword{Precondition: }}
+% \post
+\newcommand{\postcond}{\noindent\keyword{Postcondition: }}
+
+% \_return
+\newcommand{\mreturn}[1][]{\mm\keyword{return}\ifthenelse{\equal{#1}{}}{}{\ensuremath{\lparen#1)}}\crtn}
+\newcommand{\treturn}[1][]{\mm\keyword{return}\ifthenelse{\equal{#1}{}}{}{\ #1}}
+\newcommand{\return}{\mm\keyword{return} }
+% \_stop
+\newcommand{\mstop}[1][1]{\mm\keyword{stop}\crtn\down[#1]}
+
+% goto
+\newcommand{\mgoto}[1]{\keyword{goto} \keyword{#1}}
+
+% ---------------------------------------------------------------------------
+
+% \section{ALGORITHM ENVIRONMENT}
+% -------------------------- algorithm environments --------------------------
+%
+% Each algorithm takes place in a pseudocode or an algorithm
+% environment.  You supply the name of the function/routine/procedure
+% as the argument.  I haven't used the ``algorithm'' environment in 
+% ages so I no longer remember how well it works.
+
+\newcounter{alg}%[section]
+\newcounter{pseudocounter}%[section]
+
+\newenvironment{algorithm}[1]
+{
+\stepcounter{alg}
+\textbf{Algorithm} \arabic{alg}: \functionname{#1}\crtn
+\setdepth{1} 
+}
+{
+\setdepth{0}
+\medskip
+}
+
+\newlength{\oldparskip}
+\newlength{\pseudocodeparskip}
+% \setlength{\pseudocodeparskip}{0pt}
+\setlength{\pseudocodeparskip}{0pt + 0.25ex - 0.5ex}	% redefine this 
+                                                    	% later if
+                                                    	% necessary
+\def\pseudocodeIndexCategory{Pseudocode!}
+\newenvironment{pseudocode}[1][]
+{
+\ifbeamer\mode<presentation>{\footnotesize}\mode<article>{\normalsize}\fi
+% \medskip
+\ifsamepage{\nopagebreak}\else\medskip\fi
+% \ifsamepage{\begin{minipage}{\textwidth}}\fi
+\setcounter{codedepth}{0}%
+% \ifuseLineNumbers{\stepcounter{codedepth}}\fi
+\setcounter{pseudocodeLineNumber}{1}%
+\setlength{\oldparskip}{\parskip}%
+\setlength{\parskip}{\pseudocodeparskip}%
+\stepcounter{pseudocounter}%
+\ifthenelse{\equal{#1}{}}%
+{\noindent\functionname{#1}\smallskip}% no pseudocode name supplied
+{\noindent\pseudocodetitle\ \arabic{pseudocounter}:
+\functionname{#1}\smallskip\index{\pseudocodeIndexCategory\pseudocodename{#1}}}
+}
+{
+\setdepth{0}
+% \ifsamepage{\end{minipage}}\fi
+% \medskip
+\setlength{\parskip}{\oldparskip}
+}
+\newenvironment{pseudocode*}[1][Algorithm]
+{
+\medskip
+\setcounter{codedepth}{0}%
+% \ifuseLineNumbers{\stepcounter{codedepth}}\fi
+\setcounter{pseudocodeLineNumber}{1}%
+\setlength{\oldparskip}{\parskip}%
+\setlength{\parskip}{\pseudocodeparskip}%
+{\noindent\pseudocodename{#1}\smallskip}
+}
+{
+\setdepth{0}
+% \medskip
+\setlength{\parskip}{\oldparskip}
+}
