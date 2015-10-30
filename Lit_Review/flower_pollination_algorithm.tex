@@ -104,18 +104,8 @@ First let's look at the algorithm
 
 Ok so as mentioned before, we call the set of flowers the \emph{flowerbed}. The main differences are as follows:
 
-fixColors
+fixColors()
 In the original algorithm, each flower is checked to see if every $k$ color is assigned. Only if that returns true is the swap strategy and global pollination perturbation performed. I found this to be odd, but rather than remove it I went the other direction and wrote a function that ensured that all colors are present. Simply put, fixColor searches the flower for each color in turn and if a color is not present it assigns that color to a random vertex.
-
-\begin{algorithm}[H]
-    \caption{fixCol}
-    \label{FPA2.1}
-    \begin{algorithmic}[1] % The number tells where the line numbering should start
-        \Procedure{fixCol}{$flowerNum$}
-			\State how to put?
-		\EndProcedure
-    \end{algorithmic}
-\end{algorithm}
 
 fixColors is run before and after pollination to ensure that every flower adheres to the current $k$.
 
@@ -125,17 +115,6 @@ doNaturalSelection()
 Despite regularly referring to, and comparing against, the genetic algorithm, the authors chose not to implement natural selection or wisdom of crowds. I didn't have the motivation to work out how wisdom of crowds would work for the flowerbed, however implementing natural selection was incredibly straightforward.
 The cost of each flower in the flowerbed is assessed and the median value calculate. Every flower with a cost higher than the median value is replaced with a randomly generated flower.
 Doing this is a response to the tending towards homogeneity that we've remarked upon before. Every iteration the available genetic material gets a massive shake-up, providing potentially new color partitions that might lead to a legal coloring.
-
-\begin{algorithm}[H]
-    \caption{doNaturalSelection}
-    \label{FPA2.2}
-    \begin{algorithmic}[1] % The number tells where the line numbering should start
-        \Procedure{doNaturalSelection}{}
-			\State how to put?
-		\EndProcedure
-    \end{algorithmic}
-\end{algorithm}
-
 
 That's pretty much it for flower pollination.
 
