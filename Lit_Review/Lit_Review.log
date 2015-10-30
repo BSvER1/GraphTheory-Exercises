@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 22:03
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 23:07
  restricted \write18 enabled.
 **Lit_Review.tex
 (./Lit_Review.tex
@@ -196,18 +196,18 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (./implementations_and_original_contributions.aux) (./results_discussion.aux))
 \openout1 = Lit_Review.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -301,12 +301,12 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 
 ))
 \@float@every@figure=\toks28
-LaTeX Font Info:    Try loading font information for U+msa on input line 27.
+LaTeX Font Info:    Try loading font information for U+msa on input line 29.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 27.
+LaTeX Font Info:    Try loading font information for U+msb on input line 29.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -322,18 +322,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
+[1
+
+
+]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 16.
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
- [1
-
-
-] [2])
-(./gravitational_swarm_intelligence_review.tex [3] [4])
-(./genetic_algorithm_review.tex [5]) (./flower_pollination_review.tex
+ [2] [3])
+(./gravitational_swarm_intelligence_review.tex [4] [5])
+(./genetic_algorithm_review.tex [6]) (./flower_pollination_review.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--9
 
  []
@@ -343,7 +344,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 5--9
 
  []
 
-[6]
+
 Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
  []
@@ -360,45 +361,45 @@ Underfull \hbox (badness 10000) in paragraph at lines 12--13
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 12--13
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 40--45
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--58
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--58
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
 
  []
 
 [8]
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--45
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--58
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--58
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 59--61
 
  []
@@ -413,7 +414,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
 
-
+[9]
 Underfull \hbox (badness 10000) in paragraph at lines 68--71
 
  []
@@ -428,53 +429,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 88--90
 
  []
 
-[9]
+
 Underfull \hbox (badness 10000) in paragraph at lines 91--93
 
  []
 
-)) [10]
+[10])) [11]
 \openout2 = implementations_and_original_contributions.aux
  (./implementations_and_original_contributions.tex
 Chapter 2.
-(./random_brute_buckets_algorithm.tex [11
+(./random_brute_buckets_algorithm.tex [12
 
 
 
 ])
-(./gravitational_swarm_intelligence_algorithm.tex [12]
-<images/gs-cp-flow.png, id=63, 748.7975pt x 911.405pt>
+(./gravitational_swarm_intelligence_algorithm.tex [13]
+<images/gs-cp-flow.png, id=66, 748.7975pt x 911.405pt>
 File: images/gs-cp-flow.png Graphic file (type png)
 
 <use images/gs-cp-flow.png>
 Package pdftex.def Info: images/gs-cp-flow.png used on input line 10.
 (pdftex.def)             Requested size: 433.62pt x 527.78085pt.
- [13]
-<images/gradMapWithOverlay.png, id=67, 821.0675pt x 818.05624pt>
+ [14]
+<images/gradMapWithOverlay.png, id=70, 821.0675pt x 818.05624pt>
 File: images/gradMapWithOverlay.png Graphic file (type png)
 
 <use images/gradMapWithOverlay.png>
 Package pdftex.def Info: images/gradMapWithOverlay.png used on input line 19.
 (pdftex.def)             Requested size: 433.62pt x 432.01991pt.
- [14<./images/gs-cp-flow.png>] [15] [16<./images/gradMapWithOverlay.png>]
-<images/GradMap1445410689515.png, id=79, 1686.3pt x 1686.3pt>
+ [15<./images/gs-cp-flow.png>] [16] [17<./images/gradMapWithOverlay.png>]
+<images/GradMap1445410689515.png, id=82, 1686.3pt x 1686.3pt>
 File: images/GradMap1445410689515.png Graphic file (type png)
 
 <use images/GradMap1445410689515.png>
 Package pdftex.def Info: images/GradMap1445410689515.png used on input line 34.
 (pdftex.def)             Requested size: 433.62pt x 433.616pt.
- [17]) (./genetic_algorithm_algorithm.tex
-[18<./images/GradMap1445410689515.png>] [19] [20] [21])
-(./flower_pollination_algorithm.tex [22] [23] [24] [25])) [26]
+ [18]) (./genetic_algorithm_algorithm.tex
+[19<./images/GradMap1445410689515.png>] [20] [21] [22])
+(./flower_pollination_algorithm.tex [23] [24] [25] [26])) [27]
 \openout2 = results_discussion.aux
 
 (./results_discussion.tex
 Chapter 3.
-[27
+[28
 
 
 
-] [28]) [29] (./Lit_Review.bbl) [30
+] [29] <images/a1-mulsol-i-3-col.png, id=121, 903.375pt x 602.25pt>
+File: images/a1-mulsol-i-3-col.png Graphic file (type png)
+
+<use images/a1-mulsol-i-3-col.png>
+Package pdftex.def Info: images/a1-mulsol-i-3-col.png used on input line 97.
+(pdftex.def)             Requested size: 346.89757pt x 231.26045pt.
+ [30]
+<images/a5-queen7_7-col.png, id=125, 903.375pt x 602.25pt>
+File: images/a5-queen7_7-col.png Graphic file (type png)
+
+<use images/a5-queen7_7-col.png>
+Package pdftex.def Info: images/a5-queen7_7-col.png used on input line 103.
+(pdftex.def)             Requested size: 346.89757pt x 231.26045pt.
+) [31<./images/a1-mulsol-i-3-col.png><./images/a5-queen7_7-col.png>] (./Lit_Rev
+iew.bbl) [32
 
 
 ] (./Lit_Review.aux
@@ -482,14 +497,14 @@ Chapter 3.
 (./implementations_and_original_contributions.aux) (./results_discussion.aux)))
 
 Here is how much of LuaTeX's memory you used:
- 4008 strings out of 494897
+ 4031 strings out of 494897
  100000,128383 words of node,token memory allocated
- 529 words of node memory still in use:
+ 535 words of node memory still in use:
    5 hlist, 2 vlist, 2 rule, 2 glue, 16 kern, 43 glue_spec, 1 write nodes
-   avail lists: 2:23,3:224,4:3066,5:339,6:4733,7:493,9:437,10:383
- 7278 multiletter control sequences out of 65536+600000
- 66 fonts using 2603831 bytes
- 38i,14n,31p,1746b,302s stack positions out of 5000i,500n,10000p,200000b,100000s
+   avail lists: 2:23,3:225,4:3063,5:337,6:4733,7:493,9:437,10:383
+ 7284 multiletter control sequences out of 65536+600000
+ 67 fonts using 2643111 bytes
+ 38i,14n,31p,1746b,300s stack positions out of 5000i,500n,10000p,200000b,100000s
 <</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><<
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><<
@@ -509,10 +524,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><</usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Lit_Review.pdf (32 pages, 1095616 bytes).
+Output written on Lit_Review.pdf (34 pages, 1157839 bytes).
 
-PDF statistics: 187 PDF objects out of 1000 (max. 8388607)
- 127 compressed objects within 2 object streams
+PDF statistics: 197 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
