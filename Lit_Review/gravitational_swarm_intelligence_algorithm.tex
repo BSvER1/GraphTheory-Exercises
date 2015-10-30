@@ -20,8 +20,9 @@ Each agent moves in the toric world until all agents fall into the "Stand By" St
 \end{figure}
 
 \subsection{Workarounds}
-This algorithm was relatively easy to implement, however much tweaking was required to ensure that the algorithm converges in a reasonable time and iteration count. The strength of the "gravity" had to be varied, and different radii of capture were compared, as these factors were the factors that caused the algorithm's runtime to be most affected. 
-\\This algorithm was implemented from the psuedocode provided in \cite{bib:GravSwarm}, however the sample code omitted some details of the algorithm and instead presented these details the "Results and Observations" section of the paper. This lead to some aspects of the algorithm not functioning as intended. Interestingly, once the algorithm was tweaked to function correctly, the algorithm reflected the same observations that the original author had made. 
+This algorithm was relatively easy to implement, however much tweaking was required to ensure that the algorithm converges in a reasonable time and iteration count. The strength of the "gravity" had to be varied, and different radii of capture were compared, as these were the factors that caused the algorithm's runtime to be most affected. 
+
+This algorithm was implemented from the psuedocode provided in \cite{bib:GravSwarm}, however the sample code omitted some details of the algorithm and instead presented these details the "Results and Observations" section of the paper. This lead to some aspects of the algorithm not functioning as intended. Interestingly, once the algorithm was tweaked to function correctly, the algorithm reflected the same observations that the original author had made. 
 
 \subsection{Additions}
 Substantial time and effort has been committed to the algorithm, with many aspects and details changing and growing over time to better solve the problems presented. The algorithm was trialled with the option for gravity wells to be able to take some "mass" from captured agents and have their own velocity in the universe. This addition did not increase the convergence rate of the algorithm but it did expose some flaws with the distance functions used to allow agents to track the wells. \\

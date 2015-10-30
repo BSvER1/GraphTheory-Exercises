@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  22 OCT 2015 18:23
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 11:40
  restricted \write18 enabled.
 **results_discussion.tex
 (./results_discussion.tex
@@ -92,7 +92,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.35 \caption
+l.40 \caption
            {Results showing the time taken for the algorithm to find a valid...
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -104,19 +104,19 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.37 \end{table}
+l.42 \end{table}
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 7--38
+Overfull \hbox (20.0pt too wide) in paragraph at lines 7--43
 [][][H]
  []
 
 
-Overfull \hbox (31.81255pt too wide) in paragraph at lines 7--38
+Overfull \hbox (31.81255pt too wide) in paragraph at lines 7--43
 []
  []
 
@@ -127,7 +127,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.39 \begin{table}
+l.44 \begin{table}
                 [H]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -140,7 +140,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.39 \begin{table}[
+l.44 \begin{table}[
                  H]
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -152,7 +152,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.66 \caption
+l.77 \caption
            {Results of algorithms attempts at finding a better solution (and...
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -164,7 +164,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.68 \end{table}
+l.79 \end{table}
               
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -180,11 +180,11 @@ or  <return>  to continue without it.
 
 Here is how much of LuaTeX's memory you used:
  23 strings out of 494897
- 100000,89155 words of node,token memory allocated 22693 words of node memory still in use:
-   320 hlist, 18 vlist, 56 rule, 16 math, 1545 glue, 16 kern, 6 penalty, 1553 gl
-yph, 875 glue_spec, 1 temp, 2 write, 4 local_par, 1 dir nodes
+ 100000,89155 words of node,token memory allocated 28847 words of node memory still in use:
+   393 hlist, 18 vlist, 157 rule, 18 math, 2059 glue, 16 kern, 6 penalty, 1766 g
+lyph, 1237 glue_spec, 1 temp, 2 write, 4 local_par, 1 dir nodes
    avail lists: 2:12,3:7,7:1,9:8,10:19
  3798 multiletter control sequences out of 65536+600000
  25 fonts using 994519 bytes
- 19i,7n,12p,136b,104s stack positions out of 5000i,500n,10000p,200000b,100000s
+ 19i,7n,12p,136b,106s stack positions out of 5000i,500n,10000p,200000b,100000s
 !  ==> Fatal error occurred, no output PDF file produced!

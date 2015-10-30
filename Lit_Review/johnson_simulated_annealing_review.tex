@@ -79,10 +79,12 @@ All algorithms are run on random graphs of various sizes and edge probabilities,
 	\item Penalty function annealing, Kempe chain annealing and RLF are biased towards favouring unbalanced colorings, i.e. better a large and a small sized class than two equally sized classes. Fixed-K on the other hand is neutral, potentially giving it an advantage on graphs whose good colorings are balanced.
 	\end{itemize}
 
+
 \subsection{Wrap-up}
 
 Johnson et al. 1991 is a highly regarded and often referenced mainstay in the field of optimisation for good reason. The paper is well written, describes the methods in good detail and reports on extensive experimentation. 
 On a personal note, I was very disappointed that the manuscript by Shapiro and Morgenstern that Johnson et al. cites for their Kempe Chain implementation is not available online and in fact only exists as a physical copy in three locaitons in the world: Centrum Wiskunde en Informatica - Amsterdam, NL 1098 XG Netherlands; University of New Mexico-Main Campus - Albuquerque, NM 87131 United States; and Stanford University Libraries - Stanford, CA 94305 United States.
 
-
-
+%\subsection{Critique}
+%I wish I'd been able to implement Kemp chain annealing, it's such a cool idea and was shown to be able to find colorings on huge graphs that none of the others could even come close to.\\
+%By any modern standard these algorithms are slow - more modern optimisation techniques absolutely destroy them. SA in general is actually pretty bad, even the modern and highly confusing quantum tunnelling SA algorithm is shown in to be beaten easily by the gravitational swarm. And yet oddly, none of them can hope to compete with Wendy's random buckets... such a strange state of affairs.
