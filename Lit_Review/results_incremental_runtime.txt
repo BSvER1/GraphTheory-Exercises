@@ -1,4 +1,3 @@
-# Graph | Solver | Colouring | Avg Time (ms) | Solve Count | Iteration Limit
 a1.mulsol.i.3.col,BruteBuckets,31,0.42105263157894735,20,100000
 a1.mulsol.i.3.col,BruteBuckets,32,0.0,2,100000
 a1.mulsol.i.3.col,FlowerPollination,100,160789.0,2,10000

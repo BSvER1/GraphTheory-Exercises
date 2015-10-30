@@ -2,6 +2,22 @@
 
 \section{Introduction}
 
+The graph coloring problem has widespread applications in areas such as scheduling and timetabling.
+
+Bondy and Murty describe graph coloring as follows:
+\begin{quotation}
+A $k-vertex colouring$ of $G$ is an assignment of $k$ colours, $1,2,\ldots,k$, to the vertices of $G$; the colouring is \emph{proper} if no two distinct adjacent vertices have the same colour. Thus a proper $k$-vertex colouring of a loopless graph $G$ is a partition $(V_1,V_2,\ldots,V_k)$ of $V$ into $k$ (possibly empty) independent sets. $G$ is $k-vertex-colourable$ if $G$ has a proper $k$-vertex colouring. It will be convenient to refer to a `proper $k$-vertex colouring as a $k-colouring$'.
+The \emph{chromatic number}, $\chi(G)$, of $G$ is the minimum $k$ for which $G$ is $k$-colourable; if $\chi(G)=k$, $G$ is said to be $k-chromatic$
+\end{quotation}
+
+The Graph Coloring Problem (GCP) is the task of trying to find the value for $\chi(G)$ for some given $G$, however, this is an NP-Hard problem of at least $O(N)$ complexity and so finding a $k$ that is guaranteed to be $\chi(G)$ is often ($N>$ single digits) impossible. As such we hope to be able to develop heuristic algorithms that are able to find near-optimal colorings ($k \rightarrow \chi(G)$) quickly (seconds/minutes/hours depending on the size and complexity of the graph).
+
+This work is laid out as follows:
+In chapter 1 we will introduce four different methods for solving the GCP that have been proposed by other authors: Simulated Annealing, Gravitational Swarm Intelligence, Genetic Algorithm and Flower Pollination Algorithm. The papers that describe these algorithms, as well as the algorithms themselves, vary in quality and we will be commenting on particularly bad or confusing aspects as they crop up.
+We attempted to implement the latter three methods in Java going off of just what was provided in the papers, to mixed success. A write up of these attempts, as well as some pseudocode, is presented in chapter 2.
+Finally, chapter 3 has the results of applying the three algorithms to some of the DIMACS benchmark graphs.
+
+
 \input{johnson_simulated_annealing_review}
 \input{gravitational_swarm_intelligence_review}
 \input{genetic_algorithm_review}
