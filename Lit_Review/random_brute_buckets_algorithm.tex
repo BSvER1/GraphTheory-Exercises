@@ -10,8 +10,8 @@ The RBB algorithm is presented in Algorithm \ref{alg:RBB} below.
         \Procedure{solve}{Graph $g$, long $iterationLimit$} \Comment{$g$ is predefined}			
 			\State $currentIteration \gets 0$	
 			\State $currentBestColouring \gets \infty$ \label{alg:RRB_initialColouring}
-			\State Create empty list of buckets $bList$
-			\While{$currentIteration < iterationLimit$}         
+			\While{$currentIteration < iterationLimit$}  
+				\State Create empty list of buckets $bList$       
             		\State Populate vertex set $V$
             		\While{$V \neq \emptyset$ \&\& $|bList| < currentBestColouring$}
                 		\State $v \gets $random vertex from $V$ \Comment{Remove $v$ from $V$}
@@ -40,7 +40,7 @@ The RBB algorithm is presented in Algorithm \ref{alg:RBB} below.
     \end{algorithmic}
 \end{algorithm}
 
-This algorithm always improves upon the best colouring (which is initially set to $\infty$ on line \ref{alg:RRB_initialColouring}) in the first iteration, and upon subsequent iterations, if a better solution is stumbled upon randomly, that solution is set as the current best solution. The algorithm returns the best solution found after a set number of iterations set at runtime. 
+This algorithm always improves upon the best colouring (which is initially set to $\infty$ on line \ref{alg:RRB_initialColouring}) in the first iteration, and upon subsequent iterations, if a better solution is stumbled upon randomly, that solution is set as the current best solution. The algorithm returns the best solution found after a set number of iterations. 
 
 \subsection{Workarounds}
-This algorithm is very fast at finding initial solutions. This algorithm does not try to improve upon solutions that it finds, so local minima offer no resistance to finding the solution. This algorithm is not guaranteed to find the best solution. Indeed even after infinite attempts, there is no guarantee that the best solution will be found. That being said, the algorithm is generally able to find solutions close to the optimal colouring for most graphs extremely quickly and with a minimum use of resources (compared to other algorithms presented in this paper).
+This algorithm is very fast at finding initial solutions. This algorithm does not try to improve upon solutions that it finds, so local minima offer no resistance to finding the solution. This algorithm is not guaranteed to find the best solution. Indeed even after infinitely many attempts, there is no guarantee that the best solution will be found. That being said, the algorithm is generally able to find solutions close to the optimal colouring for most graphs extremely quickly and with a minimum use of resources (compared to other algorithms presented in this paper).

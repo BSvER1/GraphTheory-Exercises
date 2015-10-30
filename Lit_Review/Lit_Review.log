@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 12:36
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 13:18
  restricted \write18 enabled.
 **Lit_Review.tex
 (./Lit_Review.tex
@@ -401,7 +401,7 @@ Package pdftex.def Info: images/gradMapWithOverlay.png used on input line 19.
 File: images/GradMap1445410689515.png Graphic file (type png)
 
 <use images/GradMap1445410689515.png>
-Package pdftex.def Info: images/GradMap1445410689515.png used on input line 33.
+Package pdftex.def Info: images/GradMap1445410689515.png used on input line 34.
 (pdftex.def)             Requested size: 433.62pt x 433.616pt.
  [16]) (./genetic_algorithm_algorithm.tex
 [17<./images/GradMap1445410689515.png>] [18] [19] [20])
@@ -432,7 +432,7 @@ Overfull \vbox (33.78716pt too high) has occurred while \output is active []
 Here is how much of LuaTeX's memory you used:
  3995 strings out of 494897
  100000,128383 words of node,token memory allocated
- 504 words of node memory still in use:
+ 509 words of node memory still in use:
    5 hlist, 2 vlist, 2 rule, 2 glue, 16 kern, 43 glue_spec, 1 write nodes
    avail lists: 2:23,3:207,4:1931,5:335,6:4737,7:493,9:271,10:447
  7265 multiletter control sequences out of 65536+600000
@@ -457,7 +457,7 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><</usr/local/texlive/2015/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Lit_Review.pdf (28 pages, 1074151 bytes).
+Output written on Lit_Review.pdf (28 pages, 1074246 bytes).
 
 PDF statistics: 174 PDF objects out of 1000 (max. 8388607)
  118 compressed objects within 2 object streams
