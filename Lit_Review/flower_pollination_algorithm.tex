@@ -19,7 +19,7 @@ The original algorithm is as follows
 			\State $t=0$
 			\While{$t < iterationLimit$}   
 				\For{$i=1:N$}
-					\If{$rand < p$} \Comment{$rand$ is a function that returns a single uniformly distributed random number between 0 and 1}
+					\If{$rand < p$} \Comment{$rand \~Unif(0,1)$}
 						\State Draw a (d-dimensional) step vector $L$ which obeys a L\`evy distribution.
 						\State Global pollination via $x_i^{t+1} = x_i^{t} + L(x_i^{t} - g_*)$
 					\Else
@@ -56,7 +56,7 @@ The Correction Step() is also described, but it's so simple I'm not sure why the
 Note that the \textbf{Break} when a legal coloring for a given $k$  is found should probably be a \textbf{Return} since it is implied (poorly) that this solve procedure exists within a larger framework for descending $k$.
 
 
-\subsection{The Hacking}
+\subsection{The modified FPA for GCP}
 
 Since the paper does such a poor job of describing the process, I was unable to implement the algorithm in such a way that it was capable of finding even a $k = \Delta$ coloring in an arbitrary \emph{reasonable} time (couple of hours). Frustrated, I made some rather drastic changes without much justification. I will now describe the final algorithm that \emph{sometimes} beats the genetic algorithm (see results).
 
