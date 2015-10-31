@@ -1,4 +1,4 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 23:07
+This is LuaTeX, Version beta-0.80.0 (TeX Live 2015) (rev 5238)  (format=lualatex 2015.10.11)  30 OCT 2015 23:14
  restricted \write18 enabled.
 **Lit_Review.tex
 (./Lit_Review.tex
@@ -475,14 +475,14 @@ Chapter 3.
 
 
 
-] [29] <images/a1-mulsol-i-3-col.png, id=121, 903.375pt x 602.25pt>
+] [29] <images/a1-mulsol-i-3-col.png, id=122, 903.375pt x 602.25pt>
 File: images/a1-mulsol-i-3-col.png Graphic file (type png)
 
 <use images/a1-mulsol-i-3-col.png>
 Package pdftex.def Info: images/a1-mulsol-i-3-col.png used on input line 97.
 (pdftex.def)             Requested size: 346.89757pt x 231.26045pt.
  [30]
-<images/a5-queen7_7-col.png, id=125, 903.375pt x 602.25pt>
+<images/a5-queen7_7-col.png, id=126, 903.375pt x 602.25pt>
 File: images/a5-queen7_7-col.png Graphic file (type png)
 
 <use images/a5-queen7_7-col.png>
@@ -523,11 +523,12 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><</usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><</usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><</usr/local/texlive/2015/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><</usr/local/texlive/2015/texmf-
-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Lit_Review.pdf (34 pages, 1157839 bytes).
+dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><</usr/local/texlive/2015/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Lit_Review.pdf (34 pages, 1166232 bytes).
 
-PDF statistics: 197 PDF objects out of 1000 (max. 8388607)
- 131 compressed objects within 2 object streams
+PDF statistics: 201 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 131072)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

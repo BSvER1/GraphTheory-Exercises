@@ -19,7 +19,7 @@ The original algorithm is as follows
 			\State $t=0$
 			\While{$t < iterationLimit$}   
 				\For{$i=1:N$}
-					\If{$rand < p$} \Comment{$rand \~Unif(0,1)$}
+					\If{$rand < p$} \Comment{$rand \backsim \text{Unif(0,1)}$}
 						\State Draw a (d-dimensional) step vector $L$ which obeys a L\`evy distribution.
 						\State Global pollination via $x_i^{t+1} = x_i^{t} + L(x_i^{t} - g_*)$
 					\Else
@@ -74,7 +74,7 @@ First let's look at the algorithm
 			\While{$t < iterationLimit$}   
 				\For{$flowerNum = 0; flowerNum < numColours; flowerNum++$}
 					\State fixColors(flowerNum)
-					\If{$rand < p$} \Comment{$rand$ is a function that returns a single uniformly distributed random number between 0 and 1}
+					\If{$rand < p$} \Comment{$rand \backsim \text{Unif(0,1)}$}
 						\State Draw a (d-dimensional) step vector $L$ which obeys a L\`evy distribution.
 						\State Global pollination via $x_i^{t+1} = x_i^{t} + L(x_i^{t} - g_*)$
 					\Else
@@ -94,7 +94,7 @@ First let's look at the algorithm
 					\State \textbf{Return}
 				\EndIf
 
-				doNaturalSelection()
+				\State doNaturalSelection()
 				\State $t = t+1$
 			\EndWhile
 			\State Output the best solution found
@@ -104,14 +104,14 @@ First let's look at the algorithm
 
 Ok so as mentioned before, we call the set of flowers the \emph{flowerbed}. The main differences are as follows:
 
-fixColors()
+\textbf{fixColors()}
 In the original algorithm, each flower is checked to see if every $k$ color is assigned. Only if that returns true is the swap strategy and global pollination perturbation performed. I found this to be odd, but rather than remove it I went the other direction and wrote a function that ensured that all colors are present. Simply put, fixColor searches the flower for each color in turn and if a color is not present it assigns that color to a random vertex.
 
 fixColors is run before and after pollination to ensure that every flower adheres to the current $k$.
 
 Rather than performing swap once, under the suspicion that swap is the main mover in the algorithm, I perform swap an arbitrary $\alpha$ number of times. For the purpose of experimentation, of which we report the results on later,  $\alpha = k$ without justification. Swap is directly reducing the cost and so moves the solution vector very quickly through the solution space towards a, presumably, local optima.
 
-doNaturalSelection()
+\textbf{doNaturalSelection()}
 Despite regularly referring to, and comparing against, the genetic algorithm, the authors chose not to implement natural selection or wisdom of crowds. I didn't have the motivation to work out how wisdom of crowds would work for the flowerbed, however implementing natural selection was incredibly straightforward.
 The cost of each flower in the flowerbed is assessed and the median value calculate. Every flower with a cost higher than the median value is replaced with a randomly generated flower.
 Doing this is a response to the tending towards homogeneity that we've remarked upon before. Every iteration the available genetic material gets a massive shake-up, providing potentially new color partitions that might lead to a legal coloring.
