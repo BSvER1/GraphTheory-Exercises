@@ -47,6 +47,18 @@ public class Graph {
 		}
 	}
 	
+	public Graph(int numVertices) {
+		sparce = false;
+		density = 1;
+		adj = new int[numVertices][numVertices];
+
+		for (int i = 0; i < numVertices; i ++) {
+			for (int j = 0; j < numVertices; j++) {
+				adj[i][j] = 0;
+			}
+		}
+	}
+	
 	public void addEdge(int from, int to) {
 		if (!sparce) {
 			adj[from][to]++;

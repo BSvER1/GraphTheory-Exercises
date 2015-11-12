@@ -7,7 +7,7 @@ public class Driver {
 	private static boolean runAllTests = true;
 	
 	
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 	
 		trace("Graph theory algorithm comparitor started.");
 		
